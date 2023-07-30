@@ -18,12 +18,12 @@ export default function Timestamp() {
   return (
     <>
       <div className="mb-4 text-3xl font-semibold">Timestamp</div>
-      <section className="mb-2 flex">
-        <div className="mr-auto">
-          <Input type="number" className="mb-1 block px-2 text-xl" value={timestamp} onChange={handleInput} />
-          <TimestampPrecisionSwitcher value={millisecond} onChange={setMillisecond} />
-        </div>
+      <section className="mb-2">
         <RealTime />
+      </section>
+      <section className="mb-2">
+        <Input type="number" className="mb-1 px-2 text-xl" value={timestamp} onChange={handleInput} />
+        <TimestampPrecisionSwitcher value={millisecond} onChange={setMillisecond} />
       </section>
       <section className="flex flex-col gap-1">
         <TimestampBreakdown

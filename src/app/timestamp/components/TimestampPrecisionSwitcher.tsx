@@ -11,20 +11,16 @@ type TimestampPrecisionSwitcherProps = {
 
 export default function TimestampPrecisionSwitcher({ value, onChange }: TimestampPrecisionSwitcherProps) {
   return (
-    <div className="mb-1">
-      <RadioGroup value={value} onChange={onChange}>
-        <RadioGroup.Option value={false} className="inline cursor-pointer">
-          {({ checked }) => (
-            <span className={clsx("px-1", { "rounded bg-gray-200 font-medium": checked })}>seconds</span>
-          )}
-        </RadioGroup.Option>
-        <span className="px-1">/</span>
-        <RadioGroup.Option value={true} className="inline cursor-pointer">
-          {({ checked }) => (
-            <span className={clsx("px-1", { "rounded bg-gray-200 font-medium": checked })}>milliseconds</span>
-          )}
-        </RadioGroup.Option>
-      </RadioGroup>
-    </div>
+    <RadioGroup value={value} onChange={onChange}>
+      <RadioGroup.Option value={false} className="inline cursor-pointer">
+        {({ checked }) => <span className={clsx("px-1", { "rounded bg-gray-200 font-medium": checked })}>seconds</span>}
+      </RadioGroup.Option>
+      <span className="px-1">/</span>
+      <RadioGroup.Option value={true} className="inline cursor-pointer">
+        {({ checked }) => (
+          <span className={clsx("px-1", { "rounded bg-gray-200 font-medium": checked })}>milliseconds</span>
+        )}
+      </RadioGroup.Option>
+    </RadioGroup>
   );
 }

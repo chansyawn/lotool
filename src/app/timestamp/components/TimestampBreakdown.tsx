@@ -37,7 +37,7 @@ export default function TimestampBreakdown({
   const date = dayjs.utc(value * (millisecond ? 1 : 1000)).utcOffset(fixedOffset ?? offset);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap gap-x-4 gap-y-1">
       {TIME_FIELDS.filter(({ field }) => !(!millisecond && field === "millisecond")).map(({ label, field }) => (
         <TimestampBreakdownInput
           key={field}

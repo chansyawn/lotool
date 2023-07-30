@@ -15,9 +15,9 @@ export default function RealTime() {
   });
 
   return (
-    <div className="flex flex-col items-center">
+    <>
       <div className="ml-auto text-4xl">{currTimestampSeconds}</div>
-      <div className="text-gray-800">seconds since 1970/1/1</div>
-    </div>
+      <div>seconds since 1970/1/1</div>
+    </>
   );
 }
