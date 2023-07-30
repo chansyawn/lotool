@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "1.7.16",
     "@heroicons/react": "2.0.18",
+    "@vercel/analytics": "1.0.1",
     "clsx": "2.0.0",
     "dayjs": "1.11.9",
     "jotai": "2.2.2",
