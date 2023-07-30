@@ -1,3 +1,3 @@
 export default function Home() {
-  return <>Tool</>;
+  return <>Just a toolbox</>;
 }
