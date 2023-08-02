@@ -9,7 +9,7 @@ import Select from "@/components/Select";
 type TimestampBreakdownProps = {
   value: number;
   onChange: (val: number) => void;
-  fixedOffset?: number;
+  utcOffset?: number;
   remark?: string;
   millisecond?: boolean;
 };
@@ -29,12 +29,12 @@ const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => idx - 11);
 export default function TimestampBreakdown({
   value,
   onChange,
-  fixedOffset,
+  utcOffset,
   remark,
   millisecond = false,
 }: TimestampBreakdownProps) {
   const [offset, setOffset] = useState(0);
-  const date = dayjs.utc(value * (millisecond ? 1 : 1000)).utcOffset(fixedOffset ?? offset);
+  const date = dayjs.utc(value * (millisecond ? 1 : 1000)).utcOffset(utcOffset ?? offset);
 
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-1">
@@ -50,9 +50,9 @@ export default function TimestampBreakdown({
       ))}
       <div>
         <div>Offset</div>
-        {fixedOffset !== undefined ? (
+        {utcOffset !== undefined ? (
           <div className="p-1">
-            {`UTC${fixedOffset >= 0 ? "+" : ""}${fixedOffset}`} {remark && `(${remark})`}
+            {`UTC${utcOffset >= 0 ? "+" : ""}${utcOffset}`} {remark && `(${remark})`}
           </div>
         ) : (
           <Select
