@@ -16,8 +16,8 @@ export default function TimestampBreakdownInput({ label, value, onChange }: Time
 
   return (
     <div>
-      {label}
-      <Input type="number" className="block w-20" value={value} onChange={handleInputChange} />
+      <span className="text-sm">{label}</span>
+      <Input type="number" className="block w-[4.5rem]" value={value} onChange={handleInputChange} />
     </div>
   );
 }

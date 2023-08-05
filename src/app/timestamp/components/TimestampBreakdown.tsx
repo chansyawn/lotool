@@ -4,7 +4,7 @@ import { useState } from "react";
 import TimestampBreakdownInput from "./TimestampBreakdownInput";
 import dayjs from "@/utils/dayjs";
 import { UnitTypeLong } from "dayjs";
-import Select from "@/components/Select";
+import TimezoneSelector from "./TimezoneSelector";
 
 type TimestampBreakdownProps = {
   value: number;
@@ -21,10 +21,8 @@ const TIME_FIELDS: { label: string; field: UnitTypeLong }[] = [
   { label: "Hour", field: "hour" },
   { label: "Minute", field: "minute" },
   { label: "Second", field: "second" },
-  { label: "Millisecond", field: "millisecond" },
+  { label: "MilliSec", field: "millisecond" },
 ];
-
-const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => idx - 11);
 
 export default function TimestampBreakdown({
   value,
@@ -48,24 +46,7 @@ export default function TimestampBreakdown({
           }
         />
       ))}
-      <div>
-        <div>Offset</div>
-        {utcOffset !== undefined ? (
-          <div className="p-1">
-            {`UTC${utcOffset >= 0 ? "+" : ""}${utcOffset}`} {remark && `(${remark})`}
-          </div>
-        ) : (
-          <Select
-            className="w-22"
-            value={offset}
-            onChange={(val) => setOffset(val)}
-            options={ALL_UTC_OFFSETS.map((utcOffset) => ({
-              label: `UTC${utcOffset >= 0 ? "+" : ""}${utcOffset}`,
-              value: utcOffset,
-            }))}
-          />
-        )}
-      </div>
+      <TimezoneSelector value={offset} onChange={setOffset} remark={remark} utcOffset={utcOffset} />
     </div>
   );
 }
