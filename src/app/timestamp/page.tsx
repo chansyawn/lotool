@@ -21,6 +21,13 @@ export default function Timestamp() {
     setTimestamp(+e.target.value);
   };
 
+  const handleMillisecondModeChange = (value: boolean, onlySwitchUnit: boolean) => {
+    setMillisecondMode(value);
+    if (!onlySwitchUnit) {
+      setTimestamp((prev) => (value ? prev * 1000 : +(prev / 1000).toPrecision(1)));
+    }
+  };
+
   return (
     <>
       <div className="mb-4 text-3xl font-semibold">Timestamp</div>
@@ -30,7 +37,7 @@ export default function Timestamp() {
       <section className="mb-2">
         <div className="flex items-baseline gap-2">
           <Input type="number" className="mb-1 w-56 px-2 text-xl" value={timestamp} onChange={handleInput} />
-          <TimestampPrecisionSwitcher value={millisecondMode} onChange={setMillisecondMode} />
+          <TimestampPrecisionSwitcher value={millisecondMode} onChange={handleMillisecondModeChange} />
         </div>
         <RelativeTime timestamp={timestamp * (millisecondMode ? 1 : 1000)} />
       </section>
