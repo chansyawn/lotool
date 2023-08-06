@@ -7,11 +7,14 @@ import { ChangeEventHandler, useEffect, useState } from "react";
 import TimestampPrecisionSwitcher from "./components/TimestampPrecisionSwitcher";
 import dayjs from "dayjs";
 import { RelativeTime } from "./components/RelativeTime";
+import Switch from "@/components/Switch";
+import { RealTimeEmoji } from "./components/RealTimeEmoji";
 
 export default function Timestamp() {
   const [timestamp, setTimestamp] = useState(0);
   const [millisecondMode, setMillisecondMode] = useState<boolean>(false);
   const [localUtcOffset, setLocalUtcOffset] = useState(0);
+  const [autoCarry, setAutoCarry] = useState(false);
 
   useEffect(() => {
     setLocalUtcOffset(dayjs().utcOffset() / 60);
@@ -30,7 +33,10 @@ export default function Timestamp() {
 
   return (
     <>
-      <div className="mb-4 text-3xl font-semibold">Timestamp</div>
+      <div className="mb-4 text-3xl font-semibold">
+        <RealTimeEmoji />
+        Timestamp
+      </div>
       <section className="mb-2">
         <RealTime />
       </section>

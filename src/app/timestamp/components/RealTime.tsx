@@ -8,11 +8,11 @@ export default function RealTime() {
 
   useEffect(() => {
     setCurrTimestamp(new Date().valueOf());
-    const timeout = setInterval(() => {
+    const updateInterval = setInterval(() => {
       setCurrTimestamp(new Date().valueOf());
     }, 1000);
 
-    return () => clearInterval(timeout);
+    return () => clearInterval(updateInterval);
   }, []);
 
   return (
