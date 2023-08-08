@@ -8,7 +8,7 @@ export default function Menu() {
         <li>
           <Link href="/timestamp">
             <RealTimeEmoji />
-            Timestamp
+            <span className="ml-1">Timestamp</span>
           </Link>
         </li>
       </ul>

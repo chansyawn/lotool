@@ -33,7 +33,7 @@ export default function Timestamp() {
     <>
       <div className="mb-4 text-3xl font-semibold">
         <RealTimeEmoji />
-        Timestamp
+        <span className="ml-1">Timestamp</span>
       </div>
       <section className="mb-2">
         <RealTime />
