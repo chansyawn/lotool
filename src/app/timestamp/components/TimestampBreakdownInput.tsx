@@ -7,9 +7,10 @@ type TimestampBreakdownInputProps = {
   label: string;
   value: number;
   onChange: (val: number) => void;
+  width: string;
 };
 
-export default function TimestampBreakdownInput({ label, value, onChange }: TimestampBreakdownInputProps) {
+export default function TimestampBreakdownInput({ label, value, onChange, width }: TimestampBreakdownInputProps) {
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     onChange(+e.target.value);
   };
@@ -17,7 +18,7 @@ export default function TimestampBreakdownInput({ label, value, onChange }: Time
   return (
     <div>
       <span className="text-sm">{label}</span>
-      <Input type="number" className="block w-[4.5rem]" value={value} onChange={handleInputChange} />
+      <Input type="number" style={{ width }} className="block" value={value} onChange={handleInputChange} />
     </div>
   );
 }

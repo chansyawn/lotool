@@ -14,14 +14,14 @@ type TimestampBreakdownProps = {
   millisecond?: boolean;
 };
 
-const TIME_FIELDS: { label: string; field: UnitTypeLong }[] = [
-  { label: "Year", field: "year" },
-  { label: "Month", field: "month" },
-  { label: "Day", field: "date" },
-  { label: "Hour", field: "hour" },
-  { label: "Minute", field: "minute" },
-  { label: "Second", field: "second" },
-  { label: "MilliSec", field: "millisecond" },
+const TIME_FIELDS: { label: string; field: UnitTypeLong; width: string }[] = [
+  { label: "Year", field: "year", width: "4.75rem" },
+  { label: "Month", field: "month", width: "3.75rem" },
+  { label: "Day", field: "date", width: "3.75rem" },
+  { label: "Hour", field: "hour", width: "3.75rem" },
+  { label: "Minute", field: "minute", width: "3.75rem" },
+  { label: "Second", field: "second", width: "3.75rem" },
+  { label: "MilliSec", field: "millisecond", width: "4.25rem" },
 ];
 
 export default function TimestampBreakdown({
@@ -36,11 +36,12 @@ export default function TimestampBreakdown({
 
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-1">
-      {TIME_FIELDS.filter(({ field }) => !(!millisecond && field === "millisecond")).map(({ label, field }) => (
+      {TIME_FIELDS.filter(({ field }) => !(!millisecond && field === "millisecond")).map(({ label, field, width }) => (
         <TimestampBreakdownInput
           key={field}
           label={label}
           value={date[field]() + (field === "month" ? 1 : 0)}
+          width={width}
           onChange={(val: number) =>
             onChange(date[field](val - (field === "month" ? 1 : 0)).valueOf() / (millisecond ? 1 : 1000))
           }
