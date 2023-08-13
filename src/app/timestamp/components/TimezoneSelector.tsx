@@ -11,15 +11,15 @@ const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => idx - 11);
 
 export default function TimezoneSelector({ utcOffset, remark, value, onChange }: TimezoneSelectorProps) {
   return (
-    <div>
+    <div className="w-24">
       <span className="text-sm">Timezone</span>
       {utcOffset !== undefined ? (
-        <div className="p-1">
-          {`UTC${utcOffset >= 0 ? "+" : ""}${utcOffset}`} {remark && `(${remark})`}
+        <div className="flex items-center p-1">
+          {`UTC${utcOffset >= 0 ? "+" : ""}${utcOffset}`}
+          <span className="ml-1 text-xs">{remark && `${remark}`}</span>
         </div>
       ) : (
         <Select
-          className="w-22"
           value={value}
           onChange={onChange}
           options={ALL_UTC_OFFSETS.map((utcOffset) => ({

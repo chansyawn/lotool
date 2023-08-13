@@ -39,7 +39,7 @@ export default function Timestamp() {
         <RealTime />
       </section>
       <section className="mb-2">
-        <div className="flex items-baseline gap-2">
+        <div className="flex flex-wrap items-baseline gap-x-2">
           <Input type="number" className="mb-1 w-56 px-2 text-xl" value={timestamp} onChange={handleInput} />
           <TimestampPrecisionSwitcher value={millisecondMode} onChange={handleMillisecondModeChange} />
         </div>
@@ -48,17 +48,26 @@ export default function Timestamp() {
       <section className="flex flex-col gap-1">
         <TimestampBreakdown
           value={timestamp}
+          level={millisecondMode ? "millisecond" : "second"}
+          millisecond={millisecondMode}
           onChange={(val) => setTimestamp(val)}
           utcOffset={localUtcOffset}
-          millisecond={millisecondMode}
+          remark="(your)"
         />
         <TimestampBreakdown
           value={timestamp}
+          level="hour"
+          millisecond={millisecondMode}
           onChange={(val) => setTimestamp(val)}
           utcOffset={0}
-          millisecond={millisecondMode}
+          remark="(GMT)"
         />
-        <TimestampBreakdown value={timestamp} onChange={(val) => setTimestamp(val)} millisecond={millisecondMode} />
+        <TimestampBreakdown
+          value={timestamp}
+          level="hour"
+          millisecond={millisecondMode}
+          onChange={(val) => setTimestamp(val)}
+        />
       </section>
       <section className="prose"></section>
     </>
