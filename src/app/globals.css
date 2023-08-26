@@ -7,13 +7,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply rounded bg-gray-100;
+  @apply rounded bg-neutral-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-gray-400;
+  @apply rounded bg-neutral-400;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
+  @apply bg-neutral-500;
 }

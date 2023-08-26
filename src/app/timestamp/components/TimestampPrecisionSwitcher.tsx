@@ -32,18 +32,18 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
       <RadioGroup.Option value={optionValue} className="inline cursor-pointer">
         {({ checked }) =>
           checked ? (
-            <span className="rounded bg-gray-200 px-1 font-medium">{label}</span>
+            <span className="rounded bg-neutral-200 px-1 font-medium">{label}</span>
           ) : (
             <Popover className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
               <Popover.Button
-                className="rounded px-1 outline-none hover:bg-gray-100"
+                className="rounded px-1 outline-none hover:bg-neutral-100"
                 onClick={getHandleOptionClick(optionValue, true)}
               >
                 {label}
               </Popover.Button>
               <Transition show={unitHovered}>
                 <Popover.Panel
-                  className="absolute -top-6 rounded px-1 outline-none hover:bg-gray-100"
+                  className="absolute -top-6 rounded px-1 outline-none hover:bg-neutral-100"
                   onClick={getHandleOptionClick(optionValue, false)}
                 >
                   {label}({optionValue ? "x" : "÷"}1000)
