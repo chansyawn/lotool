@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
-import Framework from "./components/Framework";
 import { Analytics } from "@vercel/analytics/react";
+import Framework from "./components/Framework";
 import { getFaviconHrefByText } from "@/utils/favicon";
 
 const robotoMono = Roboto_Mono({ subsets: ["latin"] });

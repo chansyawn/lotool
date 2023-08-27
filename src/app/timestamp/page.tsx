@@ -1,13 +1,13 @@
 "use client";
 
-import Input from "@/components/Input";
+import { ChangeEventHandler, useEffect, useState } from "react";
+import dayjs from "dayjs";
 import RealTime from "./components/RealTime";
 import TimestampBreakdown from "./components/TimestampBreakdown";
-import { ChangeEventHandler, useEffect, useState } from "react";
 import TimestampPrecisionSwitcher from "./components/TimestampPrecisionSwitcher";
-import dayjs from "dayjs";
 import { RelativeTime } from "./components/RelativeTime";
 import { RealTimeEmoji } from "./components/RealTimeEmoji";
+import Input from "@/components/Input";
 
 export default function Timestamp() {
   const [timestamp, setTimestamp] = useState(0);
@@ -69,7 +69,7 @@ export default function Timestamp() {
           onChange={(val) => setTimestamp(val)}
         />
       </section>
-      <section className="prose"></section>
+      <section className="prose" />
     </>
   );
 }

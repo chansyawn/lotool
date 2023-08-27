@@ -1,7 +1,7 @@
 "use client";
 
-import Input from "@/components/Input";
 import { ChangeEventHandler } from "react";
+import Input from "@/components/Input";
 
 type TimestampBreakdownInputProps = {
   label: string;
