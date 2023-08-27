@@ -15,5 +15,5 @@ module.exports = {
       neutral: { DEFAULT: colors.neutral[400], ...colors.neutral },
     },
   },
-  plugins: [],
+  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
 };
