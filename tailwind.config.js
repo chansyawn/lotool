@@ -11,8 +11,8 @@ module.exports = {
       xl: "1280px",
     },
     colors: {
-      primary: colors.orange,
-      neutral: colors.neutral,
+      primary: { DEFAULT: colors.orange[400], ...colors.orange },
+      neutral: { DEFAULT: colors.neutral[400], ...colors.neutral },
     },
   },
   plugins: [],
