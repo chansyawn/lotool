@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { UnitTypeLong } from "dayjs";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import TimestampBreakdownInput from "./TimestampBreakdownInput";
 import TimezoneSelector from "./TimezoneSelector";
-import dayjs from "@/utils/dayjs";
+
+dayjs.extend(utc);
 
 type TimestampBreakdownProps = {
   value: number;
