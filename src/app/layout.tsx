@@ -8,7 +8,7 @@ import { getFaviconHrefByText } from "@/utils/favicon";
 const robotoMono = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tool",
+  title: "Lotool",
   description: "A Toolbox",
 };
 
