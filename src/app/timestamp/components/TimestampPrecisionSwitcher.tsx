@@ -8,7 +8,7 @@ export type TimestampPrecision = (typeof supportTimestampPrecisions)[number];
 
 type TimestampPrecisionSwitcherProps = {
   value: boolean;
-  onChange: (val: boolean, onlySwitchUnit: boolean) => void;
+  onChange: (isMillisecondMode: boolean, switchAndKeepValue: boolean) => void;
 };
 
 export default function TimestampPrecisionSwitcher({ value, onChange }: TimestampPrecisionSwitcherProps) {
@@ -22,8 +22,8 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
     setUnitHovered(false);
   };
 
-  const getHandleOptionClick = (optionValue: boolean, onlySwitchUnit: boolean) => () => {
-    onChange(optionValue, onlySwitchUnit);
+  const getHandleOptionClick = (optionValue: boolean, switchAndKeepValue: boolean) => () => {
+    onChange(optionValue, switchAndKeepValue);
     setUnitHovered(false);
   };
 
@@ -37,16 +37,16 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
             <Popover className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
               <Popover.Button
                 className="rounded px-1 outline-none hover:bg-neutral-100"
-                onClick={getHandleOptionClick(optionValue, true)}
+                onClick={getHandleOptionClick(optionValue, false)}
               >
                 {label}
               </Popover.Button>
               <Transition show={unitHovered}>
                 <Popover.Panel
-                  className="absolute -top-6 rounded px-1 outline-none hover:bg-neutral-100"
-                  onClick={getHandleOptionClick(optionValue, false)}
+                  className="absolute -top-6 whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
+                  onClick={getHandleOptionClick(optionValue, true)}
                 >
-                  {label}({optionValue ? "x" : "÷"}1000)
+                  {label}(switch and keep value)
                 </Popover.Panel>
               </Transition>
             </Popover>

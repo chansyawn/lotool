@@ -21,10 +21,10 @@ export default function Timestamp() {
     setTimestamp(+e.target.value);
   };
 
-  const handleMillisecondModeChange = (value: boolean, onlySwitchUnit: boolean) => {
-    setMillisecondMode(value);
-    if (!onlySwitchUnit) {
-      setTimestamp((prev) => (value ? prev * 1000 : +(prev / 1000).toPrecision(1)));
+  const handleMillisecondModeChange = (isMillisecondMode: boolean, switchAndKeepValue: boolean) => {
+    setMillisecondMode(isMillisecondMode);
+    if (!switchAndKeepValue) {
+      setTimestamp((prev) => (isMillisecondMode ? prev * 1000 : +(prev / 1000).toFixed(0)));
     }
   };
 
