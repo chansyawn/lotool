@@ -14,7 +14,6 @@ type TimestampBreakdownProps = {
   level: TimeField;
   utcOffset?: number;
   remark?: string;
-  millisecond?: boolean;
 };
 
 const TIME_FIELDS: { label: string; field: TimeField; width: string; get: (value: Date | number) => number }[] = [
@@ -27,19 +26,12 @@ const TIME_FIELDS: { label: string; field: TimeField; width: string; get: (value
   { label: "MilliSecond", field: "milliseconds", width: "4.25rem", get: getMilliseconds },
 ];
 
-export default function TimestampBreakdown({
-  value,
-  onChange,
-  level,
-  utcOffset,
-  remark,
-  millisecond,
-}: TimestampBreakdownProps) {
+export default function TimestampBreakdown({ value, onChange, level, utcOffset, remark }: TimestampBreakdownProps) {
   const [offset, setOffset] = useState(0);
   const realOffset = utcOffset ?? offset;
   const timezoneName = `${realOffset >= 0 ? "+" : "-"}${("" + Math.abs(realOffset)).padStart(2, "0")}:00`;
 
-  const date = utcToZonedTime(value * (millisecond ? 1 : 1000), timezoneName);
+  const date = utcToZonedTime(value, timezoneName);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 
   return (
@@ -64,9 +56,7 @@ export default function TimestampBreakdown({
               value={get(date) + (field === "month" ? 1 : 0)}
               width={width}
               onChange={(val: number) => {
-                onChange(
-                  set(date, { [field]: val - (field === "month" ? 1 : 0) }).valueOf() / (millisecond ? 1 : 1000),
-                );
+                onChange(set(date, { [field]: val - (field === "month" ? 1 : 0) }).valueOf());
               }}
             />
           );
