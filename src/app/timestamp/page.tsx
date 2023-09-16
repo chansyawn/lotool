@@ -14,6 +14,7 @@ export default function Timestamp() {
   const [localUtcOffset, setLocalUtcOffset] = useState(0);
 
   useEffect(() => {
+    setTimestamp(+(new Date().valueOf() / 1000).toFixed(0));
     setLocalUtcOffset(-new Date().getTimezoneOffset() / 60);
   }, []);
 
