@@ -17,7 +17,7 @@ export default function Select<T>({ className, style, value, onChange, options, 
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className={clsx("relative w-fit", className)}>
+      <div className={clsx("relative w-fit", className)} style={style}>
         <Listbox.Button
           className={({ open }) =>
             clsx(

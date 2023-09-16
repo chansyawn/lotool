@@ -1,7 +1,6 @@
 "use client";
 
 import { ChangeEventHandler, useEffect, useState } from "react";
-import { startOfDay } from "date-fns";
 import RealTime from "./components/RealTime";
 import TimestampBreakdown from "./components/TimestampBreakdown";
 import TimestampPrecisionSwitcher from "./components/TimestampPrecisionSwitcher";

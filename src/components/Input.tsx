@@ -3,7 +3,7 @@
 import { DetailedHTMLProps, InputHTMLAttributes, useEffect, useRef } from "react";
 import clsx from "clsx";
 
-type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {};
+type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export default function Input({ className, type, ...props }: InputProps) {
   const ref = useRef<HTMLInputElement>(null);
