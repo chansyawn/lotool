@@ -1,7 +1,6 @@
 "use client";
 
 import { ChangeEventHandler, useEffect, useState } from "react";
-import dayjs from "dayjs";
 import RealTime from "./components/RealTime";
 import TimestampBreakdown from "./components/TimestampBreakdown";
 import TimestampPrecisionSwitcher from "./components/TimestampPrecisionSwitcher";
@@ -15,7 +14,7 @@ export default function Timestamp() {
   const [localUtcOffset, setLocalUtcOffset] = useState(0);
 
   useEffect(() => {
-    setLocalUtcOffset(dayjs().utcOffset() / 60);
+    setLocalUtcOffset(-new Date().getTimezoneOffset() / 60);
   }, []);
 
   const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -48,7 +47,7 @@ export default function Timestamp() {
       <section className="flex flex-col gap-1">
         <TimestampBreakdown
           value={timestamp}
-          level={millisecondMode ? "millisecond" : "second"}
+          level={millisecondMode ? "milliseconds" : "seconds"}
           millisecond={millisecondMode}
           onChange={(val) => setTimestamp(val)}
           utcOffset={localUtcOffset}
@@ -56,7 +55,7 @@ export default function Timestamp() {
         />
         <TimestampBreakdown
           value={timestamp}
-          level="hour"
+          level="hours"
           millisecond={millisecondMode}
           onChange={(val) => setTimestamp(val)}
           utcOffset={0}
@@ -64,7 +63,7 @@ export default function Timestamp() {
         />
         <TimestampBreakdown
           value={timestamp}
-          level="hour"
+          level="hours"
           millisecond={millisecondMode}
           onChange={(val) => setTimestamp(val)}
         />

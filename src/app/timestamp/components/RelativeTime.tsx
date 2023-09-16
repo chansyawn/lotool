@@ -1,14 +1,11 @@
 "use client";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(relativeTime);
+import { formatRelative } from "date-fns";
 
 type RelativeTimeProps = {
   timestamp: number;
 };
 
 export function RelativeTime({ timestamp }: RelativeTimeProps) {
-  return <div>({dayjs(timestamp).fromNow()})</div>;
+  return <div>({formatRelative(timestamp, new Date())})</div>;
 }
