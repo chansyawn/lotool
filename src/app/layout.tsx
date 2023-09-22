@@ -1,11 +1,11 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import Framework from "./components/Framework";
+import clsx from "clsx";
+import fonts from "@/styles/font";
+import Framework from "@/app/components/Framework";
 import { getFaviconHrefByText } from "@/utils/favicon";
 
-const robotoMono = Roboto_Mono({ subsets: ["latin"] });
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Lotool",
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <link rel="icon" href={getFaviconHrefByText("📦")} />
-      <body className={robotoMono.className}>
+      <body className={clsx(...fonts.map((font) => font.variable))}>
         <Framework>{children}</Framework>
         <Analytics />
       </body>
