@@ -32,7 +32,7 @@ export default function Select<T>({ className, style, value, onChange, options, 
           </span>
         </Listbox.Button>
         <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-background py-1 text-base shadow-lg focus:outline-none sm:text-sm">
             {options.map(({ label, value }) => (
               <Listbox.Option
                 key={getKey ? getKey(value) : String(value)}

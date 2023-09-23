@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import clsx from "clsx";
 import fonts from "@/styles/font";
-import Framework from "@/app/components/Framework";
+import Main from "@/layouts/main";
 import { getFaviconHrefByText } from "@/utils/favicon";
 
 import "./globals.css";
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <link rel="icon" href={getFaviconHrefByText("📦")} />
       <body className={clsx(...fonts.map((font) => font.variable))}>
-        <Framework>{children}</Framework>
+        <Main>{children}</Main>
         <Analytics />
       </body>
     </html>

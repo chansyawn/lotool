@@ -23,7 +23,7 @@ const TIME_FIELDS: { label: string; field: TimeField; width: string; get: (value
   { label: "Hour", field: "hours", width: "3.75rem", get: getHours },
   { label: "Minute", field: "minutes", width: "3.75rem", get: getMinutes },
   { label: "Second", field: "seconds", width: "3.75rem", get: getSeconds },
-  { label: "MilliSecond", field: "milliseconds", width: "4.25rem", get: getMilliseconds },
+  { label: "Millisecond", field: "milliseconds", width: "4.25rem", get: getMilliseconds },
 ];
 
 export default function TimestampBreakdown({ value, onChange, level, utcOffset, remark }: TimestampBreakdownProps) {

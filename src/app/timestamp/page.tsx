@@ -8,6 +8,21 @@ import { RelativeTime } from "./components/RelativeTime";
 import { RealTimeEmoji } from "./components/RealTimeEmoji";
 import TimeShortcuts from "./components/TimeShortcuts";
 import Input from "@/components/Input";
+import Tool from "@/layouts/tool";
+import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";
+
+const TimestampRelatedLink: RelatedLinkInfo[] = [
+  {
+    type: "wiki",
+    label: "Unix time",
+    href: "https://en.wikipedia.org/wiki/Unix_time",
+  },
+  {
+    type: "wiki",
+    label: "Timezone database",
+    href: "https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
+  },
+];
 
 export default function Timestamp() {
   const [timestamp, setTimestamp] = useState(0);
@@ -34,11 +49,7 @@ export default function Timestamp() {
   };
 
   return (
-    <>
-      <div className="text-3xl font-semibold">
-        <RealTimeEmoji />
-        <span className="ml-1">Timestamp</span>
-      </div>
+    <Tool name="Timestamp" icon={<RealTimeEmoji />} relativeLink={TimestampRelatedLink}>
       <section className="mt-4">
         <RealTime />
       </section>
@@ -62,6 +73,6 @@ export default function Timestamp() {
         <TimestampBreakdown value={timestamp} level="hours" onChange={setTimestamp} />
       </section>
       <section className="prose" />
-    </>
+    </Tool>
   );
 }

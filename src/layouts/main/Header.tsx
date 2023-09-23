@@ -3,7 +3,7 @@ import Menu from "./Menu";
 
 export default function Header() {
   return (
-    <header className="mb-4 shadow-sm">
+    <header className="sticky top-0 z-10 mb-4 w-full bg-background shadow-sm">
       <div className="container mx-auto flex items-center gap-4">
         <Logo />
         <Menu />

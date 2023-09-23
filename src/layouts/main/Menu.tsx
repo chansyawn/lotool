@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RealTimeEmoji } from "../timestamp/components/RealTimeEmoji";
+import { RealTimeEmoji } from "@/app/timestamp/components/RealTimeEmoji";
 
 export default function Menu() {
   return (
