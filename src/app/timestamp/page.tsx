@@ -1,12 +1,12 @@
 "use client";
 
 import { ChangeEventHandler, useEffect, useState } from "react";
-import RealTime from "./components/RealTime";
-import TimestampBreakdown from "./components/TimestampBreakdown";
-import TimestampPrecisionSwitcher from "./components/TimestampPrecisionSwitcher";
-import { RelativeTime } from "./components/RelativeTime";
-import { RealTimeEmoji } from "./components/RealTimeEmoji";
-import TimeShortcuts from "./components/TimeShortcuts";
+import RealTime from "./RealTime";
+import TimestampBreakdown from "./TimestampBreakdown";
+import TimestampPrecisionSwitcher from "./TimestampPrecisionSwitcher";
+import { RelativeTime } from "./RelativeTime";
+import { RealTimeEmoji } from "./RealTimeEmoji";
+import TimeShortcuts from "./TimeShortcuts";
 import Input from "@/components/Input";
 import Tool from "@/layouts/tool";
 import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";

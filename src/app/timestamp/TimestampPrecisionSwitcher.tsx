@@ -46,7 +46,7 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
                   className="absolute -top-6 whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
                   onClick={getHandleOptionClick(optionValue, true)}
                 >
-                  {label}(switch and keep value)
+                  switch and keep value
                 </Popover.Panel>
               </Transition>
             </Popover>

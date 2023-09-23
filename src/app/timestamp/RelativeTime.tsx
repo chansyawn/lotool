@@ -19,7 +19,7 @@ export function RelativeTime({ timestamp }: RelativeTimeProps) {
     return () => clearInterval(updateInterval);
   }, [timestamp]);
 
-  return <span>({relativeTime})</span>;
+  return <span>( {relativeTime} )</span>;
 }
 
 const getRelativeTime = (timestamp: number) => {
