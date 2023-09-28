@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { addDays, addHours, startOfDay } from "date-fns";
 

@@ -2,16 +2,17 @@
 
 import { Popover, RadioGroup, Transition } from "@headlessui/react";
 import { useState } from "react";
+import { TimestampUnit } from "./memo";
 
 export const supportTimestampPrecisions = ["second", "millisecond"] as const;
 export type TimestampPrecision = (typeof supportTimestampPrecisions)[number];
 
-type TimestampPrecisionSwitcherProps = {
-  value: boolean;
-  onChange: (isMillisecondMode: boolean, switchAndKeepValue: boolean) => void;
+type TimestampUnitSwitcherProps = {
+  value: TimestampUnit;
+  onChange: (value: TimestampUnit, switchAndKeepInput: boolean) => void;
 };
 
-export default function TimestampPrecisionSwitcher({ value, onChange }: TimestampPrecisionSwitcherProps) {
+export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnitSwitcherProps) {
   const [unitHovered, setUnitHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -22,31 +23,31 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
     setUnitHovered(false);
   };
 
-  const getHandleOptionClick = (optionValue: boolean, switchAndKeepValue: boolean) => () => {
-    onChange(optionValue, switchAndKeepValue);
+  const getHandleOptionClick = (value: TimestampUnit, switchAndKeepValue: boolean) => () => {
+    onChange(value, switchAndKeepValue);
     setUnitHovered(false);
   };
 
-  const renderOption = (optionValue: boolean, label: string) => {
+  const renderOption = (value: TimestampUnit) => {
     return (
-      <RadioGroup.Option value={optionValue} className="inline cursor-pointer">
+      <RadioGroup.Option value={value} className="inline cursor-pointer">
         {({ checked }) =>
           checked ? (
-            <span className="rounded bg-neutral-200 px-1 font-medium">{label}</span>
+            <span className="rounded bg-neutral-200 px-1 font-medium">{value}</span>
           ) : (
             <Popover className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
               <Popover.Button
                 className="rounded px-1 outline-none hover:bg-neutral-100"
-                onClick={getHandleOptionClick(optionValue, false)}
+                onClick={getHandleOptionClick(value, false)}
               >
-                {label}
+                {value}
               </Popover.Button>
               <Transition show={unitHovered}>
                 <Popover.Panel
                   className="absolute -top-6 whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
-                  onClick={getHandleOptionClick(optionValue, true)}
+                  onClick={getHandleOptionClick(value, true)}
                 >
-                  switch and keep value
+                  switch and keep input
                 </Popover.Panel>
               </Transition>
             </Popover>
@@ -59,9 +60,9 @@ export default function TimestampPrecisionSwitcher({ value, onChange }: Timestam
   return (
     <RadioGroup value={value}>
       <div className="flex">
-        {renderOption(false, "seconds")}
+        {renderOption("seconds")}
         <span className="px-1">/</span>
-        {renderOption(true, "milliseconds")}
+        {renderOption("milliseconds")}
       </div>
     </RadioGroup>
   );

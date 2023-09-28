@@ -17,11 +17,11 @@ export default function Select<T>({ className, style, value, onChange, options, 
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className={clsx("relative w-fit", className)} style={style}>
+      <div className={clsx("relative w-full", className)} style={style}>
         <Listbox.Button
           className={({ open }) =>
             clsx(
-              "relative cursor-default rounded border border-neutral-300 p-1 pl-2 pr-6 outline-2 outline-neutral-400",
+              "relative w-full cursor-pointer rounded border border-neutral-300 p-1 pl-2 pr-6 outline-2 outline-neutral-400",
               { outline: open },
             )
           }
@@ -32,7 +32,7 @@ export default function Select<T>({ className, style, value, onChange, options, 
           </span>
         </Listbox.Button>
         <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-background py-1 text-base shadow-lg focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background py-1 text-base shadow-lg focus:outline-none sm:text-sm">
             {options.map(({ label, value }) => (
               <Listbox.Option
                 key={getKey ? getKey(value) : String(value)}

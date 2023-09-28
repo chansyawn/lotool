@@ -5,5 +5,6 @@ module.exports = {
     "no-console": "warn",
     "react/self-closing-comp": "warn",
     "import/order": "warn",
+    "import/no-anonymous-default-export": "off",
   },
 };

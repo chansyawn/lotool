@@ -1,4 +1,8 @@
+"use client";
+
+import clsx from "clsx";
 import RelatedLink, { RelatedLinkInfo } from "./RelatedLink";
+import useHasMounted from "@/hooks/useHasMounted";
 
 type ToolProps = {
   name: string;
@@ -8,6 +12,8 @@ type ToolProps = {
 };
 
 export default function Tool({ name, icon, children, relativeLink }: ToolProps) {
+  const hasMounted = useHasMounted();
+
   return (
     <div className="lg:flex">
       <main className="flex-grow">
@@ -17,7 +23,14 @@ export default function Tool({ name, icon, children, relativeLink }: ToolProps) 
         </h1>
         {children}
       </main>
-      <aside className="mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]">
+      <aside
+        className={clsx(
+          "mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]",
+          // when in vertical layout,
+          // render axillary content after children mounted to avoid flicker
+          !hasMounted && "hidden lg:block",
+        )}
+      >
         {relativeLink && <RelatedLink links={relativeLink} />}
       </aside>
     </div>
