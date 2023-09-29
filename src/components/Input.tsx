@@ -1,32 +1,28 @@
 "use client";
 
-import { DetailedHTMLProps, InputHTMLAttributes, useEffect, useRef } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
-type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+type InputProps = {
+  className?: string;
+  value: string;
+  onChange: (value: string) => void;
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "onChange">;
 
-export default function Input({ className, type, ...props }: InputProps) {
-  const ref = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const inputDom = ref.current;
-    if (!inputDom || type !== "number") return;
-
-    const preventWheel: EventListener = (e) => e.stopPropagation();
-    inputDom.addEventListener("wheel", preventWheel);
-
-    return () => inputDom.removeEventListener("wheel", preventWheel);
-  }, [type]);
-
+export default React.forwardRef<HTMLInputElement, InputProps>(function Input(
+  { className, value, onChange, ...props },
+  ref,
+) {
   return (
     <input
       ref={ref}
       className={clsx(
-        "rounded border border-neutral-300 px-2 py-1 outline-neutral-400 focus:outline",
+        "rounded border px-2 py-1 shadow-none outline-none transition-[box-shadow] hover:border-primary focus:border-primary-400 focus:ring",
         className,
       )}
-      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       {...props}
     />
   );
-}
+});

@@ -1,7 +1,7 @@
 "use client";
 
-import clsx from "clsx";
 import { addDays, addHours, startOfDay } from "date-fns";
+import Button from "@/components/Button";
 
 type TimeShortcutsProps = {
   timestamp: number;
@@ -23,16 +23,9 @@ export default function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps
   return (
     <div className="mt-2 flex select-none flex-wrap gap-2">
       {SHORTCUTS.map(({ name, getValue }) => (
-        <span
-          key={name}
-          className={clsx(
-            "cursor-pointer rounded border px-1 hover:bg-neutral-100",
-            name !== "Now" && timestamp === getValue(timestamp) && "bg-neutral-100",
-          )}
-          onClick={() => onClick(getValue(timestamp))}
-        >
+        <Button size="sm" key={name} onClick={() => onClick(getValue(timestamp))}>
           {name}
-        </span>
+        </Button>
       ))}
     </div>
   );

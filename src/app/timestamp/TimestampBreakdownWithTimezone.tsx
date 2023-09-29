@@ -2,18 +2,19 @@
 
 import { PrimitiveAtom, useAtom } from "jotai";
 import { MinusCircleIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import { Transition } from "@headlessui/react";
+import React from "react";
 import TimestampBreakdown, { TimestampBreakdownProps } from "./TimestampBreakdown";
 import TimezoneSelector from "./TimezoneSelector";
 
 type TimestampBreakdownWithFixedTimezoneProps = {
   remark: string;
+  suffix?: React.ReactNode;
 } & TimestampBreakdownProps;
 
 export function TimestampBreakdownWithFixedTimezone({
   remark,
   timezone,
+  suffix,
   ...breakdownProps
 }: TimestampBreakdownWithFixedTimezoneProps) {
   return (
@@ -26,6 +27,7 @@ export function TimestampBreakdownWithFixedTimezone({
         </div>
       </div>
       <TimestampBreakdown timezone={timezone} {...breakdownProps} />
+      {suffix}
     </div>
   );
 }
@@ -41,31 +43,18 @@ export function TimestampBreakdownWithCustomTimezone({
   ...breakdownProps
 }: TimestampBreakdownWithCustomTimezoneProps) {
   const [timezone, onTimezoneChange] = useAtom(timezoneAtom);
-  const [hover, setHover] = useState(false);
 
   return (
-    <div
-      className="flex gap-x-2"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
+    <div className="flex gap-x-2">
       <div className="w-24">
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(val) => onTimezoneChange(val)} />
       </div>
       <TimestampBreakdown timezone={timezone} {...breakdownProps} />
-      <Transition
-        show={hover}
-        className="mb-2 self-end"
-        enter="transition-opacity duration-75"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-100"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <MinusCircleIcon className="h-5 w-5 cursor-pointer text-red-400" onClick={onRemove} />
-      </Transition>
+      <MinusCircleIcon
+        className="mb-2 h-5 w-5 cursor-pointer self-end text-neutral hover:text-neutral-300"
+        onClick={onRemove}
+      />
     </div>
   );
 }

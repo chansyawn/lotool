@@ -1,7 +1,6 @@
 "use client";
 
-import { ChangeEventHandler } from "react";
-import Input from "@/components/Input";
+import InputNumber from "@/components/InputNumber";
 
 type TimestampBreakdownInputProps = {
   label: string;
@@ -16,20 +15,10 @@ export default function TimestampBreakdownInput({
   onChange,
   width,
 }: TimestampBreakdownInputProps) {
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    onChange(+e.target.value);
-  };
-
   return (
     <div>
       <span className="text-sm">{label}</span>
-      <Input
-        type="number"
-        style={{ width }}
-        className="block"
-        value={value}
-        onChange={handleInputChange}
-      />
+      <InputNumber style={{ width }} className="block" value={value} onChange={onChange} />
     </div>
   );
 }

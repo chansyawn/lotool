@@ -1,3 +1,5 @@
+"use client";
+
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -28,8 +30,8 @@ export default function Select<T>({
         <Listbox.Button
           className={({ open }) =>
             clsx(
-              "relative w-full cursor-pointer rounded border border-neutral-300 p-1 pl-2 pr-6 outline-2 outline-neutral-400",
-              { outline: open },
+              "relative w-full cursor-pointer rounded border p-1 pl-2 pr-6 outline-none hover:border-primary",
+              { "border-primary ring": open },
             )
           }
         >

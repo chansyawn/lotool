@@ -1,8 +1,8 @@
 "use client";
 
-import { ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import { useAtom } from "jotai";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import RealTime from "./RealTime";
 import TimestampUnitSwitcher from "./TimestampUnitSwitcher";
 import { RelativeTime } from "./RelativeTime";
@@ -13,7 +13,7 @@ import {
   TimestampBreakdownWithCustomTimezone,
   TimestampBreakdownWithFixedTimezone,
 } from "./TimestampBreakdownWithTimezone";
-import Input from "@/components/Input";
+import InputNumber from "@/components/InputNumber";
 
 const TimeUnitRatio: Record<TimestampUnit, number> = { seconds: 1000, milliseconds: 1 };
 
@@ -26,8 +26,7 @@ export default function Timestamp() {
   const [localUtcOffset] = useState(getTzNameByOffset(-new Date().getTimezoneOffset() / 60));
   const timestampDisplay = timestamp / unitRatio;
 
-  const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const value = +e.target.value;
+  const handleInput = (value: number) => {
     setTimestamp(value * unitRatio);
   };
 
@@ -52,8 +51,7 @@ export default function Timestamp() {
       </section>
       <section className="mt-2">
         <div className="flex flex-wrap items-baseline gap-x-2">
-          <Input
-            type="number"
+          <InputNumber
             className="w-48 px-2 text-xl"
             value={timestampDisplay}
             onChange={handleInput}
@@ -61,9 +59,9 @@ export default function Timestamp() {
           <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
         </div>
         <RelativeTime timestamp={timestamp} />
-        <TimeShortcuts timestamp={timestamp} onClick={handleShortcutClick} />
       </section>
       <section className="flex flex-col gap-y-1">
+        <TimeShortcuts timestamp={timestamp} onClick={handleShortcutClick} />
         <TimestampBreakdownWithFixedTimezone
           value={timestamp}
           level={unit}
@@ -77,6 +75,12 @@ export default function Timestamp() {
           onChange={setTimestamp}
           timezone={getTzNameByOffset(0)}
           remark="(UTC)"
+          suffix={
+            <PlusCircleIcon
+              className="mb-2 h-5 w-5 cursor-pointer self-end text-primary hover:text-primary-300"
+              onClick={() => dispatchTimezones({ type: "insert", value: getTzNameByOffset(0) })}
+            />
+          }
         />
         {timezoneAtoms.map((atom, idx) => (
           <TimestampBreakdownWithCustomTimezone
@@ -88,12 +92,6 @@ export default function Timestamp() {
             onRemove={() => dispatchTimezones({ type: "remove", atom })}
           />
         ))}
-        <button
-          className="mt-2 flex items-center gap-1 self-start rounded border border-dashed px-2 py-1 hover:bg-neutral-100"
-          onClick={() => dispatchTimezones({ type: "insert", value: getTzNameByOffset(0) })}
-        >
-          <PlusIcon className="inline h-4 w-4" /> Add Custom Timezone
-        </button>
       </section>
     </>
   );
