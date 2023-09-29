@@ -23,6 +23,8 @@ const timestampMemoAtom = atomWithValidatedStorage<TimestampMemo>(
 );
 
 export const unitAtom = focusAtom(timestampMemoAtom, (optic) => optic.prop("unit"));
-export const timezoneAtomsAtom = splitAtom(focusAtom(timestampMemoAtom, (optic) => optic.prop("customTimezone")));
+export const timezoneAtomsAtom = splitAtom(
+  focusAtom(timestampMemoAtom, (optic) => optic.prop("customTimezone")),
+);
 
 export default timestampMemoAtom;

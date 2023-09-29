@@ -44,7 +44,11 @@ export function TimestampBreakdownWithCustomTimezone({
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="flex gap-x-2" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+    <div
+      className="flex gap-x-2"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <div className="w-24">
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(val) => onTimezoneChange(val)} />

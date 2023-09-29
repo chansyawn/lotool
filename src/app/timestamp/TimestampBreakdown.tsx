@@ -1,10 +1,26 @@
 "use client";
 
-import { getDate, getHours, getMilliseconds, getMinutes, getMonth, getSeconds, getYear, set } from "date-fns";
+import {
+  getDate,
+  getHours,
+  getMilliseconds,
+  getMinutes,
+  getMonth,
+  getSeconds,
+  getYear,
+  set,
+} from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import TimestampBreakdownInput from "./TimestampBreakdownInput";
 
-export type TimeField = "year" | "month" | "date" | "hours" | "minutes" | "seconds" | "milliseconds";
+export type TimeField =
+  | "year"
+  | "month"
+  | "date"
+  | "hours"
+  | "minutes"
+  | "seconds"
+  | "milliseconds";
 
 export type TimestampBreakdownProps = {
   value: number;
@@ -13,7 +29,12 @@ export type TimestampBreakdownProps = {
   timezone: string;
 };
 
-const TIME_FIELDS: { label: string; field: TimeField; width: string; get: (value: Date | number) => number }[] = [
+const TIME_FIELDS: {
+  label: string;
+  field: TimeField;
+  width: string;
+  get: (value: Date | number) => number;
+}[] = [
   { label: "Year", field: "year", width: "4.75rem", get: getYear },
   { label: "Month", field: "month", width: "3.75rem", get: getMonth },
   { label: "Day", field: "date", width: "3.75rem", get: getDate },
@@ -23,7 +44,12 @@ const TIME_FIELDS: { label: string; field: TimeField; width: string; get: (value
   { label: "Millisecond", field: "milliseconds", width: "4.25rem", get: getMilliseconds },
 ];
 
-export default function TimestampBreakdown({ value, onChange, level, timezone }: TimestampBreakdownProps) {
+export default function TimestampBreakdown({
+  value,
+  onChange,
+  level,
+  timezone,
+}: TimestampBreakdownProps) {
   const date = utcToZonedTime(value, timezone);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 

@@ -52,7 +52,12 @@ export default function Timestamp() {
       </section>
       <section className="mt-2">
         <div className="flex flex-wrap items-baseline gap-x-2">
-          <Input type="number" className="w-48 px-2 text-xl" value={timestampDisplay} onChange={handleInput} />
+          <Input
+            type="number"
+            className="w-48 px-2 text-xl"
+            value={timestampDisplay}
+            onChange={handleInput}
+          />
           <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
         </div>
         <RelativeTime timestamp={timestamp} />

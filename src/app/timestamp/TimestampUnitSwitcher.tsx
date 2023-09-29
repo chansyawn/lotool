@@ -35,7 +35,11 @@ export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnit
           checked ? (
             <span className="rounded bg-neutral-200 px-1 font-medium">{value}</span>
           ) : (
-            <Popover className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <Popover
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Popover.Button
                 className="rounded px-1 outline-none hover:bg-neutral-100"
                 onClick={getHandleOptionClick(value, false)}

@@ -21,7 +21,10 @@ export default function Input({ className, type, ...props }: InputProps) {
   return (
     <input
       ref={ref}
-      className={clsx("rounded border border-neutral-300 px-2 py-1 outline-neutral-400 focus:outline", className)}
+      className={clsx(
+        "rounded border border-neutral-300 px-2 py-1 outline-neutral-400 focus:outline",
+        className,
+      )}
       type={type}
       {...props}
     />
