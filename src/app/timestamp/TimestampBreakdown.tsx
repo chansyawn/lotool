@@ -10,7 +10,7 @@ import {
   getYear,
   set,
 } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import TimestampBreakdownInput from "./TimestampBreakdownInput";
 
 export type TimeField =
@@ -63,7 +63,12 @@ export default function TimestampBreakdown({
             value={get(date) + (field === "month" ? 1 : 0)}
             width={width}
             onChange={(val: number) => {
-              onChange(set(date, { [field]: val - (field === "month" ? 1 : 0) }).valueOf());
+              onChange(
+                zonedTimeToUtc(
+                  set(date, { [field]: val - (field === "month" ? 1 : 0) }),
+                  timezone,
+                ).valueOf(),
+              );
             }}
           />
         );
