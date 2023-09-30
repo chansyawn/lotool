@@ -11,6 +11,7 @@ export function RelativeTime({ timestamp }: RelativeTimeProps) {
   const [relativeTime, setRelativeTime] = useState(getRelativeTime(timestamp));
 
   useEffect(() => {
+    setRelativeTime(getRelativeTime(timestamp));
     const updateInterval = setInterval(() => {
       setRelativeTime(getRelativeTime(timestamp));
     }, 1000);
