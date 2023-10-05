@@ -1,11 +1,8 @@
 "use client";
 
 import { Popover, RadioGroup, Transition } from "@headlessui/react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { TimestampUnit } from "./memo";
-
-export const supportTimestampPrecisions = ["second", "millisecond"] as const;
-export type TimestampPrecision = (typeof supportTimestampPrecisions)[number];
 
 type TimestampUnitSwitcherProps = {
   value: TimestampUnit;
@@ -33,7 +30,7 @@ export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnit
       <RadioGroup.Option value={value} className="inline cursor-pointer">
         {({ checked }) =>
           checked ? (
-            <span className="rounded bg-neutral-200 px-1 font-medium">{value}</span>
+            <div className="rounded bg-neutral-200 px-1 font-medium">{value}</div>
           ) : (
             <Popover
               className="relative"
@@ -46,9 +43,9 @@ export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnit
               >
                 {value}
               </Popover.Button>
-              <Transition show={unitHovered}>
+              <Transition as={Fragment} show={unitHovered}>
                 <Popover.Panel
-                  className="absolute -top-6 whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
+                  className="absolute bottom-full whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
                   onClick={getHandleOptionClick(value, true)}
                 >
                   switch and keep input

@@ -52,7 +52,7 @@ export function TimestampBreakdownWithCustomTimezone({
       </div>
       <TimestampBreakdown timezone={timezone} {...breakdownProps} />
       <MinusCircleIcon
-        className="mb-2 h-5 w-5 cursor-pointer self-end text-neutral hover:text-neutral-300"
+        className="mb-2 h-5 w-5 cursor-pointer self-end text-neutral hover:text-neutral-300 active:text-neutral-200"
         onClick={onRemove}
       />
     </div>

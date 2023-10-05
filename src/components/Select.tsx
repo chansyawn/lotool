@@ -46,17 +46,21 @@ export default function Select<T>({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background py-1 text-base shadow-lg focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute z-10 mt-1.5 max-h-60 w-full overflow-auto rounded-md bg-background py-0.5 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {options.map(({ label, value }) => (
               <Listbox.Option
                 key={getKey ? getKey(value) : String(value)}
-                className={({ active }) =>
-                  clsx("relative cursor-pointer select-none p-2", { "bg-neutral-100": active })
-                }
+                className={"relative cursor-pointer select-none px-1 py-0.5"}
                 value={value}
               >
-                {({ selected }) => (
-                  <span className={clsx(`block truncate`, { "font-medium": selected })}>
+                {({ selected, active }) => (
+                  <span
+                    className={clsx(
+                      "block truncate rounded p-1",
+                      { "bg-neutral-100": active },
+                      { "bg-primary-100 font-medium": selected },
+                    )}
+                  >
                     {label}
                   </span>
                 )}

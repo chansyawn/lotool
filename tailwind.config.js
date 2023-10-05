@@ -1,20 +1,15 @@
 /** @type {import('tailwindcss/colors')} */
-const tailwindColors = require("tailwindcss/colors");
-
-const colors = {
-  primary: { DEFAULT: tailwindColors.amber[400], ...tailwindColors.amber },
-  neutral: { DEFAULT: tailwindColors.neutral[400], ...tailwindColors.neutral },
-  background: { DEFAULT: tailwindColors.white },
-};
+const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      borderColor: {
-        DEFAULT: colors.neutral[300],
-      },
+      borderColor: ({ theme }) => ({
+        DEFAULT: theme("colors.neutral.300"),
+        ...theme("colors"),
+      }),
       transitionDuration: {
         DEFAULT: "200ms",
       },
@@ -22,7 +17,11 @@ module.exports = {
         sans: ["var(--font-roboto-flex)"],
         mono: ["var(--font-roboto-mono)"],
       },
-      colors,
+      colors: {
+        primary: { DEFAULT: colors.amber[400], ...colors.amber },
+        neutral: { DEFAULT: colors.neutral[400], ...colors.neutral },
+        background: { DEFAULT: colors.white },
+      },
     },
     screens: {
       sm: "640px",
@@ -30,9 +29,10 @@ module.exports = {
       lg: "1024px",
       xl: "1280px",
     },
-    ringColor: {
-      DEFAULT: colors.primary[200],
-    },
+    ringColor: ({ theme }) => ({
+      DEFAULT: theme("colors.primary.200"),
+      ...theme("colors"),
+    }),
   },
   plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
 };

@@ -10,6 +10,8 @@ type ButtonProps = {
   onClick?: () => void;
   variant?: "outline" | "dashed" | "text";
   size?: "sm" | "md";
+  href?: string;
+  target?: string;
 };
 
 export default function Button({
@@ -19,24 +21,33 @@ export default function Button({
   onClick,
   variant = "outline",
   size = "md",
+  href,
+  target,
 }: ButtonProps) {
+  const _className = clsx(
+    "rounded",
+    {
+      "border hover:bg-neutral-100 active:bg-neutral-200": ["outline", "dashed"].includes(variant),
+      "border-dashed": variant === "dashed",
+      "hover:bg-neutral-100 active:bg-neutral-200": variant === "text",
+    },
+    {
+      "px-1": size === "sm",
+      "px-2 py-1": size === "md",
+    },
+    className,
+  );
+
+  if (href) {
+    return (
+      <a className={_className} style={style} onClick={onClick} href={href} target={target}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <button
-      className={clsx(
-        "rounded",
-        {
-          "border hover:bg-neutral-200": variant === "outline",
-          "border border-dashed hover:bg-neutral-200": variant === "dashed",
-        },
-        {
-          "px-1 text-sm": size === "sm",
-          "px-2 py-1 text-base": size === "md",
-        },
-        className,
-      )}
-      style={style}
-      onClick={onClick}
-    >
+    <button className={_className} style={style} onClick={onClick}>
       {children}
     </button>
   );

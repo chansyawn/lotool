@@ -1,4 +1,5 @@
 import RelatedLinkIcon from "./RelatedLinkIcon";
+import Button from "@/components/Button";
 
 export type RelatedLinkType = "wiki";
 
@@ -19,10 +20,16 @@ export default function RelatedLink({ links }: RelatedLinkProps) {
       <ul>
         {links.map(({ label, href, type }) => (
           <li key={label}>
-            <a href={href} className="inline-flex items-center space-x-1" target="_blank">
+            <Button
+              href={href}
+              target="_blank"
+              className="-ml-1 inline-flex items-center space-x-1"
+              variant="text"
+              size="sm"
+            >
               <RelatedLinkIcon type={type} />
               <span>{label}</span>
-            </a>
+            </Button>
           </li>
         ))}
       </ul>

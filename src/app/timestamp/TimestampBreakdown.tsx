@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  addDays,
   getDate,
   getHours,
   getMilliseconds,
@@ -32,16 +33,15 @@ export type TimestampBreakdownProps = {
 const TIME_FIELDS: {
   label: string;
   field: TimeField;
-  width: string;
   get: (value: Date | number) => number;
 }[] = [
-  { label: "Year", field: "year", width: "4.75rem", get: getYear },
-  { label: "Month", field: "month", width: "3.75rem", get: getMonth },
-  { label: "Day", field: "date", width: "3.75rem", get: getDate },
-  { label: "Hour", field: "hours", width: "3.75rem", get: getHours },
-  { label: "Minute", field: "minutes", width: "3.75rem", get: getMinutes },
-  { label: "Second", field: "seconds", width: "3.75rem", get: getSeconds },
-  { label: "Millisecond", field: "milliseconds", width: "4.25rem", get: getMilliseconds },
+  { label: "Year", field: "year", get: getYear },
+  { label: "Month", field: "month", get: getMonth },
+  { label: "Day", field: "date", get: getDate },
+  { label: "Hour", field: "hours", get: getHours },
+  { label: "Minute", field: "minutes", get: getMinutes },
+  { label: "Second", field: "seconds", get: getSeconds },
+  { label: "Millisecond", field: "milliseconds", get: getMilliseconds },
 ];
 
 export default function TimestampBreakdown({
@@ -55,7 +55,16 @@ export default function TimestampBreakdown({
 
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-1">
-      {TIME_FIELDS.slice(0, fieldIdx + 1).map(({ label, field, width, get }) => {
+      {TIME_FIELDS.slice(0, fieldIdx + 1).map(({ label, field, get }) => {
+        let width = "6ch";
+        if (field === "year") {
+          const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
+          const yearLength = Math.max(4, ("" + getYear(addDays(value, isPositiveYear))).length);
+          width = `${4 + yearLength}ch`;
+        } else if (field === "milliseconds") {
+          width = "7ch";
+        }
+
         return (
           <TimestampBreakdownInput
             key={field}
@@ -63,12 +72,13 @@ export default function TimestampBreakdown({
             value={get(date) + (field === "month" ? 1 : 0)}
             width={width}
             onChange={(val: number) => {
-              onChange(
-                zonedTimeToUtc(
-                  set(date, { [field]: val - (field === "month" ? 1 : 0) }),
-                  timezone,
-                ).valueOf(),
-              );
+              const targetTimestamp = zonedTimeToUtc(
+                set(date, { [field]: val - (field === "month" ? 1 : 0) }),
+                timezone,
+              ).valueOf();
+              if (!isNaN(targetTimestamp)) {
+                onChange(targetTimestamp);
+              }
             }}
           />
         );
