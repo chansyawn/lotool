@@ -95,7 +95,7 @@ export default function Timestamp() {
         />
         <TimestampBreakdownWithFixedTimezone
           value={timestamp}
-          level="hours"
+          level="minutes"
           onChange={handleTimestampChange}
           timezone={getTzNameByOffset(0)}
           remark="(UTC)"
@@ -110,7 +110,7 @@ export default function Timestamp() {
           <TimestampBreakdownWithCustomTimezone
             key={idx}
             value={timestamp}
-            level="hours"
+            level="minutes"
             onChange={handleTimestampChange}
             timezoneAtom={atom}
             onRemove={() => dispatchTimezones({ type: "remove", atom })}
