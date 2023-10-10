@@ -13,7 +13,7 @@ type RelatedLinkProps = {
   links: RelatedLinkInfo[];
 };
 
-export default function RelatedLink({ links }: RelatedLinkProps) {
+const RelatedLink = ({ links }: RelatedLinkProps) => {
   return (
     <div>
       <h2 className="text-lg font-medium">Related Links</h2>
@@ -35,4 +35,6 @@ export default function RelatedLink({ links }: RelatedLinkProps) {
       </ul>
     </div>
   );
-}
+};
+
+export default RelatedLink;

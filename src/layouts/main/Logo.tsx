@@ -2,7 +2,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
 
-export default function Logo() {
+const Logo = () => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -24,4 +24,6 @@ export default function Logo() {
       </Link>
     </span>
   );
-}
+};
+
+export default Logo;

@@ -14,7 +14,7 @@ type ButtonProps = {
   target?: string;
 };
 
-export default function Button({
+const Button = ({
   className,
   style,
   children,
@@ -23,7 +23,7 @@ export default function Button({
   size = "md",
   href,
   target,
-}: ButtonProps) {
+}: ButtonProps) => {
   const _className = clsx(
     "rounded",
     {
@@ -51,4 +51,6 @@ export default function Button({
       {children}
     </button>
   );
-}
+};
+
+export default Button;

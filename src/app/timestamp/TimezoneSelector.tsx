@@ -10,7 +10,7 @@ type TimezoneSelectorProps = {
 
 const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => idx - 11);
 
-export default function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
+const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
   return (
     <Select
       value={value}
@@ -21,4 +21,6 @@ export default function TimezoneSelector({ value, onChange }: TimezoneSelectorPr
       }))}
     />
   );
-}
+};
+
+export default TimezoneSelector;

@@ -11,7 +11,7 @@ type ToolProps = {
   relativeLink?: RelatedLinkInfo[];
 };
 
-export default function Tool({ name, icon, children, relativeLink }: ToolProps) {
+const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
   const hasMounted = useHasMounted();
 
   return (
@@ -35,4 +35,6 @@ export default function Tool({ name, icon, children, relativeLink }: ToolProps) 
       </aside>
     </div>
   );
-}
+};
+
+export default Tool;

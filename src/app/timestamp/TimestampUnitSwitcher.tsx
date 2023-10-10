@@ -9,7 +9,7 @@ type TimestampUnitSwitcherProps = {
   onChange: (value: TimestampUnit, switchAndKeepInput: boolean) => void;
 };
 
-export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnitSwitcherProps) {
+const TimestampUnitSwitcher = ({ value, onChange }: TimestampUnitSwitcherProps) => {
   const [unitHovered, setUnitHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -67,4 +67,6 @@ export default function TimestampUnitSwitcher({ value, onChange }: TimestampUnit
       </div>
     </RadioGroup>
   );
-}
+};
+
+export default TimestampUnitSwitcher;

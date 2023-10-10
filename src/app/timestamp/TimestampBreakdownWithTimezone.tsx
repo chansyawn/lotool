@@ -11,12 +11,12 @@ type TimestampBreakdownWithFixedTimezoneProps = {
   suffix?: React.ReactNode;
 } & TimestampBreakdownProps;
 
-export function TimestampBreakdownWithFixedTimezone({
+export const TimestampBreakdownWithFixedTimezone = ({
   remark,
   timezone,
   suffix,
   ...breakdownProps
-}: TimestampBreakdownWithFixedTimezoneProps) {
+}: TimestampBreakdownWithFixedTimezoneProps) => {
   return (
     <div className="flex gap-x-2">
       <div className="w-24">
@@ -30,18 +30,18 @@ export function TimestampBreakdownWithFixedTimezone({
       {suffix}
     </div>
   );
-}
+};
 
 type TimestampBreakdownWithCustomTimezoneProps = {
   timezoneAtom: PrimitiveAtom<string>;
   onRemove: () => void;
 } & Omit<TimestampBreakdownProps, "timezone">;
 
-export function TimestampBreakdownWithCustomTimezone({
+export const TimestampBreakdownWithCustomTimezone = ({
   timezoneAtom,
   onRemove,
   ...breakdownProps
-}: TimestampBreakdownWithCustomTimezoneProps) {
+}: TimestampBreakdownWithCustomTimezoneProps) => {
   const [timezone, onTimezoneChange] = useAtom(timezoneAtom);
 
   return (
@@ -57,4 +57,4 @@ export function TimestampBreakdownWithCustomTimezone({
       />
     </div>
   );
-}
+};

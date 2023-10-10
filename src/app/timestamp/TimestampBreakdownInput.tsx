@@ -9,16 +9,18 @@ type TimestampBreakdownInputProps = {
   width: string;
 };
 
-export default function TimestampBreakdownInput({
+const TimestampBreakdownInput = ({
   label,
   value,
   onChange,
   width,
-}: TimestampBreakdownInputProps) {
+}: TimestampBreakdownInputProps) => {
   return (
     <div>
       <span className="text-sm">{label}</span>
       <InputNumber style={{ width }} className="block" value={value} onChange={onChange} />
     </div>
   );
-}
+};
+
+export default TimestampBreakdownInput;

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "A Toolbox",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <link rel="icon" href={getFaviconHrefByText("📦")} />
@@ -22,4 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

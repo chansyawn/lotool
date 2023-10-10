@@ -7,7 +7,7 @@ type RelativeTimeProps = {
   timestamp: number;
 };
 
-export function RelativeTime({ timestamp }: RelativeTimeProps) {
+const RelativeTime = ({ timestamp }: RelativeTimeProps) => {
   const [relativeTime, setRelativeTime] = useState(getRelativeTime(timestamp));
 
   useEffect(() => {
@@ -20,8 +20,10 @@ export function RelativeTime({ timestamp }: RelativeTimeProps) {
   }, [timestamp]);
 
   return <span>( {relativeTime} )</span>;
-}
+};
 
 const getRelativeTime = (timestamp: number) => {
   return formatDistance(timestamp, new Date(), { addSuffix: true });
 };
+
+export default RelativeTime;

@@ -9,7 +9,7 @@ type InputProps = {
   onChange: (value: string) => void;
 };
 
-export default (function Input({ className, value, onChange }: InputProps) {
+const Input = ({ className, value, onChange }: InputProps) => {
   return (
     <input
       className={clsx(
@@ -20,4 +20,6 @@ export default (function Input({ className, value, onChange }: InputProps) {
       onChange={(e) => onChange(e.target.value)}
     />
   );
-});
+};
+
+export default Input;

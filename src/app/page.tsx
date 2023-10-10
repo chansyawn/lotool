@@ -1,3 +1,5 @@
-export default function Home() {
+const Home = () => {
   return <>Just a toolbox</>;
-}
+};
+
+export default Home;

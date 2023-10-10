@@ -12,14 +12,7 @@ type InputNumberProps = {
   max?: number;
 };
 
-export default function InputNumber({
-  className,
-  style,
-  value,
-  onChange,
-  min,
-  max,
-}: InputNumberProps) {
+const InputNumber = ({ className, style, value, onChange, min, max }: InputNumberProps) => {
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -60,4 +53,6 @@ export default function InputNumber({
       max={max}
     />
   );
-}
+};
+
+export default InputNumber;

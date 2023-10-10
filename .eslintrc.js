@@ -4,6 +4,10 @@ module.exports = {
   rules: {
     "no-console": "warn",
     "react/self-closing-comp": "warn",
+    "react/function-component-definition": [
+      "warn",
+      { namedComponents: "arrow-function", unnamedComponents: "arrow-function" },
+    ],
     "import/order": "warn",
     "import/no-anonymous-default-export": "off",
   },

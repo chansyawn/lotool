@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import RealTime from "./RealTime";
 import TimestampUnitSwitcher from "./TimestampUnitSwitcher";
-import { RelativeTime } from "./RelativeTime";
+import RelativeTime from "./RelativeTime";
 import TimeShortcuts from "./TimeShortcuts";
 import { TimestampUnit, timezoneAtomsAtom, unitAtom } from "./memo";
 import { fixTimestamp, getTzNameByOffset } from "./utils";
@@ -26,7 +26,7 @@ const TimeUnitConfig: Record<TimestampUnit, { ratio: number; width: string }> = 
   milliseconds: { ratio: 1, width: "20ch" },
 };
 
-export default function Timestamp() {
+const Timestamp = () => {
   const [unit, setUnit] = useAtom(unitAtom);
   const [timezoneAtoms, dispatchTimezones] = useAtom(timezoneAtomsAtom);
   const unitRatio = TimeUnitConfig[unit].ratio;
@@ -119,4 +119,6 @@ export default function Timestamp() {
       </section>
     </>
   );
-}
+};
+
+export default Timestamp;

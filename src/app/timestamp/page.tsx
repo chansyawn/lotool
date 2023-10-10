@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { RealTimeEmoji } from "./RealTimeEmoji";
+import RealTimeEmoji from "./RealTimeEmoji";
 import Tool from "@/layouts/tool";
 import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";
 
@@ -18,10 +18,12 @@ const TimestampRelatedLink: RelatedLinkInfo[] = [
   },
 ];
 
-export default function TimestampPage() {
+const TimestampPage = () => {
   return (
     <Tool name="Timestamp" icon={<RealTimeEmoji />} relativeLink={TimestampRelatedLink}>
       <Timestamp />
     </Tool>
   );
-}
+};
+
+export default TimestampPage;

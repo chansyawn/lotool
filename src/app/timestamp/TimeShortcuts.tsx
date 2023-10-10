@@ -19,7 +19,7 @@ const SHORTCUTS: { name: string; getValue: (timestamp: number) => number }[] = [
   { name: "18:00", getValue: (timestamp) => addHours(startOfDay(timestamp), 18).valueOf() },
 ];
 
-export default function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps) {
+const TimeShortcuts = ({ timestamp, onClick }: TimeShortcutsProps) => {
   return (
     <div className="mt-2 flex select-none flex-wrap gap-2">
       {SHORTCUTS.map(({ name, getValue }) => (
@@ -29,4 +29,6 @@ export default function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps
       ))}
     </div>
   );
-}
+};
+
+export default TimeShortcuts;

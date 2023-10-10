@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function RealTime() {
+const RealTime = () => {
   const [currTimestamp, setCurrTimestamp] = useState(new Date().valueOf());
   const currTimestampSeconds = (currTimestamp / 1000).toFixed();
 
@@ -20,4 +20,6 @@ export default function RealTime() {
       <div>seconds since 1970/1/1</div>
     </>
   );
-}
+};
+
+export default RealTime;

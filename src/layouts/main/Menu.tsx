@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { RealTimeEmoji } from "@/app/timestamp/RealTimeEmoji";
+import RealTimeEmoji from "@/app/timestamp/RealTimeEmoji";
 
-export default function Menu() {
+const Menu = () => {
   return (
     <nav>
       <ul className="flex gap-2">
@@ -14,4 +14,6 @@ export default function Menu() {
       </ul>
     </nav>
   );
-}
+};
+
+export default Menu;

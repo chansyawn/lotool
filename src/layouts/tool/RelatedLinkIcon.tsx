@@ -11,6 +11,8 @@ type RelatedLinkIconProps = {
   type?: RelatedLinkType;
 };
 
-export default function RelatedLinkIcon({ type }: RelatedLinkIconProps) {
+const RelatedLinkIcon = ({ type }: RelatedLinkIconProps) => {
   return type ? LinkIconMap[type] : <LinkIcon className="h-4 w-4" />;
-}
+};
+
+export default RelatedLinkIcon;

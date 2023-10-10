@@ -14,14 +14,7 @@ type SelectProps<T> = {
   getKey?: (val: T) => string;
 };
 
-export default function Select<T>({
-  className,
-  style,
-  value,
-  onChange,
-  options,
-  getKey,
-}: SelectProps<T>) {
+const Select = <T,>({ className, style, value, onChange, options, getKey }: SelectProps<T>) => {
   const optionSelected = options.find(({ value: optionValue }) => optionValue === value);
 
   return (
@@ -71,4 +64,6 @@ export default function Select<T>({
       </div>
     </Listbox>
   );
-}
+};
+
+export default Select;

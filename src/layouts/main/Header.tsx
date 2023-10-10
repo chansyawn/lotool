@@ -1,7 +1,7 @@
 import Logo from "./Logo";
 import Menu from "./Menu";
 
-export default function Header() {
+const Header = () => {
   return (
     <header className="sticky top-0 z-10 mb-4 w-full bg-background shadow-sm">
       <div className="container mx-auto flex items-center gap-4">
@@ -10,4 +10,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export default Header;

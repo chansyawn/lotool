@@ -44,12 +44,7 @@ const TIME_FIELDS: {
   { label: "Millisecond", field: "milliseconds", get: getMilliseconds },
 ];
 
-export default function TimestampBreakdown({
-  value,
-  onChange,
-  level,
-  timezone,
-}: TimestampBreakdownProps) {
+const TimestampBreakdown = ({ value, onChange, level, timezone }: TimestampBreakdownProps) => {
   const date = utcToZonedTime(value, timezone);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 
@@ -85,4 +80,6 @@ export default function TimestampBreakdown({
       })}
     </div>
   );
-}
+};
+
+export default TimestampBreakdown;

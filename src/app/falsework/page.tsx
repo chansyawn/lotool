@@ -1,3 +1,5 @@
-export default function Falsework() {
+const Falsework = () => {
   return <>Falsework</>;
-}
+};
+
+export default Falsework;

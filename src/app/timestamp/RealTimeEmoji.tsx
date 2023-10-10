@@ -4,7 +4,7 @@ import { useDeferredValue, useEffect, useState } from "react";
 
 const TIME_EMOJI_LIST = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"];
 
-export function RealTimeEmoji() {
+const RealTimeEmoji = () => {
   const [currHour, setCurrHour] = useState(0);
   const deferredCurrHour = useDeferredValue(currHour);
 
@@ -18,4 +18,6 @@ export function RealTimeEmoji() {
   }, []);
 
   return <span>{TIME_EMOJI_LIST[deferredCurrHour % 12]}</span>;
-}
+};
+
+export default RealTimeEmoji;
