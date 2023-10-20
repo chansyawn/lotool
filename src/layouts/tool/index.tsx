@@ -1,8 +1,8 @@
 "use client";
 
-import clsx from "clsx";
 import RelatedLink, { RelatedLinkInfo } from "./RelatedLink";
 import useHasMounted from "@/hooks/useHasMounted";
+import cn from "@/utils/cn";
 
 type ToolProps = {
   name: string;
@@ -24,7 +24,7 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
         {children}
       </main>
       <aside
-        className={clsx(
+        className={cn(
           "mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]",
           // when in vertical layout,
           // render axillary content after children mounted to avoid flicker

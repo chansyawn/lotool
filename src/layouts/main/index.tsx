@@ -8,7 +8,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={globalStore}>
       <Header />
-      <div className="container isolate mx-auto px-2">{children}</div>
+      <div className="container isolate mx-auto px-3">{children}</div>
     </Provider>
   );
 };

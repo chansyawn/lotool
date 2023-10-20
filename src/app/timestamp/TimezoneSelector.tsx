@@ -1,7 +1,7 @@
 "use client";
 
 import { getTzNameByOffset } from "./utils";
-import Select from "@/components/Select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select";
 
 type TimezoneSelectorProps = {
   value: string;
@@ -12,14 +12,18 @@ const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => idx - 11);
 
 const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
   return (
-    <Select
-      value={value}
-      onChange={onChange}
-      options={ALL_UTC_OFFSETS.map((utcOffset) => ({
-        label: getTzNameByOffset(utcOffset),
-        value: getTzNameByOffset(utcOffset),
-      }))}
-    />
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent className="max-h-64">
+        {ALL_UTC_OFFSETS.map((utcOffset) => (
+          <SelectItem key={utcOffset} value={getTzNameByOffset(utcOffset)}>
+            {getTzNameByOffset(utcOffset)}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 

@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-page-background: #ffffff;
+    --text-color: #000000;
+  }
+
+  :root.dark {
+    --color-page-background: #0b0b0b;
+    --text-color: #ffffff;
+  }
+}
+
 body {
+  color: var(--text-color);
+  background-color: var(--color-page-background);
   font-family: var(--font-roboto-flex), var(--font-roboto-mono);
 }
 
@@ -11,13 +25,13 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply rounded bg-neutral-100;
+  @apply rounded bg-neutral-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-neutral-400;
+  @apply rounded bg-neutral-border;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-neutral-500;
+  @apply bg-neutral-border-hover;
 }

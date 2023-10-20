@@ -51,11 +51,11 @@ const TimestampBreakdown = ({ value, onChange, level, timezone }: TimestampBreak
   return (
     <div className="flex flex-wrap gap-x-2 gap-y-1">
       {TIME_FIELDS.slice(0, fieldIdx + 1).map(({ label, field, get }) => {
-        let width = "6ch";
+        let width = "7ch";
         if (field === "year") {
           const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
           const yearLength = Math.max(4, ("" + getYear(addDays(value, isPositiveYear))).length);
-          width = `${4 + yearLength}ch`;
+          width = `${5 + yearLength}ch`;
         } else if (field === "milliseconds") {
           width = "7ch";
         }

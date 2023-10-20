@@ -1,7 +1,7 @@
 "use client";
 
-import clsx from "clsx";
 import { CSSProperties } from "react";
+import cn from "@/utils/cn";
 
 type ButtonProps = {
   className?: string;
@@ -24,7 +24,7 @@ const Button = ({
   href,
   target,
 }: ButtonProps) => {
-  const _className = clsx(
+  const _className = cn(
     "rounded",
     {
       "border hover:bg-neutral-100 active:bg-neutral-200": ["outline", "dashed"].includes(variant),

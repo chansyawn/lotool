@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import clsx from "clsx";
+import BaseInput from "./BaseInput";
 
 type InputProps = {
   className?: string;
@@ -9,17 +9,13 @@ type InputProps = {
   onChange: (value: string) => void;
 };
 
-const Input = ({ className, value, onChange }: InputProps) => {
-  return (
-    <input
-      className={clsx(
-        "rounded border px-2 py-1 shadow-none outline-none transition-[box-shadow] hover:border-primary focus:border-primary-400 focus:ring",
-        className,
-      )}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  );
-};
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, value, onChange }: InputProps) => {
+    return (
+      <BaseInput className={className} value={value} onChange={(e) => onChange(e.target.value)} />
+    );
+  },
+);
+Input.displayName = "Input";
 
 export default Input;

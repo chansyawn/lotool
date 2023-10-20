@@ -101,7 +101,7 @@ const Timestamp = () => {
           remark="(UTC)"
           suffix={
             <PlusCircleIcon
-              className="mb-2 h-5 w-5 cursor-pointer self-end text-primary hover:text-primary-300 active:text-primary-200"
+              className="mb-2 h-5 w-5 cursor-pointer self-end text-primary-solid hover:text-primary-solid-hover"
               onClick={() => dispatchTimezones({ type: "insert", value: getTzNameByOffset(0) })}
             />
           }
