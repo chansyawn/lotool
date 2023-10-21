@@ -1,5 +1,6 @@
 import Logo from "./Logo";
 import Menu from "./Menu";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const Header = () => {
   return (
@@ -7,6 +8,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center gap-4 px-2">
         <Logo />
         <Menu />
+        <ThemeSwitcher />
       </div>
     </header>
   );

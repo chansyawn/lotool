@@ -21,14 +21,15 @@ const RelatedLink = ({ links }: RelatedLinkProps) => {
         {links.map(({ label, href, type }) => (
           <li key={label}>
             <Button
-              href={href}
-              target="_blank"
-              className="-ml-1 inline-flex items-center space-x-1"
-              variant="text"
+              className="inline-flex items-center space-x-1"
+              variant="ghost"
               size="sm"
+              asChild
             >
-              <RelatedLinkIcon type={type} />
-              <span>{label}</span>
+              <a href={href} target="_blank">
+                <RelatedLinkIcon type={type} />
+                <span>{label}</span>
+              </a>
             </Button>
           </li>
         ))}

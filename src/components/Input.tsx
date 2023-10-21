@@ -10,9 +10,14 @@ type InputProps = {
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, value, onChange }: InputProps) => {
+  ({ className, value, onChange }: InputProps, ref) => {
     return (
-      <BaseInput className={className} value={value} onChange={(e) => onChange(e.target.value)} />
+      <BaseInput
+        ref={ref}
+        className={className}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
     );
   },
 );

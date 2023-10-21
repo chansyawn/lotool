@@ -8,8 +8,8 @@
     --text-color: #000000;
   }
 
-  :root.dark {
-    --color-page-background: #0b0b0b;
+  :root[data-color-mode="dark"] {
+    --color-page-background: #111111;
     --text-color: #ffffff;
   }
 }

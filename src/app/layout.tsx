@@ -4,8 +4,8 @@ import fonts from "@/styles/font";
 import Main from "@/layouts/main";
 import { getFaviconHrefByText } from "@/utils/favicon";
 import cn from "@/utils/cn";
-
 import "./globals.css";
+import { initColorModeScript } from "@/styles/colorMode";
 
 export const metadata: Metadata = {
   title: "Lotool",
@@ -14,8 +14,11 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
-      <link rel="icon" href={getFaviconHrefByText("📦")} />
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href={getFaviconHrefByText("📦")} />
+        <script id="set-theme" dangerouslySetInnerHTML={{ __html: initColorModeScript }} />
+      </head>
       <body className={cn(...fonts.map((font) => font.variable))}>
         <Main>{children}</Main>
         <Analytics />

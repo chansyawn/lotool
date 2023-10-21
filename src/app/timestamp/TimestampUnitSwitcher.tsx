@@ -1,7 +1,6 @@
 "use client";
 
-import { Popover, RadioGroup, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { TimestampUnit } from "./memo";
 
 type TimestampUnitSwitcherProps = {
@@ -25,47 +24,37 @@ const TimestampUnitSwitcher = ({ value, onChange }: TimestampUnitSwitcherProps) 
     setUnitHovered(false);
   };
 
-  const renderOption = (value: TimestampUnit) => {
-    return (
-      <RadioGroup.Option value={value} className="inline cursor-pointer">
-        {({ checked }) =>
-          checked ? (
-            <div className="rounded bg-neutral-200 px-1 font-medium">{value}</div>
-          ) : (
-            <Popover
-              className="relative"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+  const renderOption = (timestamp: TimestampUnit) => {
+    return value === timestamp ? (
+      <div className="rounded bg-neutral-bg-active px-1 font-medium">{timestamp}</div>
+    ) : (
+      <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <button
+          className="rounded px-1 outline-none hover:bg-neutral-bg-hover"
+          onClick={getHandleOptionClick(timestamp, false)}
+        >
+          {timestamp}
+        </button>
+        {unitHovered && (
+          <div className="absolute bottom-full pb-0.5">
+            <div
+              className="cursor-pointer whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-bg-hover"
+              onClick={getHandleOptionClick(timestamp, true)}
             >
-              <Popover.Button
-                className="rounded px-1 outline-none hover:bg-neutral-100"
-                onClick={getHandleOptionClick(value, false)}
-              >
-                {value}
-              </Popover.Button>
-              <Transition as={Fragment} show={unitHovered}>
-                <Popover.Panel
-                  className="absolute bottom-full whitespace-nowrap rounded px-1 outline-none hover:bg-neutral-100"
-                  onClick={getHandleOptionClick(value, true)}
-                >
-                  switch and keep input
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-          )
-        }
-      </RadioGroup.Option>
+              switch and keep input
+            </div>
+          </div>
+        )}
+      </div>
     );
   };
 
   return (
-    <RadioGroup value={value}>
-      <div className="flex">
-        {renderOption("seconds")}
-        <span className="px-1">/</span>
-        {renderOption("milliseconds")}
-      </div>
-    </RadioGroup>
+    <div className="flex">
+      {renderOption("seconds")}
+      <span className="px-1">/</span>
+      {renderOption("milliseconds")}
+    </div>
   );
 };
 

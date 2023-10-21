@@ -23,7 +23,7 @@ const TimeShortcuts = ({ timestamp, onClick }: TimeShortcutsProps) => {
   return (
     <div className="mt-2 flex select-none flex-wrap gap-2">
       {SHORTCUTS.map(({ name, getValue }) => (
-        <Button size="sm" key={name} onClick={() => onClick(getValue(timestamp))}>
+        <Button size="sm" variant="outline" key={name} onClick={() => onClick(getValue(timestamp))}>
           {name}
         </Button>
       ))}

@@ -14,11 +14,11 @@ export type InputNumberProps = {
 };
 
 const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
-  ({ className, style, value, onChange, min, max }: InputNumberProps) => {
-    const ref = useRef<HTMLInputElement>(null);
+  ({ className, style, value, onChange, min, max }: InputNumberProps, ref) => {
+    const domRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-      const inputDom = ref.current;
+      const inputDom = domRef.current;
       if (!inputDom) return;
 
       const preventWheel: EventListener = (e) => e.stopPropagation();
@@ -42,7 +42,14 @@ const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
 
     return (
       <BaseInput
-        ref={ref}
+        ref={(el) => {
+          domRef.current = el;
+          if (typeof ref === "function") {
+            ref(el);
+          } else if (ref) {
+            ref.current = el;
+          }
+        }}
         className={className}
         style={style}
         type="number"

@@ -34,7 +34,7 @@ module.exports = {
   future: {
     respectDefaultRingColorOpacity: true,
   },
-  darkMode: "class",
+  darkMode: ["class", '[data-color-mode="dark"]'],
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     colors: {

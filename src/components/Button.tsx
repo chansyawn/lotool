@@ -1,56 +1,45 @@
 "use client";
 
-import { CSSProperties } from "react";
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "cva";
 import cn from "@/utils/cn";
 
-type ButtonProps = {
-  className?: string;
-  style?: CSSProperties;
-  children?: React.ReactNode;
-  onClick?: () => void;
-  variant?: "outline" | "dashed" | "text";
-  size?: "sm" | "md";
-  href?: string;
-  target?: string;
-};
-
-const Button = ({
-  className,
-  style,
-  children,
-  onClick,
-  variant = "outline",
-  size = "md",
-  href,
-  target,
-}: ButtonProps) => {
-  const _className = cn(
-    "rounded",
-    {
-      "border hover:bg-neutral-100 active:bg-neutral-200": ["outline", "dashed"].includes(variant),
-      "border-dashed": variant === "dashed",
-      "hover:bg-neutral-100 active:bg-neutral-200": variant === "text",
+const buttonVariants = cva({
+  base: "inline-flex items-center justify-center rounded transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+  variants: {
+    variant: {
+      default: "bg-neutral-bg shadow hover:bg-neutral-bg-hover active:bg-neutral-bg-active",
+      outline:
+        "border border-neutral-border bg-transparent shadow-sm hover:border-neutral-border-hover active:bg-neutral-bg-active",
+      ghost: "hover:bg-neutral-bg-hover",
+      link: "underline-offset-4 hover:underline",
     },
-    {
-      "px-1": size === "sm",
-      "px-2 py-1": size === "md",
+    size: {
+      default: "h-8 px-4 py-2",
+      sm: "h-6 rounded px-1",
+      icon: "h-8 w-8",
     },
-    className,
-  );
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
 
-  if (href) {
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  };
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
-      <a className={_className} style={style} onClick={onClick} href={href} target={target}>
-        {children}
-      </a>
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );
-  }
-
-  return (
-    <button className={_className} style={style} onClick={onClick}>
-      {children}
-    </button>
-  );
-};
+  },
+);
+Button.displayName = "Button";
 
 export default Button;
