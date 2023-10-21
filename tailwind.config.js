@@ -46,7 +46,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: StandardAlias("amber"),
+        primary: StandardAlias("jade"),
         neutral: StandardAlias("gray"),
         background: {
           page: "var(--color-page-background)",
