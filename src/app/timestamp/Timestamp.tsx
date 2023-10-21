@@ -15,11 +15,11 @@ import {
 } from "./TimestampBreakdownWithTimezone";
 import InputNumber from "@/components/InputNumber";
 
-// Max timestamp in ECMAScript Date is milliseconds of 100,000,000 days,
-// minus one day for timezone convert correctly there.
+// Max timestamp in ECMAScript Date is milliseconds of ±100,000,000 days,
+// minus two day for timezone convert correctly there.
 // https://stackoverflow.com/questions/12666127/what-range-of-dates-are-permitted-in-javascript
 // https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760
-const DAY_99999999 = 1000 * 60 * 60 * 24 * (100000000 - 1);
+const MAX_TIMESTAMP = 1000 * 60 * 60 * 24 * (100000000 - 2);
 
 const TimeUnitConfig: Record<TimestampUnit, { ratio: number; width: string }> = {
   seconds: { ratio: 1000, width: "17ch" },
@@ -36,12 +36,12 @@ const Timestamp = () => {
   const timestampDisplay = timestamp / unitRatio;
 
   const handleTimestampChange = (value: number) => {
-    if (value > DAY_99999999) {
-      setTimestamp(DAY_99999999);
+    if (value > MAX_TIMESTAMP) {
+      setTimestamp(MAX_TIMESTAMP);
       return;
     }
-    if (value < -DAY_99999999) {
-      setTimestamp(-DAY_99999999);
+    if (value < -MAX_TIMESTAMP) {
+      setTimestamp(-MAX_TIMESTAMP);
       return;
     }
     setTimestamp(value);
@@ -77,11 +77,26 @@ const Timestamp = () => {
             style={{ width: TimeUnitConfig[unit].width }}
             value={timestampDisplay}
             onChange={handleInput}
-            min={-DAY_99999999 / unitRatio}
-            max={DAY_99999999 / unitRatio}
+            min={-MAX_TIMESTAMP / unitRatio}
+            max={MAX_TIMESTAMP / unitRatio}
           />
           <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
         </div>
+        {Math.abs(timestamp) === MAX_TIMESTAMP && (
+          <div className="text-sm text-error-text">
+            <p>Reach the max timestamp in ECMAScript Date (milliseconds of ±100,000,000 days)</p>
+            <p>
+              minus two day for timezone convert correctly there.
+              <a
+                className="ml-1 cursor-pointer hover:underline"
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
+              >
+                Read More
+              </a>
+            </p>
+          </div>
+        )}
         <RelativeTime timestamp={timestamp} />
       </section>
       <section className="flex flex-col gap-y-1">
@@ -101,7 +116,7 @@ const Timestamp = () => {
           remark="(UTC)"
           suffix={
             <PlusCircleIcon
-              className="mb-2 h-5 w-5 cursor-pointer self-end text-primary-solid hover:text-primary-solid-hover"
+              className="mb-2 h-5 w-5 flex-shrink-0 cursor-pointer self-end text-success-solid hover:text-success-solid-hover"
               onClick={() => dispatchTimezones({ type: "insert", value: getTzNameByOffset(0) })}
             />
           }

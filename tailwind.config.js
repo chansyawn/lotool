@@ -48,6 +48,9 @@ module.exports = {
       colors: {
         primary: StandardAlias("jade"),
         neutral: StandardAlias("gray"),
+        success: StandardAlias("green"),
+        warning: StandardAlias("amber"),
+        error: StandardAlias("red"),
         background: {
           page: "var(--color-page-background)",
         },

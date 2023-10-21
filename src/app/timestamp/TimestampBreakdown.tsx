@@ -71,7 +71,7 @@ const TimestampBreakdown = ({ value, onChange, level, timezone }: TimestampBreak
                 set(date, { [field]: val - (field === "month" ? 1 : 0) }),
                 timezone,
               ).valueOf();
-              if (!isNaN(targetTimestamp)) {
+              if (!Number.isNaN(targetTimestamp)) {
                 onChange(targetTimestamp);
               }
             }}

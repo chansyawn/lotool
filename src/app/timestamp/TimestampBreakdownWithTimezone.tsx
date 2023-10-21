@@ -46,13 +46,13 @@ export const TimestampBreakdownWithCustomTimezone = ({
 
   return (
     <div className="flex gap-x-2">
-      <div className="w-24">
+      <div className="w-24 flex-shrink-0">
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(val) => onTimezoneChange(val)} />
       </div>
       <TimestampBreakdown timezone={timezone} {...breakdownProps} />
       <MinusCircleIcon
-        className="mb-2 h-5 w-5 cursor-pointer self-end text-neutral-solid hover:text-neutral-solid-hover"
+        className="mb-1.5 h-5 w-5 flex-shrink-0 cursor-pointer self-end text-error-solid hover:text-error-solid-hover"
         onClick={onRemove}
       />
     </div>
