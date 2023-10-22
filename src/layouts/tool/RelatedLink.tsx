@@ -1,7 +1,7 @@
 import RelatedLinkIcon from "./RelatedLinkIcon";
 import Button from "@/components/Button";
 
-export type RelatedLinkType = "wiki";
+export type RelatedLinkType = "wiki" | "github";
 
 export type RelatedLinkInfo = {
   type?: RelatedLinkType;

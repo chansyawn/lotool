@@ -67,9 +67,7 @@ const Timestamp = () => {
 
   return (
     <>
-      <section className="mt-4">
-        <RealTime />
-      </section>
+      <RealTime />
       <section className="mt-2">
         <div className="flex flex-wrap items-baseline gap-x-2">
           <InputNumber

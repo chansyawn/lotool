@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 
 const useMediaQuery = (query: string) => {
-  const isOnline = useSyncExternalStore(
+  return useSyncExternalStore(
     (callback) => {
       matchMedia(query).addEventListener("change", callback);
       return () => {
@@ -11,7 +11,6 @@ const useMediaQuery = (query: string) => {
     () => matchMedia(query).matches,
     () => true,
   );
-  return isOnline;
 };
 
 export default useMediaQuery;

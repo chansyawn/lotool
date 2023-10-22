@@ -9,16 +9,17 @@ type ToolProps = {
   icon: React.ReactNode;
   children: React.ReactNode;
   relativeLink?: RelatedLinkInfo[];
+  developing?: boolean;
 };
 
-const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
+const Tool = ({ name, icon, children, relativeLink, developing }: ToolProps) => {
   const hasMounted = useHasMounted();
 
   return (
     <div className="lg:flex">
       <main className="flex-grow">
-        <h1 className="text-3xl font-semibold">
-          {icon}
+        <h1 className="mb-4 text-3xl font-semibold">
+          {developing ? "🚧" : icon}
           <span className="ml-1">{name}</span>
         </h1>
         {children}
