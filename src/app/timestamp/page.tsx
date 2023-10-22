@@ -1,9 +1,14 @@
 import dynamic from "next/dynamic";
+import { Metadata } from "next";
 import RealTimeEmoji from "./RealTimeEmoji";
 import Tool from "@/layouts/tool";
 import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";
 
 const Timestamp = dynamic(() => import("./Timestamp"), { ssr: false });
+
+export const metadata: Metadata = {
+  title: "Lotool - Color",
+};
 
 const TimestampRelatedLink: RelatedLinkInfo[] = [
   {

@@ -1,8 +1,13 @@
 import dynamic from "next/dynamic";
+import { Metadata } from "next";
 import Tool from "@/layouts/tool";
 import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";
 
 const Color = dynamic(() => import("./Color"), { ssr: false });
+
+export const metadata: Metadata = {
+  title: "Lotool - Timestamp",
+};
 
 const TimestampRelatedLink: RelatedLinkInfo[] = [
   {
