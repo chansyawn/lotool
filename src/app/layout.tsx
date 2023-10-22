@@ -10,15 +10,13 @@ import { initColorModeScript } from "@/styles/colorMode";
 export const metadata: Metadata = {
   title: "Lotool",
   description: "A Toolbox",
-  icons: {
-    icon: getFaviconHrefByText("📦"),
-  },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href={getFaviconHrefByText("📦")} />
         <script id="set-theme" dangerouslySetInnerHTML={{ __html: initColorModeScript }} />
       </head>
       <body className={cn(...fonts.map((font) => font.variable))}>
