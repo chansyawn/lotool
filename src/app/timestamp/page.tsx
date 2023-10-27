@@ -7,7 +7,7 @@ import { RelatedLinkInfo } from "@/layouts/tool/RelatedLink";
 const Timestamp = dynamic(() => import("./Timestamp"), { ssr: false });
 
 export const metadata: Metadata = {
-  title: "Lotool - Color",
+  title: "Lotool - Timestamp",
 };
 
 const TimestampRelatedLink: RelatedLinkInfo[] = [
