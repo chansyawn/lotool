@@ -1,18 +1,5 @@
 import Link from "next/link";
-import RealTimeEmoji from "@/app/timestamp/RealTimeEmoji";
-
-const ROUTES = [
-  {
-    name: "Timestamp",
-    href: "/timestamp",
-    icon: <RealTimeEmoji />,
-  },
-  {
-    name: "Color",
-    href: "/color",
-    icon: "🎨",
-  },
-];
+import { ROUTES } from "@/app/routes";
 
 const Menu = () => {
   return (
