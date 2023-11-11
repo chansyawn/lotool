@@ -4,12 +4,16 @@
 
 @layer base {
   :root {
+    --current-color-mode: #ffffff;
     --color-page-background: #ffffff;
+    --color-popover-background: #ffffff;
     --text-color: #000000;
   }
 
   :root[data-color-mode="dark"] {
+    --current-color-mode: #000000;
     --color-page-background: #111111;
+    --color-popover-background: #111111;
     --text-color: #ffffff;
   }
 }

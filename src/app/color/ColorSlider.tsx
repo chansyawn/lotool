@@ -56,7 +56,7 @@ const ColorSlider = ({
           <SliderPrimitive.Range className="absolute h-full bg-transparent" />
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb
-          className="box-content block h-4 w-4 rounded-full border-2 border-white shadow focus-visible:outline-none dark:border-black"
+          className="box-content block h-4 w-4 rounded-full border-2 border-mode shadow focus-visible:outline-none"
           style={{ background: thumbBackground }}
         />
       </SliderPrimitive.Root>

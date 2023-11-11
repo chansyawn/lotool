@@ -43,6 +43,7 @@ module.exports = {
       transparent: twColors.transparent,
       white: twColors.white,
       black: twColors.black,
+      mode: "var(--current-color-mode)",
     },
     extend: {
       colors: {
@@ -51,9 +52,8 @@ module.exports = {
         success: StandardAlias("green"),
         warning: StandardAlias("amber"),
         error: StandardAlias("red"),
-        background: {
-          page: "var(--color-page-background)",
-        },
+        page: "var(--color-page-background)",
+        popover: "var(--color-popover-background)",
       },
       borderColor: ({ theme }) => ({
         DEFAULT: theme("colors.neutral.border.DEFAULT"),
