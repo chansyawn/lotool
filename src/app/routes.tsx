@@ -13,6 +13,11 @@ export const ROUTES: Route[] = [
     icon: <RealTimeEmoji />,
   },
   {
+    name: "Encode & Decode",
+    href: "/encode_decode",
+    icon: "🧮",
+  },
+  {
     name: "Awesome",
     href: "/awesome",
     icon: "⭐",
