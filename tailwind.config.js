@@ -43,7 +43,14 @@ module.exports = {
       transparent: twColors.transparent,
       white: twColors.white,
       black: twColors.black,
-      mode: "var(--current-color-mode)",
+      mode: {
+        DEFAULT: "var(--color-mode)",
+        revert: "var(--color-mode-revert)",
+      },
+      text: {
+        DEFAULT: "var(--color-text)",
+        revert: "var(--color-text-revert)",
+      },
     },
     extend: {
       colors: {

@@ -14,7 +14,7 @@ const radioVariants = cva({
     variant: {
       default: "",
       button:
-        "data-[state=checked]:bg-primary-bg rounded border-neutral-border border hover:bg-primary-bg-hover",
+        "data-[state=checked]:bg-primary-solid rounded border-neutral-border border hover:bg-primary-bg-hover data-[state=checked]:text-text-revert",
     },
   },
   defaultVariants: {

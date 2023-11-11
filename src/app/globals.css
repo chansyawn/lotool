@@ -4,22 +4,26 @@
 
 @layer base {
   :root {
-    --current-color-mode: #ffffff;
+    --color-mode: #ffffff;
+    --color-mode-revert: #000000;
     --color-page-background: #ffffff;
     --color-popover-background: #ffffff;
-    --text-color: #000000;
+    --color-text: #000000;
+    --color-text-revert: #ffffff;
   }
 
   :root[data-color-mode="dark"] {
-    --current-color-mode: #000000;
+    --color-mode: #000000;
+    --color-mode-revert: #ffffff;
     --color-page-background: #111111;
     --color-popover-background: #111111;
-    --text-color: #ffffff;
+    --color-text: #ffffff;
+    --color-text-revert: #000000;
   }
 }
 
 body {
-  color: var(--text-color);
+  color: var(--color-text);
   background-color: var(--color-page-background);
   font-family: var(--font-roboto-flex), var(--font-roboto-mono);
 }
