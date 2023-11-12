@@ -45,8 +45,22 @@ const EncodeDecode = () => {
           <RadioGroupItem key={key} value={key} label={name} />
         ))}
       </RadioGroup>
-      <Textarea value={text} onChange={handleTextChange} />
-      <Textarea value={encodedText} onChange={handleEncodedTextChange} />
+      <section>
+        <div className="mb-1 flex items-center gap-1">
+          <span className="mr-auto text-lg font-medium">Decoded</span>
+        </div>
+        <Textarea className="min-h-[10rem] break-all" value={text} onChange={handleTextChange} />
+      </section>
+      <section>
+        <div className="mb-1 flex items-center">
+          <span className="mr-auto text-lg font-medium">Decoded</span>
+        </div>
+        <Textarea
+          className="min-h-[10rem] break-all"
+          value={encodedText}
+          onChange={handleEncodedTextChange}
+        />
+      </section>
     </div>
   );
 };
