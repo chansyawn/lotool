@@ -24,7 +24,7 @@ const TimestampRelatedLink: RelatedLinkInfo[] = [
 
 const ColorPage = () => {
   return (
-    <Tool name="Color" icon="🎨" relativeLink={TimestampRelatedLink} developing>
+    <Tool name="Color" icon="🎨" relativeLink={TimestampRelatedLink}>
       <Color />
     </Tool>
   );
