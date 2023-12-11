@@ -10,6 +10,8 @@ type DocumentPiPContextValue = {
 
 const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(undefined);
 
+const DocumentPiPWindowContext = createContext<Window | undefined>(undefined);
+
 type DocumentPiPProviderProps = {
   children: React.ReactNode;
 };
@@ -95,9 +97,14 @@ type PiPDocumentProps = {
 
 export const PiPDocument = ({ pipWindow, children, fallback }: PiPDocumentProps) => {
   return (
-    <>
+    <DocumentPiPWindowContext.Provider value={pipWindow}>
       {createPortal(children, pipWindow ? pipWindow.document.body : document.body)}
       {fallback}
-    </>
+    </DocumentPiPWindowContext.Provider>
   );
+};
+
+export const useDocumentPiPWindow = () => {
+  const context = useContext(DocumentPiPWindowContext);
+  return context;
 };
