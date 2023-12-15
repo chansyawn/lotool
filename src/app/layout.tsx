@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import fonts from "@/styles/font";
 import Main from "@/layouts/main";
 import { getFaviconHrefByText } from "@/utils/favicon";
@@ -22,6 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className={cn(...fonts.map((font) => font.variable))}>
         <Main>{children}</Main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
