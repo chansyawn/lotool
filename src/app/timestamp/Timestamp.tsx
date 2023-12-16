@@ -51,14 +51,10 @@ const Timestamp = () => {
     handleTimestampChange(value * unitRatio);
   };
 
-  const handleMillisecondModeChange = (value: TimestampUnit, switchAndKeepValue: boolean) => {
+  const handleMillisecondModeChange = (value: TimestampUnit) => {
     setUnit(value);
     const targetRatio = TimeUnitConfig[value].ratio;
-    if (switchAndKeepValue) {
-      handleTimestampChange((timestamp * targetRatio) / unitRatio);
-    } else {
-      handleTimestampChange(fixTimestamp(timestamp, targetRatio));
-    }
+    handleTimestampChange((timestamp * targetRatio) / unitRatio);
   };
 
   const handleShortcutClick = (value: number) => {
@@ -69,7 +65,7 @@ const Timestamp = () => {
     <>
       <RealTime />
       <section className="mt-2">
-        <div className="flex flex-wrap items-baseline gap-x-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <InputNumber
             className={"px-2 text-xl"}
             style={{ width: TimeUnitConfig[unit].width }}
