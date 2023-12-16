@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { createPortal } from "react-dom";
+import useHasMounted from "./useHasMounted";
 
 type DocumentPiPContextValue = {
   isSupported: boolean;
@@ -17,7 +18,8 @@ type DocumentPiPProviderProps = {
 };
 
 export const DocumentPiPProvider = ({ children }: DocumentPiPProviderProps) => {
-  const isSupported = typeof window !== "undefined" && "documentPictureInPicture" in window;
+  const hasMounted = useHasMounted();
+  const isSupported = hasMounted && "documentPictureInPicture" in window;
   const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(null);
 
   const closePiPWindow = useCallback(() => {
