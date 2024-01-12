@@ -3,7 +3,7 @@
 import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import RelatedLink, { RelatedLinkInfo } from "./related-link";
 import { Button } from "@/components/ui/button";
-import { PiPDocument, useDocumentPiP } from "@/contexts/document-pip";
+import { DocumentPiP, useDocumentPiP } from "@/contexts/document-pip";
 import useHasMounted from "@/hooks/use-has-mounted";
 import cn from "@/utils/cn";
 
@@ -16,7 +16,7 @@ type ToolProps = {
 
 const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
   const hasMounted = useHasMounted();
-  const { isSupported, requestPiPWindow, PiPWindow, closePiPWindow } = useDocumentPiP();
+  const { isSupported, requestPiPWindow, pipWindow, closePiPWindow } = useDocumentPiP();
 
   const openPiP = () => {
     requestPiPWindow(360, 640);
@@ -28,15 +28,15 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
         <h1 className="mb-4 flex text-3xl font-semibold">
           {icon}
           <span className="ml-1">{name}</span>
-          {isSupported && !PiPWindow && (
-            <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiP}>
-              <OpenInNewWindowIcon className="h-5 w-5" />
+          {isSupported && !pipWindow && (
+            <Button variant="ghost" size="icon" className="ml-2" onClick={openPiP}>
+              <OpenInNewWindowIcon className="h-4 w-4" />
             </Button>
           )}
         </h1>
-        {children && PiPWindow ? (
-          <PiPDocument
-            pipWindow={PiPWindow}
+        {children && pipWindow ? (
+          <DocumentPiP
+            pipWindow={pipWindow}
             fallback={
               <div className="flex aspect-video flex-col items-center justify-center">
                 <div className="mb-2 text-xl font-semibold">Picture in Picture Mode Activated</div>
@@ -45,7 +45,7 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
             }
           >
             <main className="p-4">{children}</main>
-          </PiPDocument>
+          </DocumentPiP>
         ) : (
           children
         )}

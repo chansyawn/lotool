@@ -4,14 +4,12 @@ import useHasMounted from "../hooks/use-has-mounted";
 
 type DocumentPiPContextValue = {
   isSupported: boolean;
-  PiPWindow: Window | null;
+  pipWindow: Window | null;
   requestPiPWindow: (width: number, height: number) => Promise<void>;
   closePiPWindow: () => void;
 };
 
 const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(undefined);
-
-const DocumentPiPWindowContext = createContext<Window | undefined>(undefined);
 
 type DocumentPiPProviderProps = {
   children: React.ReactNode;
@@ -73,7 +71,7 @@ export const DocumentPiPProvider = ({ children }: DocumentPiPProviderProps) => {
     <DocumentPiPContext.Provider
       value={{
         isSupported,
-        PiPWindow: documentPiPWindow,
+        pipWindow: documentPiPWindow,
         requestPiPWindow,
         closePiPWindow,
       }}
@@ -91,22 +89,17 @@ export const useDocumentPiP = () => {
   return context;
 };
 
-type PiPDocumentProps = {
+type DocumentPiPProps = {
   pipWindow: Window;
   children: React.ReactNode;
   fallback?: React.ReactNode;
 };
 
-export const PiPDocument = ({ pipWindow, children, fallback }: PiPDocumentProps) => {
+export const DocumentPiP = ({ pipWindow, children, fallback }: DocumentPiPProps) => {
   return (
-    <DocumentPiPWindowContext.Provider value={pipWindow}>
+    <>
       {createPortal(children, pipWindow ? pipWindow.document.body : document.body)}
       {fallback}
-    </DocumentPiPWindowContext.Provider>
+    </>
   );
-};
-
-export const useDocumentPiPWindow = () => {
-  const context = useContext(DocumentPiPWindowContext);
-  return context;
 };
