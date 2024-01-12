@@ -12,7 +12,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
       <ColorModeProvider>
         <DocumentPiPProvider>
           <Header />
-          <div className="container isolate mx-auto px-3">{children}</div>
+          <div className="container isolate px-3">{children}</div>
         </DocumentPiPProvider>
       </ColorModeProvider>
     </Provider>
