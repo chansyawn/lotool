@@ -1,4 +1,4 @@
-import RealTimeEmoji from "./timestamp/RealTimeEmoji";
+import CurrentTimeEmoji from "./timestamp/current-time-emoji";
 
 type Route = {
   name: string;
@@ -10,12 +10,7 @@ export const ROUTES: Route[] = [
   {
     name: "Timestamp",
     href: "/timestamp",
-    icon: <RealTimeEmoji />,
-  },
-  {
-    name: "Encode & Decode",
-    href: "/encode_decode",
-    icon: "🧮",
+    icon: <CurrentTimeEmoji />,
   },
   {
     name: "Awesome",

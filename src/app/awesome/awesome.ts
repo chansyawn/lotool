@@ -25,19 +25,19 @@ export const AWESOME_TOOLS: AwesomeTool[] = [
     name: "Color Hunt",
     url: "https://colorhunt.co",
     desc: "Discover the newest hand-picked color palettes of Color Hunt. Get color inspiration for your design and art projects.",
-    icon: icons.color_hunt,
+    icon: icons.colorHunt,
   },
   {
     name: "Temp Email",
     url: "https://temp-mail.org",
     desc: "Forget about spam, advertising mailings, hacking and attacking robots. Keep your real mailbox clean and secure. Temp Mail provides temporary, secure, anonymous, free, disposable email address.",
-    icon: icons.temp_mail,
+    icon: icons.tempMail,
   },
   {
     name: "Random User Generator",
     url: "https://randomuser.me",
     desc: "A free, open-source API for generating random user data. Like Lorem Ipsum, but for people.",
-    icon: icons.random_user,
+    icon: icons.randomUser,
   },
   {
     name: "RegExr",

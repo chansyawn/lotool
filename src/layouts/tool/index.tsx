@@ -1,10 +1,10 @@
 "use client";
 
-import { WindowIcon } from "@heroicons/react/24/outline";
-import RelatedLink, { RelatedLinkInfo } from "./RelatedLink";
-import Button from "@/components/Button";
-import { PiPDocument, useDocumentPiP } from "@/hooks/useDocumentPiP";
-import useHasMounted from "@/hooks/useHasMounted";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import RelatedLink, { RelatedLinkInfo } from "./related-link";
+import { Button } from "@/components/ui/button";
+import { PiPDocument, useDocumentPiP } from "@/contexts/document-pip";
+import useHasMounted from "@/hooks/use-has-mounted";
 import cn from "@/utils/cn";
 
 type ToolProps = {
@@ -30,7 +30,7 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
           <span className="ml-1">{name}</span>
           {isSupported && !PiPWindow && (
             <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiP}>
-              <WindowIcon className="h-5 w-5" />
+              <OpenInNewWindowIcon className="h-5 w-5" />
             </Button>
           )}
         </h1>

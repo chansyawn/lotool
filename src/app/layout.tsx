@@ -6,7 +6,7 @@ import Main from "@/layouts/main";
 import { getFaviconHrefByText } from "@/utils/favicon";
 import cn from "@/utils/cn";
 import "./globals.css";
-import { initColorModeScript } from "@/styles/colorMode";
+import { initColorModeScript } from "@/styles/color-mode";
 
 export const metadata: Metadata = {
   title: "Lotool",

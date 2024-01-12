@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { GlobeIcon } from "@radix-ui/react-icons";
 import { AWESOME_TOOLS } from "./awesome";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/HoverCard";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 export const metadata: Metadata = {
   title: "Lotool - Timestamp",
@@ -21,12 +21,12 @@ const TimestampPage = () => {
             <HoverCardTrigger asChild>
               <Link
                 href={url}
-                className="flex w-fit items-center gap-1 rounded px-1 py-0.5 hover:bg-neutral-bg-hover"
+                className="flex w-fit items-center gap-1 rounded px-1 py-0.5 hover:bg-secondary"
               >
                 {icon ? (
                   <Image className="h-5 w-5 rounded" src={icon} alt={`${name}-logo`} />
                 ) : (
-                  <GlobeAltIcon className="h-5 w-5" />
+                  <GlobeIcon className="h-5 w-5" />
                 )}
                 <span className="truncate">{name}</span>
               </Link>

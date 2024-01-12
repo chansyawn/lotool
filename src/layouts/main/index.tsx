@@ -1,10 +1,10 @@
 "use client";
 
 import { Provider } from "jotai";
-import Header from "./Header";
-import { ColorModeProvider } from "./ColorModeProvider";
+import Header from "./header";
+import { ColorModeProvider } from "@/contexts/color-mode";
 import globalStore from "@/app/store";
-import { DocumentPiPProvider } from "@/hooks/useDocumentPiP";
+import { DocumentPiPProvider } from "@/contexts/document-pip";
 
 const Main = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -1,87 +1,77 @@
-/** @type {import('tailwindcss/colors')} */
-const twColors = require("tailwindcss/colors");
-const { createPlugin } = require("windy-radix-palette");
-
-const colors = createPlugin();
-
-const StandardAlias = (name) => ({
-  base: {
-    DEFAULT: colors.alias(name, 1),
-    subtle: colors.alias(name, 2),
-  },
-  bg: {
-    DEFAULT: colors.alias(name, 3),
-    hover: colors.alias(name, 4),
-    active: colors.alias(name, 5),
-  },
-  line: colors.alias(name, 6),
-  border: {
-    DEFAULT: colors.alias(name, 7),
-    hover: colors.alias(name, 8),
-  },
-  solid: {
-    DEFAULT: colors.alias(name, 9),
-    hover: colors.alias(name, 10),
-  },
-  text: {
-    DEFAULT: colors.alias(name, 11),
-    contrast: colors.alias(name, 12),
-  },
-});
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  future: {
-    respectDefaultRingColorOpacity: true,
-  },
   darkMode: ["class", '[data-color-mode="dark"]'],
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  prefix: "",
   theme: {
-    colors: {
-      inherit: twColors.inherit,
-      current: twColors.current,
-      transparent: twColors.transparent,
-      white: twColors.white,
-      black: twColors.black,
-      mode: {
-        DEFAULT: "var(--color-mode)",
-        revert: "var(--color-mode-revert)",
-      },
-      text: {
-        DEFAULT: "var(--color-text)",
-        revert: "var(--color-text-revert)",
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1400px",
       },
     },
     extend: {
+      fontFamily: { sans: ["var(--font-roboto-flex)"], mono: ["var(--font-roboto-mono)"] },
       colors: {
-        primary: StandardAlias("jade"),
-        neutral: StandardAlias("gray"),
-        success: StandardAlias("green"),
-        warning: StandardAlias("amber"),
-        error: StandardAlias("red"),
-        page: "var(--color-page-background)",
-        popover: "var(--color-popover-background)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
-      borderColor: ({ theme }) => ({
-        DEFAULT: theme("colors.neutral.border.DEFAULT"),
-      }),
-      ringColor: ({ theme }) => ({
-        DEFAULT: theme("colors.primary.bg.DEFAULT"),
-      }),
-      transitionDuration: {
-        DEFAULT: "200ms",
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily: {
-        sans: ["var(--font-roboto-flex)"],
-        mono: ["var(--font-roboto-mono)"],
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
       },
-    },
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
     },
   },
-  plugins: [colors.plugin, require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")],
 };
