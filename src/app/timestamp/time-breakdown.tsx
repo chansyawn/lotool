@@ -19,6 +19,7 @@ import { UTCDate } from "@date-fns/utc";
 import TimezoneSelector from "./timezone-selector";
 import TimeBreakdownInput from "./time-breakdown-input";
 import { getOffset } from "./utils";
+import { Button } from "@/components/ui/button";
 
 export type TimeField =
   | "year"
@@ -51,7 +52,7 @@ const TIME_FIELDS: {
 ];
 
 const TimeBreakdown = ({ value, onChange, level, timezone }: TimeBreakdownProps) => {
-  const timezoneOffset = getOffset(timezone);
+  const timezoneOffset = getOffset(timezone ?? "UTC");
   const date = addMinutes(new UTCDate(value), timezoneOffset);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 
@@ -90,7 +91,7 @@ const TimeBreakdown = ({ value, onChange, level, timezone }: TimeBreakdownProps)
 };
 
 type TimeBreakdownWithFixedTimezoneProps = {
-  remark: string;
+  remark?: string;
   suffix?: React.ReactNode;
 } & TimeBreakdownProps;
 
@@ -102,12 +103,14 @@ export const TimeBreakdownWithFixedTimezone = ({
 }: TimeBreakdownWithFixedTimezoneProps) => {
   return (
     <div className="flex gap-x-2">
-      <div className="w-24">
+      <div className="w-40">
         <span className="text-sm">Timezone</span>
-        <div className="flex items-center p-1">
-          {timezone}
-          <span className="ml-1 text-xs">{remark && `${remark}`}</span>
-        </div>
+        <Button className="w-full justify-start" variant="outline" disabled>
+          <span className="truncate">
+            {timezone}
+            <span className="ml-1 text-xs">{remark && `${remark}`}</span>
+          </span>
+        </Button>
       </div>
       <TimeBreakdown timezone={timezone} {...breakdownProps} />
       {suffix}
@@ -129,7 +132,7 @@ export const TimeBreakdownWithCustomTimezone = ({
 
   return (
     <div className="flex gap-x-2">
-      <div className="w-24 flex-shrink-0">
+      <div className="w-40">
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(value) => onTimezoneChange(value)} />
       </div>

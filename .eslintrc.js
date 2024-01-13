@@ -1,6 +1,6 @@
 module.exports = {
   extends: ["plugin:@typescript-eslint/recommended", "next/core-web-vitals", "prettier"],
-  ignorePatterns: ["/*", "!/src"],
+  ignorePatterns: ["/*", "!/src", "/src/components/ui"],
   rules: {
     "no-console": "warn",
     "react/self-closing-comp": "warn",

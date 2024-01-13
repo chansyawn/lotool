@@ -8,7 +8,7 @@ import TimestampUnitSwitcher from "./timestamp-unit-switcher";
 import RelativeTime from "./relative-time";
 import TimeShortcuts from "./time-shortcuts";
 import { TimestampUnit, timezoneAtomsAtom, unitAtom } from "./persist";
-import { fixTimestamp, getTzNameByOffset } from "./utils";
+import { fixTimestamp, getUtcTimezoneNameByOffset } from "./utils";
 import { TimeBreakdownWithCustomTimezone, TimeBreakdownWithFixedTimezone } from "./time-breakdown";
 import { Input } from "@/components/ui/input";
 
@@ -29,7 +29,6 @@ const Timestamp = () => {
   const unitRatio = TimeUnitConfig[unit].ratio;
 
   const [timestamp, setTimestamp] = useState(fixTimestamp(new Date().valueOf(), unitRatio));
-  const localUtcOffset = getTzNameByOffset(-new Date().getTimezoneOffset() / 60);
   const timestampDisplay = timestamp / unitRatio;
 
   const handleTimestampChange = (value: number) => {
@@ -97,19 +96,20 @@ const Timestamp = () => {
           value={timestamp}
           level={unit}
           onChange={handleTimestampChange}
-          timezone={localUtcOffset}
-          remark="(your)"
+          timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
         />
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
           level="minutes"
           onChange={handleTimestampChange}
-          timezone={getTzNameByOffset(0)}
+          timezone={getUtcTimezoneNameByOffset(0)}
           remark="(UTC)"
           suffix={
             <PlusCircledIcon
               className="mb-2.5 h-4 w-4 flex-shrink-0 cursor-pointer self-end"
-              onClick={() => dispatchTimezones({ type: "insert", value: getTzNameByOffset(0) })}
+              onClick={() =>
+                dispatchTimezones({ type: "insert", value: getUtcTimezoneNameByOffset(0) })
+              }
             />
           }
         />
