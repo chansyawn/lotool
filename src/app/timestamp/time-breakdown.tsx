@@ -105,7 +105,7 @@ export const TimeBreakdownWithFixedTimezone = ({
     <div className="flex gap-x-2">
       <div className="w-40 flex-shrink-0 xl:w-64">
         <span className="text-sm">Timezone</span>
-        <Button className="w-full justify-start" variant="outline" disabled>
+        <Button className="w-full justify-start disabled:opacity-100" variant="outline" disabled>
           <span className="truncate">
             {timezone}
             <span className="ml-1 text-xs">{remark && `${remark}`}</span>
