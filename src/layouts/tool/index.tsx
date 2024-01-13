@@ -28,7 +28,8 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
         <h1 className="mb-4 flex text-3xl font-semibold">
           {icon}
           <span className="ml-1">{name}</span>
-          {isSupported && !pipWindow && (
+          {/* disable pip feature temporarily */}
+          {false && isSupported && !pipWindow && (
             <Button variant="ghost" size="icon" className="ml-2" onClick={openPiP}>
               <OpenInNewWindowIcon className="h-4 w-4" />
             </Button>
