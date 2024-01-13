@@ -16,15 +16,11 @@ type RelatedLinkProps = {
 const RelatedLink = ({ links }: RelatedLinkProps) => {
   return (
     <div>
-      <h2 className="text-lg font-medium">Related Links</h2>
-      <ul>
+      <h2 className="mb-1 text-xl font-medium">Related Links</h2>
+      <ul className="space-y-2">
         {links.map(({ label, href, type }) => (
           <li key={label}>
-            <Button
-              className="inline-flex h-auto items-center space-x-1 p-0"
-              variant="link"
-              asChild
-            >
+            <Button size="sm" className="space-x-1 text-sm" variant="secondary" asChild>
               <a href={href} target="_blank">
                 <RelatedLinkIcon type={type} />
                 <span>{label}</span>

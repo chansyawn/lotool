@@ -2,7 +2,7 @@
 
 import { PrimitiveAtom, useAtom } from "jotai";
 import React from "react";
-import { MinusCircledIcon } from "@radix-ui/react-icons";
+import { TrashIcon } from "@radix-ui/react-icons";
 import {
   addDays,
   getDate,
@@ -57,7 +57,7 @@ const TimeBreakdown = ({ value, onChange, level, timezone }: TimeBreakdownProps)
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 
   return (
-    <div className="flex flex-wrap gap-x-2 gap-y-1">
+    <>
       {TIME_FIELDS.slice(0, fieldIdx + 1).map(({ label, field, get }) => {
         let width = "8ch";
         if (field === "year") {
@@ -65,7 +65,7 @@ const TimeBreakdown = ({ value, onChange, level, timezone }: TimeBreakdownProps)
           const yearLength = Math.max(4, ("" + getYear(addDays(value, isPositiveYear))).length);
           width = `${6 + yearLength}ch`;
         } else if (field === "milliseconds") {
-          width = "8ch";
+          width = "9ch";
         }
 
         return (
@@ -86,7 +86,7 @@ const TimeBreakdown = ({ value, onChange, level, timezone }: TimeBreakdownProps)
           />
         );
       })}
-    </div>
+    </>
   );
 };
 
@@ -112,8 +112,10 @@ export const TimeBreakdownWithFixedTimezone = ({
           </span>
         </Button>
       </div>
-      <TimeBreakdown timezone={timezone} {...breakdownProps} />
-      {suffix}
+      <div className="flex flex-wrap gap-x-2 gap-y-1">
+        <TimeBreakdown timezone={timezone} {...breakdownProps} />
+        {suffix}
+      </div>
     </div>
   );
 };
@@ -136,11 +138,12 @@ export const TimeBreakdownWithCustomTimezone = ({
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(value) => onTimezoneChange(value)} />
       </div>
-      <TimeBreakdown timezone={timezone} {...breakdownProps} />
-      <MinusCircledIcon
-        className="mb-2.5 h-4 w-4 flex-shrink-0 cursor-pointer self-end"
-        onClick={onRemove}
-      />
+      <div className="flex flex-wrap gap-x-2 gap-y-1">
+        <TimeBreakdown timezone={timezone} {...breakdownProps} />
+        <Button size="icon" className="self-end" variant="secondary">
+          <TrashIcon onClick={onRemove} />
+        </Button>
+      </div>
     </div>
   );
 };

@@ -23,7 +23,12 @@ const TimestampBreakdownInput = ({
         style={{ width }}
         className="block"
         value={value}
-        onChange={(e) => onChange(e.target.valueAsNumber)}
+        onChange={(e) => {
+          if (!e.target.valueAsNumber) {
+            return;
+          }
+          onChange(e.target.valueAsNumber);
+        }}
       />
     </div>
   );

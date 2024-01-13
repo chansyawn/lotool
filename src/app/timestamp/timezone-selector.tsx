@@ -67,9 +67,11 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
       <PopoverContent className="p-0" align="start">
         <Command>
           <CommandInput className="border-b-0" placeholder="Search Timezone..." />
-          <div className="flex items-center gap-1 border-b p-2">
-            <Switch checked={utcMode} onCheckedChange={handleUtcModeChange} />
-            <Label className="text-sm font-normal">UTC Offset Mode</Label>
+          <div className="flex items-center border-b p-2">
+            <Switch id="utc-mode" checked={utcMode} onCheckedChange={handleUtcModeChange} />
+            <Label htmlFor="utc-mode" className="ml-2 text-sm font-normal">
+              UTC Offset Mode
+            </Label>
           </div>
           <CommandEmpty>No timezone found.</CommandEmpty>
           <CommandGroup className="max-h-56 overflow-y-auto">

@@ -21,11 +21,11 @@ const SHORTCUTS: { name: string; getValue: (timestamp: number) => number }[] = [
 
 const TimeShortcuts = ({ timestamp, onClick }: TimeShortcutsProps) => {
   return (
-    <div className="mt-2 flex select-none flex-wrap gap-2">
+    <div className="flex select-none flex-wrap gap-2">
       {SHORTCUTS.map(({ name, getValue }) => (
         <Button
-          variant="link"
-          className="h-auto p-0"
+          size="sm"
+          variant="secondary"
           key={name}
           onClick={() => onClick(getValue(timestamp))}
         >

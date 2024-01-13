@@ -15,10 +15,10 @@ const CurrentTime = () => {
   }, []);
 
   return (
-    <section>
+    <div>
       <div className="ml-auto text-4xl">{currTimestampSeconds}</div>
       <div>seconds since 1970/1/1</div>
-    </section>
+    </div>
   );
 };
 

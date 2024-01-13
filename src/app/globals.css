@@ -70,7 +70,20 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background font-sans text-foreground;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded bg-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-primary/50;
   }
 }

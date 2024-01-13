@@ -19,7 +19,7 @@ const RelativeTime = ({ timestamp }: RelativeTimeProps) => {
     return () => clearInterval(updateInterval);
   }, [timestamp]);
 
-  return <span>( {relativeTime} )</span>;
+  return <div className="ml-1 text-muted-foreground">( {relativeTime} )</div>;
 };
 
 const getRelativeTime = (timestamp: number) => {
