@@ -110,7 +110,10 @@ const Timestamp = () => {
             <PlusIcon
               className="h-4 w-4"
               onClick={() =>
-                dispatchTimezones({ type: "insert", value: getUtcTimezoneNameByOffset(0) })
+                dispatchTimezones({
+                  type: "insert",
+                  value: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                })
               }
             />
           </Button>
