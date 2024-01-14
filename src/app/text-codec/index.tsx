@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import {
   CHARACTER_ENCODING_LIST,
   CharacterEncoding,
@@ -8,7 +8,8 @@ import {
   TextEncoding,
 } from "./codec-method";
 import GeneralEditTool from "./general-edit-tool";
-import { Textarea } from "@/components/ui/textarea";
+import CodecInput from "./codec-input";
+import CodecOutput from "./codec-output";
 
 const EncodeDecode = () => {
   const [input, setInput] = useState("");
@@ -34,13 +35,16 @@ const EncodeDecode = () => {
     }
   };
 
-  const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const text = e.target.value;
-    setInput(text);
+  const handleModeChange = (value: "Encode" | "Decode") => {
+    setMode(value);
+    setInput(generateOutput(input));
+  };
+
+  const handleInputChange = (value: string) => {
+    setInput(value);
   };
 
   const handleExchangeButtonClick = () => {
-    setMode(mode === "Encode" ? "Decode" : "Encode");
     setInput(generateOutput(input));
   };
 
@@ -48,23 +52,16 @@ const EncodeDecode = () => {
     <div className="space-y-2">
       <GeneralEditTool
         mode={mode}
-        setMode={setMode}
+        setMode={handleModeChange}
         textEncoding={textEncoding}
         setTextEncoding={setTextEncoding}
         characterEncoding={characterEncoding}
         setCharacterEncoding={setCharacterEncoding}
         onExchangeButtonClick={handleExchangeButtonClick}
       />
-      <div className="flex h-[36rem] flex-col gap-4 xl:flex-row">
-        <Textarea
-          placeholder="Enter text to be encoded"
-          className="h-full flex-1 resize-none break-all"
-          value={input}
-          onChange={handleTextChange}
-        />
-        <div className="h-full flex-1 break-all rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground shadow-sm">
-          {generateOutput(input)}
-        </div>
+      <div className="flex h-[36rem] flex-col gap-2 xl:flex-row">
+        <CodecInput value={input} onChange={handleInputChange} />
+        <CodecOutput value={generateOutput(input)} />
       </div>
     </div>
   );

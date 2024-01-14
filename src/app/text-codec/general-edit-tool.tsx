@@ -7,6 +7,7 @@ import {
   TEXT_ENCODING_LIST,
   TextEncoding,
 } from "./codec-method";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -53,9 +54,16 @@ const GeneralEditTool = ({
               </TabsTrigger>
             ))}
           </TabsList>
-          <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-            <LoopIcon />
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
+                  <LoopIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Exchange Input and Output</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </Tabs>
       </EditToolItem>
       <EditToolItem label="Text Encoding">
