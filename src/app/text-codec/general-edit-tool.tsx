@@ -76,6 +76,7 @@ const GeneralEditTool = ({
       </EditToolItem>
       <EditToolItem label="Character Encoding">
         <Select
+          disabled={textEncoding === TextEncoding.URL}
           value={characterEncoding}
           onValueChange={(value: CharacterEncoding) => setCharacterEncoding(value)}
         >
