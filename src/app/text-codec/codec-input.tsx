@@ -4,7 +4,7 @@ import { ClipboardIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import useClipboard from "@/hooks/use-clipboard";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import SimpleTooltip from "@/components/simple-tooltip";
 
 type CodecInputProps = {
   value: string;
@@ -18,16 +18,11 @@ const CodecInput = ({ value, onChange }: CodecInputProps) => {
     <div className="flex flex-1 flex-col">
       <div className="mb-1 flex items-center gap-2 px-1">
         <div className="mr-auto text-lg font-medium">Input</div>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button variant="ghost" size="icon" onClick={() => paste().then(onChange)}>
-                <ClipboardIcon />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Paste from clipboard</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <SimpleTooltip content="Paste from clipboard">
+          <Button variant="ghost" size="icon" onClick={() => paste().then(onChange)}>
+            <ClipboardIcon />
+          </Button>
+        </SimpleTooltip>
       </div>
       <Textarea
         placeholder="Enter text to be encoded"

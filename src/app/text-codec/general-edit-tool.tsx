@@ -7,17 +7,11 @@ import {
   TEXT_ENCODING_LIST,
   TextEncoding,
 } from "./codec-method";
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
+import SimpleSelect from "@/components/simple-select";
+import SimpleTooltip from "@/components/simple-tooltip";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
 
@@ -58,65 +52,42 @@ const GeneralEditTool = ({
         </Tabs>
       </EditToolItem>
       <EditToolItem label="Text Encoding">
-        <Select
+        <SimpleSelect
+          className="w-40"
+          placeholder="Select Text Encoding"
           value={textEncoding}
           onValueChange={(value: TextEncoding) => setTextEncoding(value)}
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue placeholder="Select Text Encoding" />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.keys(TEXT_ENCODING_LIST).map((item) => (
-              <SelectItem key={item} value={item}>
-                {item}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          options={Object.keys(TEXT_ENCODING_LIST).map((item) => ({ value: item, label: item }))}
+        />
       </EditToolItem>
       <EditToolItem label="Character Encoding">
-        <Select
+        <SimpleSelect
           disabled={textEncoding === TextEncoding.URL}
+          className="w-40"
+          placeholder="Select Character Encoding"
           value={characterEncoding}
           onValueChange={(value: CharacterEncoding) => setCharacterEncoding(value)}
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue placeholder="Select Character Encoding" />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.keys(CHARACTER_ENCODING_LIST).map((item) => (
-              <SelectItem key={item} value={item}>
-                {item}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          options={Object.keys(CHARACTER_ENCODING_LIST).map((item) => ({
+            value: item,
+            label: item,
+          }))}
+        />
       </EditToolItem>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-              <LoopIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Exchange Input and Output</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <Toggle
-              variant="outline"
-              className="h-9 w-9 p-0"
-              pressed={multiLineMode}
-              onPressedChange={setMultiLineMode}
-            >
-              <RowsIcon />
-            </Toggle>
-          </TooltipTrigger>
-          <TooltipContent>Handle each line separately</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <SimpleTooltip content="Use output as input">
+        <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
+          <LoopIcon />
+        </Button>
+      </SimpleTooltip>
+      <SimpleTooltip content="Handle each line separately">
+        <Toggle
+          variant="outline"
+          className="h-9 w-9 p-0"
+          pressed={multiLineMode}
+          onPressedChange={setMultiLineMode}
+        >
+          <RowsIcon />
+        </Toggle>
+      </SimpleTooltip>
     </div>
   );
 };
