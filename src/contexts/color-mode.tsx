@@ -5,10 +5,19 @@ import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import useHasMounted from "@/hooks/use-has-mounted";
 import useMediaQuery from "@/hooks/use-media-query";
-import { colorModeAttribute } from "@/styles/color-mode";
 import LocalStorageKey from "@/constants/local-storage-key";
 
+export const colorModeAttribute = "data-color-mode";
+
 export type ColorMode = "light" | "dark" | "system";
+
+const getColorModeFromStorage = (value: string | null) => {
+  if (value && ["light", "dark", "system"].includes(value)) {
+    return value as ColorMode;
+  } else {
+    return "system";
+  }
+};
 
 const colorModeAtom = atomWithStorage<ColorMode>(LocalStorageKey.ColorMode, "system", {
   getItem: (key) => getColorModeFromStorage(localStorage.getItem(key)),
@@ -30,14 +39,6 @@ const colorModeAtom = atomWithStorage<ColorMode>(LocalStorageKey.ColorMode, "sys
     };
   },
 });
-
-const getColorModeFromStorage = (value: string | null) => {
-  if (value && ["light", "dark", "system"].includes(value)) {
-    return value as ColorMode;
-  } else {
-    return "system";
-  }
-};
 
 export const useColorMode = () => {
   return useAtom(colorModeAtom);
@@ -70,3 +71,18 @@ export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
 
   return <>{children}</>;
 };
+
+export const initColorModeScript = `
+(function () {
+  const colorMode = localStorage.getItem("${LocalStorageKey.ColorMode}");
+  if (colorMode && ["light", "dark"].includes(colorMode)) {
+    document.documentElement.setAttribute("${colorModeAttribute}", colorMode);
+  } else {
+    document.documentElement.setAttribute(
+      "${colorModeAttribute}",
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+    );
+    localStorage.setItem("${LocalStorageKey.ColorMode}", "system");
+  }
+})();
+`;
