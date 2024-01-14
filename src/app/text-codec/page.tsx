@@ -19,7 +19,7 @@ const RelatedLink: RelatedLinkInfo[] = [
 
 const Page = () => {
   return (
-    <Tool name="Encode & Decode" icon="🧮" relativeLink={RelatedLink}>
+    <Tool name="Text Codec" icon="🔣" relativeLink={RelatedLink}>
       <PageContent />
     </Tool>
   );

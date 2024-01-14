@@ -13,6 +13,11 @@ export const ROUTES: Route[] = [
     icon: <CurrentTimeEmoji />,
   },
   {
+    name: "Text Codec",
+    href: "/text-codec",
+    icon: "🔣",
+  },
+  {
     name: "Awesome",
     href: "/awesome",
     icon: "⭐",
