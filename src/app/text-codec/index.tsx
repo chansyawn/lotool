@@ -14,6 +14,7 @@ import CodecOutput from "./codec-output";
 const EncodeDecode = () => {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"Encode" | "Decode">("Encode");
+  const [multiLineMode, setMultiLineMode] = useState(false);
   const [textEncoding, setTextEncoding] = useState<TextEncoding>(TextEncoding.Base64);
   const [characterEncoding, setCharacterEncoding] = useState<CharacterEncoding>(
     CharacterEncoding.UTF_8,
@@ -24,11 +25,22 @@ const EncodeDecode = () => {
     const { encode: encodeCharacter, decode: decodeCharacter } =
       CHARACTER_ENCODING_LIST[characterEncoding];
 
-    try {
+    const generateOutput = (content: string) => {
       if (mode === "Encode") {
-        return encodeText(encodeCharacter(input));
+        return encodeText(encodeCharacter(content));
       } else {
-        return decodeCharacter(decodeText(input));
+        return decodeCharacter(decodeText(content));
+      }
+    };
+
+    try {
+      if (multiLineMode) {
+        return input
+          .split("\n")
+          .map((content) => generateOutput(content))
+          .join("\n");
+      } else {
+        return generateOutput(input);
       }
     } catch (e) {
       return "Invalid input";
@@ -58,6 +70,8 @@ const EncodeDecode = () => {
         characterEncoding={characterEncoding}
         setCharacterEncoding={setCharacterEncoding}
         onExchangeButtonClick={handleExchangeButtonClick}
+        multiLineMode={multiLineMode}
+        setMultiLineMode={setMultiLineMode}
       />
       <div className="flex h-[36rem] flex-col gap-2 xl:flex-row">
         <CodecInput value={input} onChange={handleInputChange} />

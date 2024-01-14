@@ -27,7 +27,7 @@ const CodecOutput = ({ value }: CodecOutputProps) => {
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className="flex-1 overflow-auto break-all rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground shadow-sm">
+      <div className="flex-1 overflow-auto whitespace-pre-wrap break-all rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground shadow-sm">
         {value}
       </div>
     </div>

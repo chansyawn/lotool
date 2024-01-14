@@ -1,6 +1,6 @@
 "use client";
 
-import { LoopIcon } from "@radix-ui/react-icons";
+import { LoopIcon, RowsIcon } from "@radix-ui/react-icons";
 import {
   CHARACTER_ENCODING_LIST,
   CharacterEncoding,
@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Toggle } from "@/components/ui/toggle";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
 
@@ -28,6 +29,8 @@ type GeneralEditToolProps = {
   characterEncoding: CharacterEncoding;
   setCharacterEncoding: (value: CharacterEncoding) => void;
   onExchangeButtonClick: () => void;
+  multiLineMode: boolean;
+  setMultiLineMode: (value: boolean) => void;
 };
 
 const GeneralEditTool = ({
@@ -38,15 +41,13 @@ const GeneralEditTool = ({
   characterEncoding,
   setCharacterEncoding,
   onExchangeButtonClick,
+  multiLineMode,
+  setMultiLineMode,
 }: GeneralEditToolProps) => {
   return (
     <div className="flex flex-wrap items-end gap-2">
       <EditToolItem label="Mode">
-        <Tabs
-          className="flex gap-2"
-          value={mode}
-          onValueChange={setMode as (value: string) => void}
-        >
+        <Tabs value={mode} onValueChange={setMode as (value: string) => void}>
           <TabsList>
             {MODE_OPTIONS.map((item) => (
               <TabsTrigger key={item} value={item}>
@@ -54,16 +55,6 @@ const GeneralEditTool = ({
               </TabsTrigger>
             ))}
           </TabsList>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-                  <LoopIcon />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Exchange Input and Output</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
         </Tabs>
       </EditToolItem>
       <EditToolItem label="Text Encoding">
@@ -100,6 +91,31 @@ const GeneralEditTool = ({
           </SelectContent>
         </Select>
       </EditToolItem>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
+              <LoopIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Exchange Input and Output</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Toggle
+              variant="outline"
+              className="h-9 w-9 p-0"
+              pressed={multiLineMode}
+              onPressedChange={setMultiLineMode}
+            >
+              <RowsIcon />
+            </Toggle>
+          </TooltipTrigger>
+          <TooltipContent>Handle each line separately</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 };
