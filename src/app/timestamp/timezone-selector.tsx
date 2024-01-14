@@ -61,7 +61,7 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-full">
           <span className="mr-auto truncate">{value}</span>
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <CaretSortIcon className="ml-2 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" align="start">
@@ -78,7 +78,7 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
             {timezoneOptions.map(({ label, value: timezone, offset }) => (
               <CommandItem key={timezone} value={timezone} onSelect={() => handleSelect(timezone)}>
                 <CheckIcon
-                  className={cn("mr-2 h-4 w-4", value === timezone ? "opacity-100" : "opacity-0")}
+                  className={cn("mr-2", value === timezone ? "opacity-100" : "opacity-0")}
                 />
                 <span className="truncate">{label}</span>
                 {!utcMode && (

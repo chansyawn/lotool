@@ -31,7 +31,7 @@ const Tool = ({ name, icon, children, relativeLink }: ToolProps) => {
           {/* disable pip feature temporarily */}
           {false && isSupported && !pipWindow && (
             <Button variant="ghost" size="icon" className="ml-2" onClick={openPiP}>
-              <OpenInNewWindowIcon className="h-4 w-4" />
+              <OpenInNewWindowIcon />
             </Button>
           )}
         </h1>

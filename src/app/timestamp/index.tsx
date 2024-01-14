@@ -108,7 +108,6 @@ const Timestamp = () => {
         suffix={
           <Button size="icon" className="self-end" variant="secondary">
             <PlusIcon
-              className="h-4 w-4"
               onClick={() =>
                 dispatchTimezones({
                   type: "insert",
