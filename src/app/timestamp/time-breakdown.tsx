@@ -140,8 +140,8 @@ export const TimeBreakdownWithCustomTimezone = ({
       </div>
       <div className="flex flex-wrap gap-x-2 gap-y-1">
         <TimeBreakdown timezone={timezone} {...breakdownProps} />
-        <Button size="icon" className="self-end" variant="secondary">
-          <TrashIcon onClick={onRemove} />
+        <Button size="icon" className="self-end" variant="secondary" onClick={onRemove}>
+          <TrashIcon />
         </Button>
       </div>
     </div>

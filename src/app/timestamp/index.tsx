@@ -61,6 +61,13 @@ const Timestamp = () => {
     handleTimestampChange(fixTimestamp(value, unitRatio));
   };
 
+  const handleAddTimezone = () => {
+    dispatchTimezones({
+      type: "insert",
+      value: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+  };
+
   return (
     <div className="space-y-1">
       <CurrentTime />
@@ -106,15 +113,8 @@ const Timestamp = () => {
         timezone={getUtcTimezoneNameByOffset(0)}
         remark="(UTC)"
         suffix={
-          <Button size="icon" className="self-end" variant="secondary">
-            <PlusIcon
-              onClick={() =>
-                dispatchTimezones({
-                  type: "insert",
-                  value: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                })
-              }
-            />
+          <Button size="icon" className="self-end" variant="secondary" onClick={handleAddTimezone}>
+            <PlusIcon />
           </Button>
         }
       />
