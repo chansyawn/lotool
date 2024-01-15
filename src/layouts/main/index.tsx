@@ -11,8 +11,12 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     <Provider store={globalStore}>
       <ColorModeProvider>
         <DocumentPiPProvider>
-          <Header />
-          <div className="container isolate px-3">{children}</div>
+          <div className="flex h-screen flex-col">
+            <Header />
+            <div className="flex-1 overflow-auto">
+              <div className="container isolate px-3 pt-4">{children}</div>
+            </div>
+          </div>
         </DocumentPiPProvider>
       </ColorModeProvider>
     </Provider>
