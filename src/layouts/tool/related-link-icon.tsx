@@ -15,7 +15,7 @@ type RelatedLinkIconProps = {
 const RelatedLinkIcon = ({ type }: RelatedLinkIconProps) => {
   const Icon = type ? LinkIconMap[type] : Link1Icon;
 
-  return <Icon className="h-4 w-4 fill-current" />;
+  return <Icon className="size-4 fill-current" />;
 };
 
 export default RelatedLinkIcon;

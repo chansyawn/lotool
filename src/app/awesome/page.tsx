@@ -24,16 +24,16 @@ const TimestampPage = () => {
                 className="flex w-fit items-center gap-1 rounded px-1 py-0.5 hover:bg-secondary"
               >
                 {icon ? (
-                  <Image className="h-5 w-5 rounded" src={icon} alt={`${name}-logo`} />
+                  <Image className="size-5 rounded" src={icon} alt={`${name}-logo`} />
                 ) : (
-                  <GlobeIcon className="h-5 w-5" />
+                  <GlobeIcon className="size-5" />
                 )}
                 <span className="truncate">{name}</span>
               </Link>
             </HoverCardTrigger>
             <HoverCardContent>
               <div className="flex flex-col gap-2">
-                {icon && <Image className="h-8 w-8" src={icon} alt={`${name}-logo`} />}
+                {icon && <Image className="size-8" src={icon} alt={`${name}-logo`} />}
                 <div className="font-medium">{name}</div>
                 <div>{desc}</div>
               </div>

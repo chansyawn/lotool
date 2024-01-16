@@ -1,25 +1,23 @@
 import CurrentTimeEmoji from "./timestamp/current-time-emoji";
 
-type Route = {
+type Tool = {
   name: string;
   href: string;
   icon: React.ReactNode;
+  description: string;
 };
 
-export const ROUTES: Route[] = [
+export const TOOLS: Tool[] = [
   {
     name: "Timestamp",
     href: "/timestamp",
     icon: <CurrentTimeEmoji />,
+    description: "Format timestamp",
   },
   {
     name: "Text Codec",
     href: "/text-codec",
     icon: "🔣",
-  },
-  {
-    name: "Awesome",
-    href: "/awesome",
-    icon: "⭐",
+    description: "Encode and decode text",
   },
 ];

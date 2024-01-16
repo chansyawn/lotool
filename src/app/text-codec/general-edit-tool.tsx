@@ -80,7 +80,7 @@ const GeneralEditTool = ({
       <SimpleTooltip content="Handle each line separately">
         <Toggle
           variant="outline"
-          className="h-9 w-9 p-0"
+          className="size-9 p-0"
           pressed={multiLineMode}
           onPressedChange={setMultiLineMode}
         >
