@@ -25,9 +25,6 @@ const EncodeDecode = () => {
 
   const handleTextEncodingChange = (value: TextEncoding) => {
     setTextEncoding(value);
-    if (value === TextEncoding.URL) {
-      setCharacterEncoding(CharacterEncoding.UTF_8);
-    }
   };
 
   const handleModeChange = (value: "Encode" | "Decode") => {

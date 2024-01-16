@@ -7,7 +7,6 @@ export enum TextEncoding {
   Base64_URL = "Base64 URL",
   Binary = "Binary",
   Binary_HEX = "Binary HEX",
-  URL = "URL",
 }
 
 export enum CharacterEncoding {
@@ -71,9 +70,5 @@ export const TEXT_ENCODING_LIST: Record<
   [TextEncoding.Binary_HEX]: {
     encode: (binary) => binaryToString(binary, 16),
     decode: (text) => stringToBinary(text, 16),
-  },
-  [TextEncoding.URL]: {
-    encode: (binary) => encodeURI(new TextDecoder("utf-8").decode(binary)),
-    decode: (text) => new TextEncoder().encode(decodeURI(text)),
   },
 };

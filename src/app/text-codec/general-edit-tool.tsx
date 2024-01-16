@@ -62,7 +62,6 @@ const GeneralEditTool = ({
       </EditToolItem>
       <EditToolItem label="Character Encoding">
         <SimpleSelect
-          disabled={textEncoding === TextEncoding.URL}
           className="w-40"
           placeholder="Select Character Encoding"
           value={characterEncoding}
