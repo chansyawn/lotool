@@ -3,12 +3,8 @@ import { headers } from "next/headers";
 import TOOL_CONFIG from "./config";
 import Tool from "./_layout";
 
-export const HEADER_TOOL_PATH = "x-tool-path";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const tool = TOOL_CONFIG.find(
-    (tool) => `/tools/${tool.path}` === headers().get(HEADER_TOOL_PATH),
-  );
+  const tool = TOOL_CONFIG.find((tool) => `/tools/${tool.path}` === headers().get("x-tool-path"));
   if (!tool) {
     return {};
   }
