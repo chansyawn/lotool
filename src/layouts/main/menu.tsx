@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BackpackIcon, StarIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
 import cn from "@/utils/cn";
 import {
   NavigationMenu,
@@ -12,7 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { TOOLS } from "@/app/routes";
+import { TOOLS } from "@/app/tools";
 
 export const Menu = () => {
   return (
@@ -25,13 +26,13 @@ export const Menu = () => {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-64 gap-3 p-2">
-              {TOOLS.map(({ name, href, icon, description }) => (
+              {TOOLS.map(({ path, name, description }) => (
                 <MenuItem
-                  key={href}
+                  key={path}
                   title={name}
-                  href={href}
+                  href={`/${path}`}
                   description={description}
-                  icon={icon}
+                  icon={`/${path}/icon.svg`}
                 />
               ))}
             </ul>
@@ -55,7 +56,7 @@ type MenuItemProps = {
   href: string;
   description: string;
   className?: string;
-  icon?: React.ReactNode;
+  icon?: string;
 };
 
 const MenuItem = ({ className, title, description, href, icon }: MenuItemProps) => {
@@ -68,7 +69,15 @@ const MenuItem = ({ className, title, description, href, icon }: MenuItemProps) 
             className,
           )}
         >
-          {icon && <div className="mr-1 text-3xl">{icon}</div>}
+          {icon && (
+            <Image
+              className="mr-1 text-3xl"
+              width={24}
+              height={24}
+              src={icon}
+              alt={`${title}-logo`}
+            />
+          )}
           <div className="flex-1 overflow-hidden">
             <div className="text-sm font-medium leading-none">{title}</div>
             <p className="truncate text-sm leading-snug text-muted-foreground">{description}</p>
