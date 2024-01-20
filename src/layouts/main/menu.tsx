@@ -30,9 +30,9 @@ export const Menu = () => {
                 <MenuItem
                   key={path}
                   title={name}
-                  href={`/${path}`}
+                  href={`/tools/${path}`}
                   description={description}
-                  icon={`/${path}/icon.svg`}
+                  icon={`/tools/${path}/icon.svg`}
                 />
               ))}
             </ul>
