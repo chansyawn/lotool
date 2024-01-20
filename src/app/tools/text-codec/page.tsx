@@ -1,27 +1,55 @@
-import dynamic from "next/dynamic";
-import { Metadata } from "next";
-import Tool from "@/layouts/tool";
-import { RelatedLinkInfo } from "@/layouts/tool/related-link";
+"use client";
 
-const PageContent = dynamic(() => import("."), { ssr: false });
-
-export const metadata: Metadata = {
-  title: "Lotool - Encode",
-};
-
-const RelatedLink: RelatedLinkInfo[] = [
-  {
-    type: "wiki",
-    label: "Base 64",
-    href: "https://en.wikipedia.org/wiki/Base64",
-  },
-];
+import { useState } from "react";
+import { CharacterEncoding, TextEncoding } from "./codec-method";
+import GeneralEditTool from "./general-edit-tool";
+import CodecInput from "./codec-input";
+import CodecOutput from "./codec-output";
+import useTextCodec from "./useTextCodec";
 
 const Page = () => {
+  const [input, setInput] = useState("");
+  const [mode, setMode] = useState<"Encode" | "Decode">("Encode");
+  const [multiLineMode, setMultiLineMode] = useState(false);
+  const [textEncoding, setTextEncoding] = useState<TextEncoding>(TextEncoding.Base64);
+  const [characterEncoding, setCharacterEncoding] = useState<CharacterEncoding>(
+    CharacterEncoding.UTF_8,
+  );
+
+  const output = useTextCodec(input, {
+    mode,
+    multiLineMode,
+    textEncoding,
+    characterEncoding,
+  });
+
+  const handleTextEncodingChange = (value: TextEncoding) => {
+    setTextEncoding(value);
+  };
+
+  const handleModeChange = (value: "Encode" | "Decode") => {
+    setMode(value);
+    setInput(output);
+  };
+
   return (
-    <Tool name="Text Codec" icon="🔣" relativeLink={RelatedLink}>
-      <PageContent />
-    </Tool>
+    <div className="space-y-2">
+      <GeneralEditTool
+        mode={mode}
+        setMode={handleModeChange}
+        textEncoding={textEncoding}
+        setTextEncoding={handleTextEncodingChange}
+        characterEncoding={characterEncoding}
+        setCharacterEncoding={setCharacterEncoding}
+        onExchangeButtonClick={() => setInput(output)}
+        multiLineMode={multiLineMode}
+        setMultiLineMode={setMultiLineMode}
+      />
+      <div className="flex h-[36rem] flex-col gap-2 xl:flex-row">
+        <CodecInput value={input} onChange={setInput} />
+        <CodecOutput value={output} />
+      </div>
+    </div>
   );
 };
 

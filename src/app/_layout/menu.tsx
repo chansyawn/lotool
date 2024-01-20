@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { BackpackIcon, StarIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
-import cn from "@/utils/cn";
+import ToolIcon from "../tools/_layout/tool-icon";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,7 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { TOOLS } from "@/app/tools";
+import TOOL_CONFIG from "@/app/tools/config";
 
 export const Menu = () => {
   return (
@@ -26,14 +25,8 @@ export const Menu = () => {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-64 gap-3 p-2">
-              {TOOLS.map(({ path, name, description }) => (
-                <MenuItem
-                  key={path}
-                  title={name}
-                  href={`/tools/${path}`}
-                  description={description}
-                  icon={`/tools/${path}/icon.svg`}
-                />
+              {TOOL_CONFIG.map(({ path, name, description }) => (
+                <ToolMenuItem key={path} title={name} path={path} description={description} />
               ))}
             </ul>
           </NavigationMenuContent>
@@ -51,33 +44,18 @@ export const Menu = () => {
   );
 };
 
-type MenuItemProps = {
+type ToolMenuItemProps = {
   title: string;
-  href: string;
+  path: string;
   description: string;
-  className?: string;
-  icon?: string;
 };
 
-const MenuItem = ({ className, title, description, href, icon }: MenuItemProps) => {
+const ToolMenuItem = ({ title, description, path }: ToolMenuItemProps) => {
   return (
     <li className="overflow-hidden">
-      <Link href={href} legacyBehavior passHref>
-        <NavigationMenuLink
-          className={cn(
-            "flex select-none items-center space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className,
-          )}
-        >
-          {icon && (
-            <Image
-              className="mr-1 text-3xl"
-              width={24}
-              height={24}
-              src={icon}
-              alt={`${title}-logo`}
-            />
-          )}
+      <Link href={`/tools/${path}`} legacyBehavior passHref>
+        <NavigationMenuLink className="flex select-none items-center space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+          <ToolIcon className="mr-2 size-6" name={title} path={path} />
           <div className="flex-1 overflow-hidden">
             <div className="text-sm font-medium leading-none">{title}</div>
             <p className="truncate text-sm leading-snug text-muted-foreground">{description}</p>

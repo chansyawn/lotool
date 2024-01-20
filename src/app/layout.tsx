@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import fonts from "@/styles/font";
-import Main from "@/layouts/main";
+import Main from "@/app/_layout";
 import cn from "@/utils/cn";
 import "./globals.css";
 import { initColorModeScript } from "@/contexts/color-mode";
