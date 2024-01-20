@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { BackpackIcon, StarIcon } from "@radix-ui/react-icons";
 import ToolIcon from "../tools/_layout/tool-icon";
 import {
   NavigationMenu,
@@ -19,10 +18,7 @@ export const Menu = () => {
     <NavigationMenu>
       <NavigationMenuList className="overflow-x-auto">
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            <BackpackIcon className="mr-2" />
-            Tools
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-64 gap-3 p-2">
               {TOOL_CONFIG.map(({ path, name, description }) => (
@@ -34,7 +30,6 @@ export const Menu = () => {
         <NavigationMenuItem>
           <Link href="/awesome" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <StarIcon className="mr-2" />
               Awesome
             </NavigationMenuLink>
           </Link>

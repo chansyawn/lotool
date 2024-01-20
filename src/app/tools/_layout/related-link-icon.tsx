@@ -1,21 +1,18 @@
 import { Link1Icon } from "@radix-ui/react-icons";
+import Image from "next/image";
 import { RelatedLinkType } from "./related-link";
-import WikipediaIcon from "@/icons/wikipedia.svg";
-import GithubIcon from "@/icons/github.svg";
-
-export const LinkIconMap: Record<RelatedLinkType, React.ComponentType> = {
-  wiki: WikipediaIcon,
-  github: GithubIcon,
-};
+import * as icons from "./icons";
 
 type RelatedLinkIconProps = {
   type?: RelatedLinkType;
 };
 
 const RelatedLinkIcon = ({ type }: RelatedLinkIconProps) => {
-  const Icon = type ? LinkIconMap[type] : Link1Icon;
+  if (!type) {
+    return <Link1Icon className="size-4" />;
+  }
 
-  return <Icon className="size-4 fill-current" />;
+  return <Image alt={`${type}-link`} src={icons[type]} className="size-4" width={16} height={16} />;
 };
 
 export default RelatedLinkIcon;

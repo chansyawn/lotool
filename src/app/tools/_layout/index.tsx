@@ -27,8 +27,8 @@ const Tool = ({ children }: ToolProps) => {
     <div className="lg:flex">
       <main className="flex-grow">
         <h1 className="mb-4 flex items-center text-3xl font-semibold">
-          <ToolIcon className="size-6" name={name} path={path} />
-          <span className="ml-1">{name}</span>
+          <ToolIcon className="mr-2 size-6" name={name} path={path} />
+          <span>{name}</span>
         </h1>
         {children}
       </main>

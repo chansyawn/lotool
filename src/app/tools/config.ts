@@ -16,7 +16,7 @@ const TOOL_CONFIG: ToolConfig[] = [
     description: "Encode and decode text",
     relatedLink: [
       {
-        type: "wiki",
+        type: "wikipedia",
         label: "Base 64",
         href: "https://en.wikipedia.org/wiki/Base64",
       },

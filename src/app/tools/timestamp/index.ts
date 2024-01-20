@@ -6,12 +6,12 @@ export const config: ToolConfig = {
   description: "Format timestamp",
   relatedLink: [
     {
-      type: "wiki",
+      type: "wikipedia",
       label: "Unix time",
       href: "https://en.wikipedia.org/wiki/Unix_time",
     },
     {
-      type: "wiki",
+      type: "wikipedia",
       label: "Timezone database",
       href: "https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
     },

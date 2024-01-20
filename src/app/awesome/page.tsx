@@ -3,17 +3,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { GlobeIcon } from "@radix-ui/react-icons";
 import { AWESOME_TOOLS } from "./awesome";
+import icon from "./icon.svg";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 export const metadata: Metadata = {
-  title: "Lotool - Timestamp",
+  title: "Lotool - Awesome",
 };
 
 const TimestampPage = () => {
   return (
     <main className="flex-grow">
-      <h1 className="mb-4 text-3xl font-semibold">
-        ⭐<span className="ml-1">Awesome</span>
+      <h1 className="mb-4 flex items-center text-3xl font-semibold">
+        <Image className="size- mr-2" src={icon} alt="awesome-icon" />
+        Awesome
       </h1>
       <section className="grid w-full grid-flow-row grid-cols-3 gap-x-5 gap-y-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {AWESOME_TOOLS.map(({ name, url, desc, icon }) => (
