@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import TOOL_CONFIG from "../config";
 import RelatedLink from "./related-link";
 import ToolIcon from "./tool-icon";
-import cn from "@/utils/cn";
 
 type ToolProps = {
   children: React.ReactNode;
@@ -32,7 +31,7 @@ const Tool = ({ children }: ToolProps) => {
         </h1>
         {children}
       </main>
-      <aside className={cn("mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]")}>
+      <aside className={"mt-4 flex-shrink-0 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
         {relatedLink && <RelatedLink links={relatedLink} />}
       </aside>
     </div>

@@ -12,7 +12,15 @@ const RelatedLinkIcon = ({ type }: RelatedLinkIconProps) => {
     return <Link1Icon className="size-4" />;
   }
 
-  return <Image alt={`${type}-link`} src={icons[type]} className="size-4" width={16} height={16} />;
+  return (
+    <Image
+      alt={`${type}-link`}
+      src={icons[type]}
+      className="size-4 dark:invert"
+      width={16}
+      height={16}
+    />
+  );
 };
 
 export default RelatedLinkIcon;
