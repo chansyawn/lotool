@@ -2,19 +2,27 @@
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import dynamic from "next/dynamic";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import TOOL_CONFIG from "../config";
 import RelatedLink from "./related-link";
 import ToolIcon from "./tool-icon";
+import { DocumentPiP, useDocumentPiP } from "@/contexts/document-pip";
+import { Button } from "@/components/ui/button";
 
 type ToolProps = {
   children: React.ReactNode;
 };
 
 const Tool = ({ children }: ToolProps) => {
+  const { isSupported, documentPiPWindow, requestPiPWindow, closePiPWindow } = useDocumentPiP();
   const segments = useSelectedLayoutSegments();
   const path = segments.join("/");
 
   const tool = TOOL_CONFIG.find((tool) => tool.path === path);
+
+  const openPiPWindow = () => {
+    requestPiPWindow(360, 640);
+  };
 
   if (!tool) {
     return null;
@@ -28,8 +36,27 @@ const Tool = ({ children }: ToolProps) => {
         <h1 className="mb-4 flex items-center text-3xl font-semibold">
           <ToolIcon className="mr-2 size-6" name={name} path={path} />
           <span>{name}</span>
+          {isSupported && !documentPiPWindow && (
+            <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
+              <OpenInNewWindowIcon className="size-4" />
+            </Button>
+          )}
         </h1>
-        {children}
+        {children && documentPiPWindow ? (
+          <DocumentPiP
+            pipWindow={documentPiPWindow}
+            placeholder={
+              <div className="flex aspect-video flex-col items-center justify-center">
+                <div className="mb-2 text-xl font-semibold">Picture in Picture Mode Activated</div>
+                <Button onClick={closePiPWindow}>Click to close</Button>
+              </div>
+            }
+          >
+            <main className="p-4">{children}</main>
+          </DocumentPiP>
+        ) : (
+          children
+        )}
       </main>
       <aside className={"mt-4 flex-shrink-0 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
         {relatedLink && <RelatedLink links={relatedLink} />}

@@ -1,23 +1,18 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { createPortal } from "react-dom";
+import * as Portal from "@radix-ui/react-portal";
 import useHasMounted from "../hooks/use-has-mounted";
 
 type DocumentPiPContextValue = {
   isSupported: boolean;
-  pipWindow: Window | null;
+  documentPiPWindow: Window | null;
   requestPiPWindow: (width: number, height: number) => Promise<void>;
   closePiPWindow: () => void;
 };
 
 const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(undefined);
-
-type DocumentPiPProviderProps = {
-  children: React.ReactNode;
-};
-
-export const DocumentPiPProvider = ({ children }: DocumentPiPProviderProps) => {
+export const DocumentPiPProvider = ({ children }: { children: React.ReactNode }) => {
   const hasMounted = useHasMounted();
-  const isSupported = hasMounted && "documentPictureInPicture" in window;
+  const isSupport = hasMounted && "documentPictureInPicture" in window;
   const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(null);
 
   const closePiPWindow = useCallback(() => {
@@ -70,8 +65,8 @@ export const DocumentPiPProvider = ({ children }: DocumentPiPProviderProps) => {
   return (
     <DocumentPiPContext.Provider
       value={{
-        isSupported,
-        pipWindow: documentPiPWindow,
+        isSupported: isSupport,
+        documentPiPWindow,
         requestPiPWindow,
         closePiPWindow,
       }}
@@ -89,17 +84,22 @@ export const useDocumentPiP = () => {
   return context;
 };
 
+const DefaultContainerContext = createContext<HTMLElement | undefined>(undefined);
+export const useDefaultContainer = () => useContext(DefaultContainerContext);
+
 type DocumentPiPProps = {
   pipWindow: Window;
   children: React.ReactNode;
-  fallback?: React.ReactNode;
+  placeholder?: React.ReactNode;
 };
 
-export const DocumentPiP = ({ pipWindow, children, fallback }: DocumentPiPProps) => {
+export const DocumentPiP = ({ pipWindow, children, placeholder }: DocumentPiPProps) => {
+  const container = pipWindow ? pipWindow.document.body : document.body;
+
   return (
-    <>
-      {createPortal(children, pipWindow ? pipWindow.document.body : document.body)}
-      {fallback}
-    </>
+    <DefaultContainerContext.Provider value={container}>
+      <Portal.Root container={container}>{children}</Portal.Root>
+      {placeholder}
+    </DefaultContainerContext.Provider>
   );
 };
