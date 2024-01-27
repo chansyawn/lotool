@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import ToolIcon from "../tools/_layout/tool-icon";
 import {

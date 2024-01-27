@@ -70,7 +70,7 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
           <div className="flex items-center border-b p-2">
             <Switch id="utc-mode" checked={utcMode} onCheckedChange={handleUtcModeChange} />
             <Label htmlFor="utc-mode" className="ml-2 text-sm font-normal">
-              UTC Offset Mode
+              Only UTC offset
             </Label>
           </div>
           <CommandEmpty>No timezone found.</CommandEmpty>

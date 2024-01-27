@@ -1,5 +1,5 @@
 export const getUtcTimezoneNameByOffset = (offset: number) =>
-  `${offset >= 0 ? "+" : "-"}${("" + Math.abs(offset / 60)).padStart(2, "0")}:00`;
+  `Etc/GMT${offset >= 0 ? "+" : "-"}${"" + Math.abs(offset / 60)}`;
 
 export const getOffset = (timeZone = "UTC") => {
   const utcDate = new Date(new Date().toLocaleString("en-US", { timeZone: "UTC" }));
