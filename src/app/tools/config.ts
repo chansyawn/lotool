@@ -1,5 +1,6 @@
 import { RelatedLinkInfo } from "./_layout/related-link";
 import { config as timestamp } from "./timestamp";
+import { config as textCodec } from "./text-codec";
 
 export type ToolConfig = {
   path: string;
@@ -8,20 +9,6 @@ export type ToolConfig = {
   relatedLink?: RelatedLinkInfo[];
 };
 
-const TOOL_CONFIG: ToolConfig[] = [
-  timestamp,
-  {
-    path: "text-codec",
-    name: "Text Codec",
-    description: "Encode and decode text",
-    relatedLink: [
-      {
-        type: "wikipedia",
-        label: "Base 64",
-        href: "https://en.wikipedia.org/wiki/Base64",
-      },
-    ],
-  },
-];
+const TOOL_CONFIG: ToolConfig[] = [timestamp, textCodec];
 
 export default TOOL_CONFIG;
