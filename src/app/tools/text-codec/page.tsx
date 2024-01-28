@@ -1,21 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { atom, useAtom } from "jotai";
 import EditBar from "./edit-bar";
 import useTextCodec from "./use-text-codec";
-import { TextEncoding } from "@/utils/codec/text";
-import { CharacterEncoding } from "@/utils/codec/character";
+import { characterEncodingAtom, modeAtom, multiLineModeAtom, textEncodingAtom } from "./persist";
 import InputArea from "@/components/input-area";
 import OutputArea from "@/components/output-area";
 
+const inputAtom = atom("");
+
 const Page = () => {
-  const [input, setInput] = useState("");
-  const [mode, setMode] = useState<"Encode" | "Decode">("Encode");
-  const [multiLineMode, setMultiLineMode] = useState(false);
-  const [textEncoding, setTextEncoding] = useState<TextEncoding>(TextEncoding.Base64);
-  const [characterEncoding, setCharacterEncoding] = useState<CharacterEncoding>(
-    CharacterEncoding.UTF_8,
-  );
+  const [input, setInput] = useAtom(inputAtom);
+  const [mode, setMode] = useAtom(modeAtom);
+  const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
+  const [textEncoding, setTextEncoding] = useAtom(textEncodingAtom);
+  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
 
   const output = useTextCodec(input, {
     mode,

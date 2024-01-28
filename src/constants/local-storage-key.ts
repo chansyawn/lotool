@@ -1,6 +1,8 @@
 enum LocalStorageKey {
   ColorMode = "color-mode",
-  ToolTimestampPersist = "tool-persist-timestamp",
+  ToolPersistTimestamp = "tool-persist-timestamp",
+  ToolPersistTextCodec = "tool-persist-text-codec",
+  ToolPersistHash = "tool-persist-hash",
 }
 
 export default LocalStorageKey;

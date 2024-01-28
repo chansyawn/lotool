@@ -1,7 +1,7 @@
 "use client";
 
-import { ChangeEventHandler, useState } from "react";
-import { useAtom } from "jotai";
+import { ChangeEventHandler } from "react";
+import { atom, useAtom } from "jotai";
 import { PlusIcon } from "@radix-ui/react-icons";
 import CurrentTime from "./current-time";
 import TimestampUnitSwitcher from "./timestamp-unit-switcher";
@@ -24,12 +24,15 @@ const TimeUnitConfig: Record<TimestampUnit, { ratio: number; width: string }> = 
   milliseconds: { ratio: 1, width: "20ch" },
 };
 
+const timestampAtom = atom<number | undefined>(undefined);
+
 const Page = () => {
   const [unit, setUnit] = useAtom(unitAtom);
   const [timezoneAtoms, dispatchTimezones] = useAtom(timezoneAtomsAtom);
   const unitRatio = TimeUnitConfig[unit].ratio;
 
-  const [timestamp, setTimestamp] = useState(fixTimestamp(new Date().valueOf(), unitRatio));
+  const [_timestamp, setTimestamp] = useAtom(timestampAtom);
+  const timestamp = _timestamp ?? fixTimestamp(new Date().valueOf(), unitRatio);
   const timestampDisplay = timestamp / unitRatio;
 
   const handleTimestampChange = (value: number) => {

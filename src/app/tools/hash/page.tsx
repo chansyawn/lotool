@@ -1,25 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { atom, useAtom } from "jotai";
 import EditBar from "./edit-bar";
 import useHash from "./use-hash";
+import { characterEncodingAtom, multiLineModeAtom, outputEncodingAtom } from "./persist";
 import InputArea from "@/components/input-area";
 import OutputArea from "@/components/output-area";
-import { CharacterEncoding } from "@/utils/codec/character";
-import { TextEncoding } from "@/utils/codec/text";
 import { Hash } from "@/utils/hash";
 
+const inputAtom = atom("");
+
 const Page = () => {
-  const [input, setInput] = useState("");
-  const [multiLineMode, setMultiLineMode] = useState(false);
-  const [outputEncoding, setOutputEncoding] = useState<TextEncoding>(TextEncoding.Base64);
-  const [characterEncoding, setCharacterEncoding] = useState<CharacterEncoding>(
-    CharacterEncoding.UTF_8,
-  );
+  const [input, setInput] = useAtom(inputAtom);
+  const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
+  const [outputEncoding, setOutputEncoding] = useAtom(outputEncodingAtom);
+  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
 
   const output = useHash(input, {
     multiLineMode,
-    textEncoding: outputEncoding,
+    outputEncoding: outputEncoding,
     characterEncoding,
     enabledAlgorithm: [Hash.SHA_1, Hash.SHA_256, Hash.SHA_384, Hash.SHA_512],
   });

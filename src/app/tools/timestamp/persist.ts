@@ -5,7 +5,7 @@ import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 import atomWithValidatedStorage from "@/utils/atom-with-validated-storage";
 import LocalStorageKey from "@/constants/local-storage-key";
 
-const timestampPersistSchema = z.object({
+const PERSIST_SCHEMA = z.object({
   unit: z.literal("seconds").or(z.literal("milliseconds")),
   customTimezone: z.array(
     z.enum(
@@ -17,22 +17,20 @@ const timestampPersistSchema = z.object({
   ),
 });
 
-type TimestampPersist = z.infer<typeof timestampPersistSchema>;
+type Persist = z.infer<typeof PERSIST_SCHEMA>;
 
-export type TimestampUnit = TimestampPersist["unit"];
+export type TimestampUnit = Persist["unit"];
 
-const timestampPersistAtom = atomWithValidatedStorage<TimestampPersist>(
-  LocalStorageKey.ToolTimestampPersist,
+const persistAtom = atomWithValidatedStorage<Persist>(
+  LocalStorageKey.ToolPersistTimestamp,
   {
     unit: "seconds",
     customTimezone: [],
   },
-  timestampPersistSchema,
+  PERSIST_SCHEMA,
 );
 
-export const unitAtom = focusAtom(timestampPersistAtom, (optic) => optic.prop("unit"));
+export const unitAtom = focusAtom(persistAtom, (optic) => optic.prop("unit"));
 export const timezoneAtomsAtom = splitAtom(
-  focusAtom(timestampPersistAtom, (optic) => optic.prop("customTimezone")),
+  focusAtom(persistAtom, (optic) => optic.prop("customTimezone")),
 );
-
-export default timestampPersistAtom;

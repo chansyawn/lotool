@@ -5,7 +5,7 @@ import { HASH_LIST, Hash } from "@/utils/hash";
 
 type useHashOptions = {
   multiLineMode: boolean;
-  textEncoding: TextEncoding;
+  outputEncoding: TextEncoding;
   characterEncoding: CharacterEncoding;
   enabledAlgorithm: Hash[];
 };
@@ -13,21 +13,21 @@ type useHashOptions = {
 type HashOptions = {
   algorithm: Hash;
   characterEncoding: CharacterEncoding;
-  textEncoding: TextEncoding;
+  outputEncoding: TextEncoding;
 };
 
 const useHash = (
   input: string,
-  { multiLineMode, textEncoding, characterEncoding, enabledAlgorithm }: useHashOptions,
+  { multiLineMode, outputEncoding, characterEncoding, enabledAlgorithm }: useHashOptions,
 ) => {
   const [output, setOutput] = useState<{ algorithm: Hash; value: string }[]>([]);
 
   const hash = useCallback(
-    async (text: string, { algorithm, characterEncoding, textEncoding }: HashOptions) => {
+    async (text: string, { algorithm, characterEncoding, outputEncoding }: HashOptions) => {
       try {
         const data = CHARACTER_ENCODING_LIST[characterEncoding].encode(text);
         const hash = await HASH_LIST[algorithm](data);
-        return TEXT_ENCODING_LIST[textEncoding].encode(new Uint8Array(hash));
+        return TEXT_ENCODING_LIST[outputEncoding].encode(new Uint8Array(hash));
       } catch (e) {
         return "Invalid input";
       }
@@ -43,7 +43,7 @@ const useHash = (
             const splittedText = text.split("\n");
             const splittedValue = await Promise.all(
               splittedText.map((input) =>
-                hash(input, { algorithm, characterEncoding, textEncoding }),
+                hash(input, { algorithm, characterEncoding, outputEncoding }),
               ),
             );
             return {
@@ -53,13 +53,17 @@ const useHash = (
           }
           return {
             algorithm,
-            value: await hash(text, { algorithm, characterEncoding, textEncoding }),
+            value: await hash(text, {
+              algorithm,
+              characterEncoding,
+              outputEncoding,
+            }),
           };
         }),
       );
       setOutput(hashedList);
     },
-    [characterEncoding, enabledAlgorithm, hash, multiLineMode, textEncoding],
+    [hash, characterEncoding, outputEncoding, enabledAlgorithm, multiLineMode],
   );
 
   useEffect(() => {
