@@ -10,6 +10,8 @@ import { Hash } from "@/libs/hash";
 
 const inputAtom = atom("");
 
+const ENABLED_ALGORITHM = [Hash.MD5, Hash.SHA_1, Hash.SHA_256, Hash.SHA_384, Hash.SHA_512];
+
 const Page = () => {
   const [input, setInput] = useAtom(inputAtom);
   const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
@@ -20,7 +22,7 @@ const Page = () => {
     multiLineMode,
     outputEncoding: outputEncoding,
     characterEncoding,
-    enabledAlgorithm: [Hash.SHA_1, Hash.SHA_256, Hash.SHA_384, Hash.SHA_512],
+    enabledAlgorithm: ENABLED_ALGORITHM,
   });
 
   return (
