@@ -14,7 +14,7 @@ const PERSIST_SCHEMA = z.object({
 type Persist = z.infer<typeof PERSIST_SCHEMA>;
 
 const persistAtom = atomWithValidatedStorage<Persist>(
-  LocalStorageKey.ToolPersistTextCodec,
+  LocalStorageKey.ToolPersistHash,
   {
     outputEncoding: TextEncoding.Binary_HEX,
     characterEncoding: CharacterEncoding.UTF_8,

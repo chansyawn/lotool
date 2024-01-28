@@ -16,7 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script id="set-theme" dangerouslySetInnerHTML={{ __html: initColorModeScript }} />
+        <script id="set-color-mode" dangerouslySetInnerHTML={{ __html: initColorModeScript }} />
       </head>
       <body className={cn(...fonts.map((font) => font.variable))}>
         <Main>{children}</Main>

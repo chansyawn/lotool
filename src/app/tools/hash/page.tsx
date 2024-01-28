@@ -35,7 +35,7 @@ const Page = () => {
         multiLineMode={multiLineMode}
         onMultiLineModeChange={setMultiLineMode}
       />
-      <InputArea title="Input" value={input} onChange={setInput} />
+      <InputArea className="h-48" title="Input" value={input} onChange={setInput} />
       {output.map(({ algorithm, value }) => (
         <OutputArea key={algorithm} title={algorithm} value={value} />
       ))}
