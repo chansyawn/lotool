@@ -5,8 +5,8 @@ import { TEXT_ENCODING_LIST, TextEncoding } from "../../../utils/codec/text";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
-import SimpleSelect from "@/components/simple-select";
-import SimpleTooltip from "@/components/simple-tooltip";
+import { Select } from "@/components/ui/select";
+import { Tooltip } from "@/components/ui/tooltip";
 import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
@@ -48,7 +48,7 @@ const EditBar = ({
         </Tabs>
       </EditBarItem>
       <EditBarItem label="Text Encoding">
-        <SimpleSelect
+        <Select
           className="w-40"
           placeholder="Select Text Encoding"
           value={textEncoding}
@@ -57,7 +57,7 @@ const EditBar = ({
         />
       </EditBarItem>
       <EditBarItem label="Character Encoding">
-        <SimpleSelect
+        <Select
           className="w-40"
           placeholder="Select Character Encoding"
           value={characterEncoding}
@@ -68,12 +68,12 @@ const EditBar = ({
           }))}
         />
       </EditBarItem>
-      <SimpleTooltip content="Use output as input">
+      <Tooltip content="Use output as input">
         <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
           <LoopIcon />
         </Button>
-      </SimpleTooltip>
-      <SimpleTooltip content="Handle each line separately">
+      </Tooltip>
+      <Tooltip content="Handle each line separately">
         <Toggle
           variant="outline"
           className="size-9 p-0"
@@ -82,7 +82,7 @@ const EditBar = ({
         >
           <RowsIcon />
         </Toggle>
-      </SimpleTooltip>
+      </Tooltip>
     </div>
   );
 };

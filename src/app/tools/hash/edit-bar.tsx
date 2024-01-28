@@ -1,8 +1,8 @@
 "use client";
 
 import { RowsIcon } from "@radix-ui/react-icons";
-import SimpleSelect from "@/components/simple-select";
-import SimpleTooltip from "@/components/simple-tooltip";
+import { Select } from "@/components/ui/select";
+import { Tooltip } from "@/components/ui/tooltip";
 import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
 import { TEXT_ENCODING_LIST, TextEncoding } from "@/utils/codec/text";
 import { Toggle } from "@/components/ui/toggle";
@@ -27,7 +27,7 @@ const EditBar = ({
   return (
     <div className="flex flex-wrap items-end gap-2">
       <EditBarItem label="Output Encoding">
-        <SimpleSelect
+        <Select
           className="w-40"
           placeholder="Select Text Encoding"
           value={outEncoding}
@@ -36,7 +36,7 @@ const EditBar = ({
         />
       </EditBarItem>
       <EditBarItem label="Character Encoding">
-        <SimpleSelect
+        <Select
           className="w-40"
           placeholder="Select Character Encoding"
           value={characterEncoding}
@@ -47,7 +47,7 @@ const EditBar = ({
           }))}
         />
       </EditBarItem>
-      <SimpleTooltip content="Handle each line separately">
+      <Tooltip content="Handle each line separately">
         <Toggle
           variant="outline"
           className="size-9 p-0"
@@ -56,7 +56,7 @@ const EditBar = ({
         >
           <RowsIcon />
         </Toggle>
-      </SimpleTooltip>
+      </Tooltip>
     </div>
   );
 };

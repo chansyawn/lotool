@@ -4,7 +4,7 @@ import { ClipboardIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import useClipboard from "@/hooks/use-clipboard";
-import SimpleTooltip from "@/components/simple-tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
 
 type HashInputProps = {
   value: string;
@@ -18,11 +18,11 @@ const HashInput = ({ value, onChange }: HashInputProps) => {
     <div className="flex flex-1 flex-col">
       <div className="mb-1 flex items-center gap-2 px-1">
         <div className="mr-auto text-lg font-medium">Input</div>
-        <SimpleTooltip content="Paste from clipboard">
+        <Tooltip content="Paste from clipboard">
           <Button variant="ghost" size="icon" onClick={() => paste().then(onChange)}>
             <ClipboardIcon />
           </Button>
-        </SimpleTooltip>
+        </Tooltip>
       </div>
       <Textarea
         placeholder="Enter text to be encoded"
