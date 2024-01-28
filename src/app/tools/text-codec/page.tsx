@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { CharacterEncoding, TextEncoding } from "./codec-method";
 import GeneralEditTool from "./general-edit-tool";
-import CodecInput from "./codec-input";
-import CodecOutput from "./codec-output";
 import useTextCodec from "./useTextCodec";
+import InputArea from "@/components/input-area";
+import OutputArea from "@/components/output-area";
 
 const Page = () => {
   const [input, setInput] = useState("");
@@ -46,8 +46,14 @@ const Page = () => {
         setMultiLineMode={setMultiLineMode}
       />
       <div className="flex h-[36rem] flex-col gap-2 xl:flex-row">
-        <CodecInput value={input} onChange={setInput} />
-        <CodecOutput value={output} />
+        <InputArea
+          className="flex-1"
+          title="Input"
+          value={input}
+          onChange={setInput}
+          placeholder="Enter text to be encoded"
+        />
+        <OutputArea className="flex-1" value={output} title="Output" />
       </div>
     </div>
   );

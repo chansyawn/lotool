@@ -4,18 +4,22 @@ import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import useClipboard from "@/hooks/use-clipboard";
 import SimpleTooltip from "@/components/simple-tooltip";
+import cn from "@/utils/cn";
 
-type CodecOutputProps = {
+type OutputAreaProps = {
+  title: string;
+  style?: React.CSSProperties;
+  className?: string;
   value: string;
 };
 
-const CodecOutput = ({ value }: CodecOutputProps) => {
+const OutputArea = ({ title, style, className, value }: OutputAreaProps) => {
   const { copy, copied } = useClipboard();
 
   return (
-    <div className="flex flex-1 flex-col overflow-hidden">
+    <div className={cn("flex flex-col overflow-hidden", className)} style={style}>
       <div className="mb-1 flex items-center gap-2 px-1">
-        <div className="mr-auto text-lg font-medium">Output</div>
+        <div className="mr-auto text-lg font-medium">{title}</div>
         <SimpleTooltip content="Paste from clipboard">
           <Button variant="ghost" size="icon" className="ml-auto" onClick={() => copy(value)}>
             {copied ? <CheckIcon /> : <CopyIcon />}
@@ -29,4 +33,4 @@ const CodecOutput = ({ value }: CodecOutputProps) => {
   );
 };
 
-export default CodecOutput;
+export default OutputArea;

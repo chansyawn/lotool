@@ -11,7 +11,7 @@ const SimpleTooltip = ({ content, children }: TooltipProps) => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent>{content}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
