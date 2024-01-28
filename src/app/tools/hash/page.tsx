@@ -6,7 +6,7 @@ import useHash from "./use-hash";
 import { characterEncodingAtom, multiLineModeAtom, outputEncodingAtom } from "./persist";
 import InputArea from "@/components/input-area";
 import OutputArea from "@/components/output-area";
-import { Hash } from "@/utils/hash";
+import { Hash } from "@/libs/hash";
 
 const inputAtom = atom("");
 

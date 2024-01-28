@@ -1,4 +1,4 @@
-export const utf8ToUtf16 = (utf8Data: Uint8Array, endianness: "BE" | "LE" = "BE"): Uint8Array => {
+export const utf8ToUtf16 = (utf8Data: Uint8Array, endianness: "BE" | "LE" = "BE"): ArrayBuffer => {
   const utf16Data: number[] = [];
 
   for (let i = 0; i < utf8Data.length; ) {
@@ -33,5 +33,5 @@ export const utf8ToUtf16 = (utf8Data: Uint8Array, endianness: "BE" | "LE" = "BE"
     }
   }
 
-  return new Uint8Array(utf16Data);
+  return new Uint8Array(utf16Data).buffer;
 };

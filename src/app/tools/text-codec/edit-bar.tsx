@@ -1,13 +1,13 @@
 "use client";
 
 import { LoopIcon, RowsIcon } from "@radix-ui/react-icons";
-import { TEXT_ENCODING_LIST, TextEncoding } from "../../../utils/codec/text";
+import { TEXT_ENCODING_LIST, TextEncoding } from "../../../libs/text-encoding";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 import { Select } from "@/components/ui/select";
 import { Tooltip } from "@/components/ui/tooltip";
-import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
+import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/libs/character-encoding";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
 

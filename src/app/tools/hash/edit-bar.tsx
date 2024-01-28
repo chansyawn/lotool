@@ -3,8 +3,8 @@
 import { RowsIcon } from "@radix-ui/react-icons";
 import { Select } from "@/components/ui/select";
 import { Tooltip } from "@/components/ui/tooltip";
-import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
-import { TEXT_ENCODING_LIST, TextEncoding } from "@/utils/codec/text";
+import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/libs/character-encoding";
+import { TEXT_ENCODING_LIST, TextEncoding } from "@/libs/text-encoding";
 import { Toggle } from "@/components/ui/toggle";
 
 type EditBarProps = {

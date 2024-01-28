@@ -9,10 +9,7 @@ export enum CharacterEncoding {
 
 export const CHARACTER_ENCODING_LIST: Record<
   CharacterEncoding,
-  {
-    encode: (text: string) => Uint8Array;
-    decode: (binary: Uint8Array) => string;
-  }
+  { encode: (text: string) => ArrayBuffer; decode: (binary: ArrayBuffer) => string }
 > = {
   [CharacterEncoding.Ascii]: {
     encode: (text) => {

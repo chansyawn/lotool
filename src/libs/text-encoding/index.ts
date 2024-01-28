@@ -1,4 +1,3 @@
-import { base64ToBinary, binaryToBase64 } from "./base64";
 import { binaryToString, stringToBinary } from "./binary";
 
 export enum TextEncoding {
@@ -10,21 +9,21 @@ export enum TextEncoding {
 
 export const TEXT_ENCODING_LIST: Record<
   TextEncoding,
-  {
-    encode: (binary: Uint8Array) => string;
-    decode: (text: string) => Uint8Array;
-  }
+  { encode: (binary: ArrayBuffer) => string; decode: (text: string) => ArrayBuffer }
 > = {
   [TextEncoding.Base64]: {
-    encode: (binary) => binaryToBase64(binary),
-    decode: (text) => base64ToBinary(text),
+    encode: (binary) => btoa(String.fromCharCode(...new Uint8Array(binary))),
+    decode: (text) => Uint8Array.from(atob(text), (c) => c.charCodeAt(0)).buffer,
   },
   [TextEncoding.Base64_URL]: {
     encode: (binary) =>
-      binaryToBase64(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", ""),
-    decode: (text) => base64ToBinary(text.replaceAll("-", "+").replaceAll("_", "/")),
+      btoa(String.fromCharCode(...new Uint8Array(binary)))
+        .replaceAll("+", "-")
+        .replaceAll("/", "_")
+        .replaceAll("=", ""),
+    decode: (text) =>
+      Uint8Array.from(atob(text.replaceAll("-", "+").replaceAll("_", "/")), (c) => c.charCodeAt(0)),
   },
-
   [TextEncoding.Binary]: {
     encode: (binary) => binaryToString(binary, 2),
     decode: (text) => stringToBinary(text, 2),

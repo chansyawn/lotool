@@ -2,8 +2,8 @@ import { z } from "zod";
 import { focusAtom } from "jotai-optics";
 import atomWithValidatedStorage from "@/utils/atom-with-validated-storage";
 import LocalStorageKey from "@/constants/local-storage-key";
-import { TextEncoding } from "@/utils/codec/text";
-import { CharacterEncoding } from "@/utils/codec/character";
+import { TextEncoding } from "@/libs/text-encoding";
+import { CharacterEncoding } from "@/libs/character-encoding";
 
 const PERSIST_SCHEMA = z.object({
   textEncoding: z.nativeEnum(TextEncoding),

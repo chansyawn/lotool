@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { TextEncoding, TEXT_ENCODING_LIST } from "@/utils/codec/text";
-import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
-import { HASH_LIST, Hash } from "@/utils/hash";
+import { TextEncoding, TEXT_ENCODING_LIST } from "@/libs/text-encoding";
+import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/libs/character-encoding";
+import { HASH_LIST, Hash } from "@/libs/hash";
 
 type useHashOptions = {
   multiLineMode: boolean;
@@ -27,7 +27,7 @@ const useHash = (
       try {
         const data = CHARACTER_ENCODING_LIST[characterEncoding].encode(text);
         const hash = await HASH_LIST[algorithm](data);
-        return TEXT_ENCODING_LIST[outputEncoding].encode(new Uint8Array(hash));
+        return TEXT_ENCODING_LIST[outputEncoding].encode(hash);
       } catch (e) {
         return "Invalid input";
       }

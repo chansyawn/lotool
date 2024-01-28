@@ -3,17 +3,16 @@ const splitStringIntoChunks = (str: string, chunkSize: number): string[] =>
     str.slice(index * chunkSize, (index + 1) * chunkSize),
   );
 
-export const binaryToString = (uint8Array: Uint8Array, radix: number): string => {
+export const binaryToString = (binary: ArrayBuffer, radix: number): string => {
   const itemMaxLength = Math.ceil(8 / Math.log2(radix));
-  return Array.from(uint8Array)
+  return Array.from(new Uint8Array(binary))
     .map((byte: number) => byte.toString(radix).padStart(itemMaxLength, "0"))
-    .join("")
-    .toUpperCase();
+    .join("");
 };
 
-export const stringToBinary = (str: string, radix: number): Uint8Array => {
+export const stringToBinary = (str: string, radix: number): ArrayBuffer => {
   const itemMaxLength = Math.ceil(8 / Math.log2(radix));
   return new Uint8Array(
     splitStringIntoChunks(str, itemMaxLength).map((item) => parseInt(item, radix)),
-  );
+  ).buffer;
 };
