@@ -36,7 +36,7 @@ const Tooltip = ({ content, children, ...props }: TooltipProps) => {
   return (
     <TooltipProvider>
       <TooltipRoot {...props}>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>{content}</TooltipContent>
       </TooltipRoot>
     </TooltipProvider>

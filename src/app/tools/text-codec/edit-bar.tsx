@@ -74,14 +74,16 @@ const EditBar = ({
         </Button>
       </Tooltip>
       <Tooltip content="Handle each line separately">
-        <Toggle
-          variant="outline"
-          className="size-9 p-0"
-          pressed={multiLineMode}
-          onPressedChange={onMultiLineModeChange}
-        >
-          <RowsIcon />
-        </Toggle>
+        <span>
+          <Toggle
+            variant="outline"
+            className="size-9 p-0"
+            pressed={multiLineMode}
+            onPressedChange={onMultiLineModeChange}
+          >
+            <RowsIcon />
+          </Toggle>
+        </span>
       </Tooltip>
     </div>
   );
