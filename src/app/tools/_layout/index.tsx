@@ -61,7 +61,7 @@ const Tool = ({ children }: ToolProps) => {
           children
         )}
       </main>
-      <aside className={"flex-shrink-100 mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
+      <aside className={"mt-4 flex-shrink-0 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
         {relatedLink && <RelatedLink links={relatedLink} />}
       </aside>
     </div>
