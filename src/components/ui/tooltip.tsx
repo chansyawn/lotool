@@ -4,12 +4,15 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn } from "@/utils/cn";
+import { useDefaultContainer, useDocumentPiP } from "@/contexts/document-pip";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
 const TooltipRoot = TooltipPrimitive.Root;
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
+
+const TooltipPortal = TooltipPrimitive.Portal;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
@@ -33,14 +36,17 @@ type TooltipProps = {
 } & React.ComponentProps<typeof TooltipRoot>;
 
 const Tooltip = ({ content, children, ...props }: TooltipProps) => {
+  const container = useDefaultContainer();
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={200}>
       <TooltipRoot {...props}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent>{content}</TooltipContent>
+        <TooltipPortal container={container}>
+          <TooltipContent>{content}</TooltipContent>
+        </TooltipPortal>
       </TooltipRoot>
     </TooltipProvider>
   );
 };
 
-export { Tooltip, TooltipRoot, TooltipTrigger, TooltipContent, TooltipProvider };
+export { Tooltip, TooltipRoot, TooltipTrigger, TooltipPortal, TooltipContent, TooltipProvider };

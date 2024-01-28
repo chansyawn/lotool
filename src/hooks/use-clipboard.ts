@@ -10,13 +10,10 @@ const useClipboard = ({ timeout = 1000 }: UseClipboardOptions = {}) => {
   const copy = useCallback(
     (value: string) => {
       if (navigator?.clipboard) {
-        navigator.clipboard
-          .writeText(value)
-          .then(() => {
-            setHasCopied(true);
-            setTimeout(() => setHasCopied(false), timeout);
-          })
-          .catch(() => setHasCopied(false));
+        navigator.clipboard.writeText(value).then(() => {
+          setHasCopied(true);
+          setTimeout(() => setHasCopied(false), timeout);
+        });
       }
     },
     [timeout],

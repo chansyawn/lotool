@@ -8,6 +8,7 @@ import RelatedLink from "./related-link";
 import ToolIcon from "./tool-icon";
 import { DocumentPiP, useDocumentPiP } from "@/contexts/document-pip";
 import { Button } from "@/components/ui/button";
+import { Tooltip } from "@/components/ui/tooltip";
 
 type ToolProps = {
   children: React.ReactNode;
@@ -37,9 +38,11 @@ const Tool = ({ children }: ToolProps) => {
           <ToolIcon className="mr-2 size-6" name={name} path={path} />
           <span>{name}</span>
           {isSupported && !documentPiPWindow && (
-            <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
-              <OpenInNewWindowIcon className="size-4" />
-            </Button>
+            <Tooltip content="Open in Picture-in-Picture mode(Beta)">
+              <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
+                <OpenInNewWindowIcon className="size-4" />
+              </Button>
+            </Tooltip>
           )}
         </h1>
         {children && documentPiPWindow ? (
@@ -58,7 +61,7 @@ const Tool = ({ children }: ToolProps) => {
           children
         )}
       </main>
-      <aside className={"mt-4 flex-shrink-0 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
+      <aside className={"flex-shrink-100 mt-4 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
         {relatedLink && <RelatedLink links={relatedLink} />}
       </aside>
     </div>
