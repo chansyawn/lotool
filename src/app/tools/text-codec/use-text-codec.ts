@@ -1,9 +1,5 @@
-import {
-  TextEncoding,
-  CharacterEncoding,
-  CHARACTER_ENCODING_LIST,
-  TEXT_ENCODING_LIST,
-} from "./codec-method";
+import { TextEncoding, TEXT_ENCODING_LIST } from "@/utils/codec/text";
+import { CHARACTER_ENCODING_LIST, CharacterEncoding } from "@/utils/codec/character";
 
 type useTextCodecOptions = {
   mode: "Encode" | "Decode";

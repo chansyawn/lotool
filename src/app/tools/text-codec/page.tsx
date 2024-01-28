@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { CharacterEncoding, TextEncoding } from "./codec-method";
-import GeneralEditTool from "./general-edit-tool";
-import useTextCodec from "./useTextCodec";
+import EditBar from "./edit-bar";
+import useTextCodec from "./use-text-codec";
+import { TextEncoding } from "@/utils/codec/text";
+import { CharacterEncoding } from "@/utils/codec/character";
 import InputArea from "@/components/input-area";
 import OutputArea from "@/components/output-area";
 
@@ -23,10 +24,6 @@ const Page = () => {
     characterEncoding,
   });
 
-  const handleTextEncodingChange = (value: TextEncoding) => {
-    setTextEncoding(value);
-  };
-
   const handleModeChange = (value: "Encode" | "Decode") => {
     setMode(value);
     setInput(output);
@@ -34,16 +31,16 @@ const Page = () => {
 
   return (
     <div className="space-y-2">
-      <GeneralEditTool
+      <EditBar
         mode={mode}
-        setMode={handleModeChange}
+        onModeChange={handleModeChange}
         textEncoding={textEncoding}
-        setTextEncoding={handleTextEncodingChange}
+        onTextEncodingChange={setTextEncoding}
         characterEncoding={characterEncoding}
-        setCharacterEncoding={setCharacterEncoding}
+        onCharacterEncodingChange={setCharacterEncoding}
         onExchangeButtonClick={() => setInput(output)}
         multiLineMode={multiLineMode}
-        setMultiLineMode={setMultiLineMode}
+        onMultiLineModeChange={setMultiLineMode}
       />
       <div className="flex h-[36rem] flex-col gap-2 xl:flex-row">
         <InputArea
