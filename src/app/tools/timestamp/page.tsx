@@ -8,7 +8,7 @@ import TimestampUnitSwitcher from "./timestamp-unit-switcher";
 import RelativeTime from "./relative-time";
 import TimeShortcuts from "./time-shortcuts";
 import { TimestampUnit, timezoneAtomsAtom, unitAtom } from "./persist";
-import { fixTimestamp, getUtcTimezoneNameByOffset } from "./utils";
+import { fixTimestamp } from "./utils";
 import { TimeBreakdownWithCustomTimezone, TimeBreakdownWithFixedTimezone } from "./time-breakdown";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -113,10 +113,9 @@ const Page = () => {
         value={timestamp}
         level="minutes"
         onChange={handleTimestampChange}
-        timezone={getUtcTimezoneNameByOffset(0)}
-        remark="(UTC)"
+        timezone="Etc/UTC"
         suffix={
-          <Button size="icon" className="self-end" variant="secondary" onClick={handleAddTimezone}>
+          <Button size="icon" variant="secondary" onClick={handleAddTimezone}>
             <PlusIcon />
           </Button>
         }

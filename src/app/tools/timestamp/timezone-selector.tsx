@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { getUtcTimezoneNameByOffset } from "./utils";
+import { getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
@@ -35,7 +35,7 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
   const handleUtcModeChange = (utcMode: boolean) => {
     setUtcMode(utcMode);
     if (utcMode) {
-      onChange(getUtcTimezoneNameByOffset(currentTimezone?.offset ?? 0));
+      onChange(getEtcTimezoneNameByOffset(currentTimezone?.offset ?? 0));
       return;
     } else {
       // if last selected timezone is same as current timezone, revert back to last selected
@@ -70,8 +70,15 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
           <div className="flex items-center border-b p-2">
             <Switch id="utc-mode" checked={utcMode} onCheckedChange={handleUtcModeChange} />
             <Label htmlFor="utc-mode" className="ml-2 text-sm font-normal">
-              Only UTC offset
+              Etc timezone
             </Label>
+            {utcMode && (
+              <Button size="sm" className="ml-auto h-auto font-normal" variant="link" asChild>
+                <a href="https://en.wikipedia.org/wiki/Tz_database#Area" target="_blank">
+                  Why sign is inverted?
+                </a>
+              </Button>
+            )}
           </div>
           <CommandEmpty>No timezone found.</CommandEmpty>
           <CommandGroup className="max-h-56 overflow-y-auto">
@@ -81,11 +88,9 @@ const TimezoneSelector = ({ value, onChange }: TimezoneSelectorProps) => {
                   className={cn("mr-2", value === timezone ? "opacity-100" : "opacity-0")}
                 />
                 <span className="truncate">{label}</span>
-                {!utcMode && (
-                  <Badge variant="outline" className="ml-2">
-                    {getUtcTimezoneNameByOffset(offset)}
-                  </Badge>
-                )}
+                <Badge variant="outline" className="ml-2 whitespace-nowrap">
+                  {getISOTimezoneNameByOffset(offset)}
+                </Badge>
               </CommandItem>
             ))}
           </CommandGroup>

@@ -7,7 +7,7 @@ import { CheckIcon, ChevronRightIcon, DotFilledIcon } from "@radix-ui/react-icon
 import { cn } from "@/utils/cn";
 import { useDefaultContainer } from "@/contexts/document-pip";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+const DropdownMenuRoot = DropdownMenuPrimitive.Root;
 
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
@@ -173,8 +173,36 @@ const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTML
 };
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 
+type DropdownMenuProps = {
+  className?: string;
+  style?: React.CSSProperties;
+  options: { key: string; label: React.ReactNode; onClick: () => void }[];
+  children?: React.ReactNode;
+  align?: DropdownMenuPrimitive.DropdownMenuContentProps["align"];
+};
+
+const DropdownMenu = React.forwardRef<HTMLButtonElement, DropdownMenuProps>(
+  ({ className, style, options, children, align }, ref) => {
+    return (
+      <DropdownMenuRoot>
+        <DropdownMenuTrigger className={className} style={style} asChild ref={ref}>
+          {children}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align={align}>
+          {options.map(({ key, label, onClick }) => (
+            <DropdownMenuItem key={key} onClick={onClick}>
+              {label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenuRoot>
+    );
+  },
+);
+
 export {
   DropdownMenu,
+  DropdownMenuRoot,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
