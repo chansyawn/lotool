@@ -103,7 +103,7 @@ export const TimeBreakdownWithFixedTimezone = ({
 }: TimeBreakdownWithFixedTimezoneProps) => {
   return (
     <div className="flex gap-x-2">
-      <div className="w-40 flex-shrink-0 xl:w-64">
+      <div className="w-40 flex-shrink-0 md:w-64">
         <span className="text-sm">Timezone</span>
         <Button className="w-full justify-start disabled:opacity-100" variant="outline" disabled>
           <span className="truncate">
@@ -134,7 +134,7 @@ export const TimeBreakdownWithCustomTimezone = ({
 
   return (
     <div className="flex gap-x-2">
-      <div className="w-40 flex-shrink-0 xl:w-64">
+      <div className="w-40 flex-shrink-0 md:w-64">
         <span className="text-sm">Timezone</span>
         <TimezoneSelector value={timezone} onChange={(value) => onTimezoneChange(value)} />
       </div>

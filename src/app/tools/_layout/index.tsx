@@ -32,8 +32,8 @@ const Tool = ({ children }: ToolProps) => {
   const { name, relatedLink } = tool;
 
   return (
-    <div className="lg:flex">
-      <main className="flex-grow">
+    <div className="xl:flex">
+      <div className="flex-grow">
         <h1 className="mb-4 flex items-center text-3xl font-semibold">
           <ToolIcon className="mr-2 size-6" name={name} path={path} />
           <span>{name}</span>
@@ -55,13 +55,13 @@ const Tool = ({ children }: ToolProps) => {
               </div>
             }
           >
-            <main className="p-4">{children}</main>
+            <div className="p-4">{children}</div>
           </DocumentPiP>
         ) : (
           children
         )}
-      </main>
-      <aside className={"mt-4 flex-shrink-0 lg:ml-2 lg:mt-0 lg:w-[18rem]"}>
+      </div>
+      <aside className={"mt-4 flex-shrink-0 xl:ml-2 xl:mt-0 xl:w-[18rem]"}>
         {relatedLink && <RelatedLink links={relatedLink} />}
       </aside>
     </div>

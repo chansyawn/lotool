@@ -2,6 +2,7 @@
 
 import { Provider } from "jotai";
 import Header from "./header";
+import Menu from "./menu";
 import { ColorModeProvider } from "@/contexts/color-mode";
 import globalStore from "@/app/store";
 import { DocumentPiPProvider } from "@/contexts/document-pip";
@@ -13,8 +14,9 @@ const Main = ({ children }: { children: React.ReactNode }) => {
         <DocumentPiPProvider>
           <div className="flex h-screen flex-col">
             <Header />
-            <div className="flex-1 overflow-auto">
-              <div className="container isolate px-3 pt-4">{children}</div>
+            <div className="relative mx-auto flex w-full max-w-screen-2xl flex-1 flex-col overflow-hidden lg:flex-row">
+              <Menu />
+              <main className="isolate flex-1 overflow-auto p-4">{children}</main>
             </div>
           </div>
         </DocumentPiPProvider>

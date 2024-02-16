@@ -1,5 +1,5 @@
 const Home = () => {
-  return <section>Just a toolbox, not a lot now🤪</section>;
+  return <div>Just a toolbox, not a lot now🤪</div>;
 };
 
 export default Home;

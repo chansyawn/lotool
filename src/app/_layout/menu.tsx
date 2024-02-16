@@ -1,61 +1,62 @@
 import Link from "next/link";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 import ToolIcon from "../tools/_layout/tool-icon";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import TOOL_CONFIG from "@/app/tools/config";
 
-export const Menu = () => {
+const Menu = () => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const handleCollapseMenu = () => {
+    setCollapsed((pre) => !pre);
+  };
+
+  const handleMenuItemClick = () => {
+    setCollapsed(true);
+  };
+
   return (
-    <NavigationMenu>
-      <NavigationMenuList className="overflow-x-auto">
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-64 gap-3 p-2">
-              {TOOL_CONFIG.map(({ path, name, description }) => (
-                <ToolMenuItem key={path} title={name} path={path} description={description} />
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/awesome" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Awesome
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <>
+      <div className="lg:hidden">
+        <div
+          className="flex h-10 cursor-pointer items-center border-b border-secondary px-4"
+          onClick={handleCollapseMenu}
+        >
+          <HamburgerMenuIcon className="mr-2" />
+          Menu
+        </div>
+        {!collapsed && (
+          <div className="absolute z-10 h-[calc(100%-2rem)] w-full bg-white">
+            <MenuContent onMenuItemClick={handleMenuItemClick} />
+          </div>
+        )}
+      </div>
+      <div className="sticky hidden w-52 pt-2 lg:block">
+        <MenuContent />
+      </div>
+    </>
   );
 };
 
-type ToolMenuItemProps = {
-  title: string;
-  path: string;
-  description: string;
+type MenuContentProps = {
+  onMenuItemClick?: () => void;
 };
 
-const ToolMenuItem = ({ title, description, path }: ToolMenuItemProps) => {
+export const MenuContent = ({ onMenuItemClick }: MenuContentProps) => {
   return (
-    <li className="overflow-hidden">
-      <Link href={`/tools/${path}`} legacyBehavior passHref>
-        <NavigationMenuLink className="flex select-none items-center space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-          <ToolIcon className="mr-2 size-6" name={title} path={path} />
-          <div className="flex-1 overflow-hidden">
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="truncate text-sm leading-snug text-muted-foreground">{description}</p>
-          </div>
-        </NavigationMenuLink>
-      </Link>
-    </li>
+    <ul className="flex h-full flex-col gap-3 overflow-auto p-2">
+      {TOOL_CONFIG.map(({ path, name }) => (
+        <Link
+          key={path}
+          href={`/tools/${path}`}
+          onClick={onMenuItemClick}
+          className="flex select-none items-center rounded-md p-2 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+        >
+          <ToolIcon className="mr-2 size-4" name={name} path={path} />
+          <div className="font-medium">{name}</div>
+        </Link>
+      ))}
+    </ul>
   );
 };
 

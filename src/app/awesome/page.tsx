@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 const TimestampPage = () => {
   return (
-    <main className="flex-grow">
+    <div className="flex-grow">
       <h1 className="mb-4 flex items-center text-3xl font-semibold">
         <Image className="size- mr-2" src={icon} alt="awesome-icon" />
         Awesome
       </h1>
-      <section className="grid w-full grid-flow-row grid-cols-3 gap-x-5 gap-y-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+      <div className="grid w-full grid-flow-row grid-cols-3 gap-x-5 gap-y-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {AWESOME_TOOLS.map(({ name, url, desc, icon }) => (
           <HoverCard key={name}>
             <HoverCardTrigger asChild>
@@ -42,8 +42,8 @@ const TimestampPage = () => {
             </HoverCardContent>
           </HoverCard>
         ))}
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
