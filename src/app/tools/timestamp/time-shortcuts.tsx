@@ -9,6 +9,8 @@ type TimeShortcutsProps = {
 };
 
 const SHORTCUTS: { name: string; getValue: (timestamp: number) => number }[] = [
+  { name: "x1000", getValue: (timestamp) => timestamp * 1000 },
+  { name: "÷1000", getValue: (timestamp) => timestamp / 1000 },
   { name: "Now", getValue: () => new Date().valueOf() },
   { name: "Today", getValue: () => startOfDay(new Date()).valueOf() },
   { name: "Yesterday", getValue: () => addDays(startOfDay(new Date()), -1).valueOf() },

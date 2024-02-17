@@ -19,9 +19,9 @@ import { Button } from "@/components/ui/button";
 // https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760
 const MAX_TIMESTAMP = 1000 * 60 * 60 * 24 * (100000000 - 2);
 
-const TimeUnitConfig: Record<TimestampUnit, { ratio: number; width: string }> = {
-  seconds: { ratio: 1000, width: "17ch" },
-  milliseconds: { ratio: 1, width: "20ch" },
+const TimeUnitConfig: Record<TimestampUnit, { ratio: number }> = {
+  seconds: { ratio: 1000 },
+  milliseconds: { ratio: 1 },
 };
 
 const timestampAtom = atom<number | undefined>(undefined);
@@ -77,8 +77,7 @@ const Page = () => {
       <div className="flex flex-wrap items-baseline gap-2">
         <Input
           type="number"
-          className={"px-2 text-xl"}
-          style={{ width: TimeUnitConfig[unit].width }}
+          className="w-56 px-2 text-xl"
           value={timestampDisplay}
           onChange={handleInput}
           min={-MAX_TIMESTAMP / unitRatio}
@@ -96,7 +95,7 @@ const Page = () => {
               target="_blank"
               href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
             >
-              Read More
+              Read more
             </a>
           </p>
         </div>
@@ -111,7 +110,7 @@ const Page = () => {
       />
       <TimeBreakdownWithFixedTimezone
         value={timestamp}
-        level="minutes"
+        level="hours"
         onChange={handleTimestampChange}
         timezone="Etc/UTC"
         suffix={
@@ -124,7 +123,7 @@ const Page = () => {
         <TimeBreakdownWithCustomTimezone
           key={idx}
           value={timestamp}
-          level="minutes"
+          level="hours"
           onChange={handleTimestampChange}
           timezoneAtom={atom}
           onRemove={() => dispatchTimezones({ type: "remove", atom })}
