@@ -41,6 +41,7 @@ export function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps) {
     <div className="flex select-none flex-wrap gap-2">
       {SHORTCUTS.map(({ name, getValue }) => (
         <Button
+          className="h-auto px-2 py-1"
           size="sm"
           variant="secondary"
           key={name}

@@ -9,17 +9,12 @@ export const useClipboard = ({ timeout = 1000 }: UseClipboardOptions = {}) => {
 
   const copy = useCallback(
     (value: string) => {
-      navigator.clipboard
-        .writeText(value)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => {
-            setCopied(false);
-          }, timeout);
-        })
-        .catch(() => {
-          // TODO
-        });
+      void navigator.clipboard.writeText(value).then(() => {
+        setCopied(true);
+        setTimeout(() => {
+          setCopied(false);
+        }, timeout);
+      });
     },
     [timeout],
   );

@@ -44,11 +44,7 @@ export function InputArea({
               variant="ghost"
               size="icon"
               onClick={() => {
-                paste()
-                  .then(onChange)
-                  .catch(() => {
-                    // TODO
-                  });
+                void paste().then(onChange);
               }}
             >
               <ClipboardIcon />

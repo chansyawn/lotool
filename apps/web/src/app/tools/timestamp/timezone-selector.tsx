@@ -15,6 +15,7 @@ import {
   Switch,
   Label,
   Badge,
+  ScrollArea,
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
@@ -112,27 +113,31 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
             ) : null}
           </div>
           <CommandEmpty>No timezone found.</CommandEmpty>
-          <CommandGroup className="max-h-56 overflow-y-auto">
-            {timezoneOptions.map(({ label, value: timezone, offset }) => (
-              <CommandItem
-                key={timezone}
-                value={timezone}
-                onSelect={() => {
-                  handleSelect(timezone);
-                }}
-              >
-                <CheckIcon
-                  className={cn(
-                    "mr-2",
-                    value === timezone ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                <span className="truncate">{label}</span>
-                <Badge variant="outline" className="ml-2 whitespace-nowrap">
-                  {getISOTimezoneNameByOffset(offset)}
-                </Badge>
-              </CommandItem>
-            ))}
+          <CommandGroup className="w-full">
+            <ScrollArea className="h-56 w-full">
+              {timezoneOptions.map(({ label, value: timezone, offset }) => (
+                <CommandItem
+                  key={timezone}
+                  value={timezone}
+                  onSelect={() => {
+                    handleSelect(timezone);
+                  }}
+                >
+                  <div className="flex">
+                    <CheckIcon
+                      className={cn(
+                        "mr-2",
+                        value === timezone ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                    <span className="truncate">{label}</span>
+                    <Badge variant="outline" className="ml-2 whitespace-nowrap">
+                      {getISOTimezoneNameByOffset(offset)}
+                    </Badge>
+                  </div>
+                </CommandItem>
+              ))}
+            </ScrollArea>
           </CommandGroup>
         </Command>
       </PopoverContent>

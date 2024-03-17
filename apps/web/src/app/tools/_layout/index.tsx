@@ -34,9 +34,7 @@ function ToolLayout({ children }: ToolProps) {
   const tool = TOOL_CONFIG.find((tool) => tool.path === path);
 
   const openPiPWindow = () => {
-    requestPiPWindow(360, 640).catch(() => {
-      // TODO
-    });
+    void requestPiPWindow(800, 600);
   };
 
   if (!tool) {
