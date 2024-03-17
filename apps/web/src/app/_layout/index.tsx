@@ -2,7 +2,7 @@
 
 import { Provider } from "jotai";
 import React from "react";
-import { ScrollArea } from "@lotool/ui";
+import { ScrollArea, TooltipProvider } from "@lotool/ui";
 import { ColorModeProvider } from "@/contexts/color-mode";
 import { globalStore } from "@/app/store";
 import { DocumentPiPProvider } from "@/features/document-pip";
@@ -14,15 +14,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <Provider store={globalStore}>
       <ColorModeProvider>
         <DocumentPiPProvider>
-          <div className="flex h-screen flex-col">
-            <Header />
-            <div className="container relative flex w-full flex-1 flex-col overflow-hidden lg:flex-row">
-              <Menu />
-              <ScrollArea className="isolate flex-1 overflow-auto py-2 pr-4">
-                <main>{children}</main>
-              </ScrollArea>
+          <TooltipProvider delayDuration={200}>
+            <div className="flex h-screen flex-col">
+              <Header />
+              <div className="container relative flex w-full flex-1 flex-col overflow-hidden lg:flex-row">
+                <Menu />
+                <ScrollArea className="flex-1 overflow-auto py-2">
+                  <main>{children}</main>
+                </ScrollArea>
+              </div>
             </div>
-          </div>
+          </TooltipProvider>
         </DocumentPiPProvider>
       </ColorModeProvider>
     </Provider>

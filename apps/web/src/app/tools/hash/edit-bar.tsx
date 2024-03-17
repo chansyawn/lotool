@@ -1,7 +1,17 @@
 "use client";
 
 import { RowsIcon } from "@radix-ui/react-icons";
-import { Select, Tooltip, Toggle } from "@lotool/ui";
+import {
+  Select,
+  Tooltip,
+  Toggle,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  TooltipTrigger,
+  TooltipContent,
+} from "@lotool/ui";
 import {
   CHARACTER_ENCODING_LIST,
   type CharacterEncoding,
@@ -33,34 +43,44 @@ export function EditBar({
     <div className="flex flex-wrap items-end gap-2">
       <EditBarItem label="Output Encoding">
         <Select
-          className="w-40"
-          placeholder="Select Text Encoding"
           value={outEncoding}
           onValueChange={(value: TextEncoding) => {
             onOutputEncodingChange(value);
           }}
-          options={Object.keys(TEXT_ENCODING_LIST).map((item) => ({
-            value: item,
-            label: item,
-          }))}
-        />
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.keys(TEXT_ENCODING_LIST).map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </EditBarItem>
       <EditBarItem label="Character Encoding">
         <Select
-          className="w-40"
-          placeholder="Select Character Encoding"
           value={characterEncoding}
           onValueChange={(value: CharacterEncoding) => {
             onCharacterEncodingChange(value);
           }}
-          options={Object.keys(CHARACTER_ENCODING_LIST).map((item) => ({
-            value: item,
-            label: item,
-          }))}
-        />
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.keys(CHARACTER_ENCODING_LIST).map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </EditBarItem>
-      <Tooltip content="Handle each line separately">
-        <span>
+      <Tooltip>
+        <TooltipTrigger>
           <Toggle
             variant="outline"
             className="size-9 p-0"
@@ -69,7 +89,8 @@ export function EditBar({
           >
             <RowsIcon />
           </Toggle>
-        </span>
+        </TooltipTrigger>
+        <TooltipContent>Handle each line separately</TooltipContent>
       </Tooltip>
     </div>
   );

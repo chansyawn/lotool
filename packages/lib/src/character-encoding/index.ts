@@ -3,8 +3,8 @@ import { utf8ToUtf16 } from "./utf16";
 export enum CharacterEncoding {
   Ascii = "AscII",
   UTF8 = "UTF-8",
-  UTF16LE = "UTF-16LE",
-  UTF16BE = "UTF-16BE",
+  UTF16LE = "UTF-16 LE",
+  UTF16BE = "UTF-16 BE",
 }
 
 export const CHARACTER_ENCODING_LIST: Record<

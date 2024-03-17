@@ -13,6 +13,12 @@ import {
   Toggle,
   Select,
   Tooltip,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  TooltipTrigger,
+  TooltipContent,
 } from "@lotool/ui";
 import {
   CHARACTER_ENCODING_LIST,
@@ -63,39 +69,52 @@ export function EditBar({
       </EditBarItem>
       <EditBarItem label="Text Encoding">
         <Select
-          className="w-40"
-          placeholder="Select Text Encoding"
           value={textEncoding}
           onValueChange={(value: TextEncoding) => {
             onTextEncodingChange(value);
           }}
-          options={Object.keys(TEXT_ENCODING_LIST).map((item) => ({
-            value: item,
-            label: item,
-          }))}
-        />
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.keys(TEXT_ENCODING_LIST).map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </EditBarItem>
       <EditBarItem label="Character Encoding">
         <Select
-          className="w-40"
-          placeholder="Select Character Encoding"
           value={characterEncoding}
           onValueChange={(value: CharacterEncoding) => {
             onCharacterEncodingChange(value);
           }}
-          options={Object.keys(CHARACTER_ENCODING_LIST).map((item) => ({
-            value: item,
-            label: item,
-          }))}
-        />
+        >
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.keys(CHARACTER_ENCODING_LIST).map((item) => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </EditBarItem>
-      <Tooltip content="Use output as input">
-        <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-          <LoopIcon />
-        </Button>
+      <Tooltip>
+        <TooltipTrigger>
+          <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
+            <LoopIcon />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Use output as input</TooltipContent>
       </Tooltip>
-      <Tooltip content="Handle each line separately">
-        <span>
+      <Tooltip>
+        <TooltipTrigger>
           <Toggle
             variant="outline"
             className="size-9 p-0"
@@ -104,7 +123,8 @@ export function EditBar({
           >
             <RowsIcon />
           </Toggle>
-        </span>
+        </TooltipTrigger>
+        <TooltipContent>Handle each line separately</TooltipContent>
       </Tooltip>
     </div>
   );

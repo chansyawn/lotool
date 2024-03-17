@@ -2,7 +2,13 @@
 
 import React from "react";
 import { ClipboardIcon, Cross1Icon } from "@radix-ui/react-icons";
-import { Button, Textarea, Tooltip } from "@lotool/ui";
+import {
+  Button,
+  Textarea,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { useClipboard } from "@/hooks/use-clipboard";
 
@@ -32,31 +38,37 @@ export function InputArea({
       <div className="mb-1 flex items-center gap-1 px-1">
         <div className="mr-auto text-lg font-medium">{title}</div>
         {extra}
-        <Tooltip content="Paste from clipboard">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => {
-              paste()
-                .then(onChange)
-                .catch(() => {
-                  // TODO
-                });
-            }}
-          >
-            <ClipboardIcon />
-          </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                paste()
+                  .then(onChange)
+                  .catch(() => {
+                    // TODO
+                  });
+              }}
+            >
+              <ClipboardIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Paste from clipboard</TooltipContent>
         </Tooltip>
-        <Tooltip content="Clear content">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => {
-              onChange("");
-            }}
-          >
-            <Cross1Icon />
-          </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                onChange("");
+              }}
+            >
+              <Cross1Icon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Clear content</TooltipContent>
         </Tooltip>
       </div>
       <Textarea

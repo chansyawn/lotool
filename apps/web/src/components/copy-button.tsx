@@ -1,5 +1,15 @@
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
-import { Button, type ButtonProps, Tooltip, DropdownMenu } from "@lotool/ui";
+import {
+  Button,
+  type ButtonProps,
+  Tooltip,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  TooltipTrigger,
+  TooltipContent,
+} from "@lotool/ui";
 import React from "react";
 import { useClipboard } from "@/hooks/use-clipboard";
 
@@ -24,21 +34,29 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
 
   if (props.mode === "multiple") {
     return (
-      <Tooltip content="Copy to clipboard">
-        <DropdownMenu
-          align="end"
-          options={props.options.map(({ key, label, data }) => ({
-            key,
-            label,
-            onClick: () => {
-              copy(typeof data === "string" ? data : data());
-            },
-          }))}
-        >
-          <Button variant={variant} size="icon">
-            <Icon />
-          </Button>
-        </DropdownMenu>
+      <Tooltip>
+        <TooltipTrigger>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant={variant} size="icon">
+                <Icon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {props.options.map(({ key, label, data }) => (
+                <DropdownMenuItem
+                  key={key}
+                  onClick={() => {
+                    copy(typeof data === "string" ? data : data());
+                  }}
+                >
+                  {label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </TooltipTrigger>
+        <TooltipContent>Copy to clipboard</TooltipContent>
       </Tooltip>
     );
   }
@@ -46,16 +64,19 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
   const { data } = props;
 
   return (
-    <Tooltip content="Copy to clipboard">
-      <Button
-        variant={variant}
-        size="icon"
-        onClick={() => {
-          copy(typeof data === "string" ? data : data());
-        }}
-      >
-        <Icon />
-      </Button>
+    <Tooltip>
+      <TooltipTrigger>
+        <Button
+          variant={variant}
+          size="icon"
+          onClick={() => {
+            copy(typeof data === "string" ? data : data());
+          }}
+        >
+          <Icon />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>Copy to clipboard</TooltipContent>
     </Tooltip>
   );
 }
