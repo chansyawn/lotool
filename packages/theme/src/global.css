@@ -74,12 +74,4 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
-
-  ::-webkit-scrollbar {
-    @apply w-2.5;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
 }

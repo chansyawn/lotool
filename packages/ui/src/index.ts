@@ -7,6 +7,7 @@ export * from "./primitives/hover-card";
 export * from "./primitives/input";
 export * from "./primitives/label";
 export * from "./primitives/popover";
+export * from "./primitives/scroll-area";
 // export * from "./primitives/select";
 export * from "./primitives/switch";
 export * from "./primitives/tabs";
