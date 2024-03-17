@@ -1,0 +1,19 @@
+{
+  "name": "@lotool/lib",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts",
+    "./character-encoding": "./src/character-encoding/index.ts",
+    "./hash": "./src/hash/index.ts",
+    "./text-encoding": "./src/text-encoding/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pre-commit": "lint-staged",
+    "test": "vitest"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
+  }
+}

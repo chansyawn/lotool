@@ -1,0 +1,11 @@
+{
+  "extends": "@lotool/typescript-config/react.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": {
+      "@lotool/ui/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

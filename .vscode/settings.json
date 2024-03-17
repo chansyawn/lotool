@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["commitlint", "lotool", "roboto"]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ]
 }

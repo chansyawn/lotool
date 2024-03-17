@@ -1,0 +1,4 @@
+pnpm-lock.yaml
+
+# temporarily closed until shadcn cli supports prettier
+packages/ui/src/primitives
