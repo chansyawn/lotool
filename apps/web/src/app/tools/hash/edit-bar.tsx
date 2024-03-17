@@ -74,7 +74,7 @@ export function EditBar({
         </Select>
       </EditBarItem>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Toggle
             variant="outline"
             className="size-9 p-0"

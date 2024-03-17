@@ -33,7 +33,7 @@ export function InputArea({
         <div className="mr-auto text-lg font-medium">{title}</div>
         {extra}
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               variant="ghost"
               size="icon"
@@ -47,7 +47,7 @@ export function InputArea({
           <TooltipContent>Paste from clipboard</TooltipContent>
         </Tooltip>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               variant="ghost"
               size="icon"

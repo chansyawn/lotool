@@ -34,30 +34,30 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
 
   if (props.mode === "multiple") {
     return (
-      <Tooltip>
-        <TooltipTrigger>
-          <DropdownMenu>
+      <DropdownMenu>
+        <Tooltip>
+          <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button variant={variant} size="icon">
                 <Icon />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {props.options.map(({ key, label, data }) => (
-                <DropdownMenuItem
-                  key={key}
-                  onClick={() => {
-                    copy(typeof data === "string" ? data : data());
-                  }}
-                >
-                  {label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </TooltipTrigger>
-        <TooltipContent>Copy to clipboard</TooltipContent>
-      </Tooltip>
+          </TooltipTrigger>
+          <TooltipContent>Copy to clipboard</TooltipContent>
+        </Tooltip>
+        <DropdownMenuContent align="end">
+          {props.options.map(({ key, label, data }) => (
+            <DropdownMenuItem
+              key={key}
+              onClick={() => {
+                copy(typeof data === "string" ? data : data());
+              }}
+            >
+              {label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 
@@ -65,7 +65,7 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button
           variant={variant}
           size="icon"

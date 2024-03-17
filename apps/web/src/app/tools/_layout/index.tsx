@@ -47,7 +47,7 @@ function ToolLayout({ children }: ToolProps) {
           <span>{name}</span>
           {isSupportDocumentPiP && !documentPiPWindow ? (
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
                   <OpenInNewWindowIcon className="size-4" />
                 </Button>

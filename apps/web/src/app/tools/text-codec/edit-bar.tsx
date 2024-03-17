@@ -97,7 +97,7 @@ export function EditBar({
         </Select>
       </EditBarItem>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
             <LoopIcon />
           </Button>
@@ -105,7 +105,7 @@ export function EditBar({
         <TooltipContent>Use output as input</TooltipContent>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Toggle
             variant="outline"
             className="size-9 p-0"
