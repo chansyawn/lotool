@@ -1,4 +1,3 @@
-import { Button } from "@lotool/ui";
 import { RelatedLinkIcon } from "./related-link-icon";
 
 export type RelatedLinkType = "wikipedia" | "github";
@@ -16,16 +15,19 @@ interface RelatedLinkProps {
 export function RelatedLink({ links }: RelatedLinkProps) {
   return (
     <div>
-      <h2 className="mb-1 text-xl font-medium">Related Links</h2>
+      <h2 className="mb-1 font-medium">Related Links</h2>
       <ul className="space-y-2">
         {links.map(({ label, href, type }) => (
           <li key={label}>
-            <Button size="sm" className="space-x-1 text-sm" variant="secondary" asChild>
-              <a href={href} target="_blank" rel="noopener">
-                <RelatedLinkIcon type={type} />
-                <span>{label}</span>
-              </a>
-            </Button>
+            <a
+              href={href}
+              className="space-x-1 text-sm inline-flex items-center hover:border-b border-primary"
+              target="_blank"
+              rel="noopener"
+            >
+              <RelatedLinkIcon type={type} />
+              <span>{label}</span>
+            </a>
           </li>
         ))}
       </ul>
