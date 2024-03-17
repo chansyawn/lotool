@@ -18,3 +18,4 @@ export * from "./primitives/toggle";
 export * from "./components/dropdown-menu";
 export * from "./components/select";
 export * from "./components/tooltip";
+export * from "./components/portal-provider";

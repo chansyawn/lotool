@@ -3,9 +3,10 @@
 import { useSelectedLayoutSegments } from "next/navigation";
 import dynamic from "next/dynamic";
 import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
-import { Button, Tooltip } from "@lotool/ui";
+import { Button, PortalContainerProvider, Tooltip } from "@lotool/ui";
 import React from "react";
-import { DocumentPiP, useDocumentPiP } from "@/contexts/document-pip";
+import { Portal } from "@radix-ui/react-portal";
+import { useDocumentPiPContext } from "@/features/document-pip";
 import { TOOL_CONFIG } from "../config";
 import { RelatedLink } from "./related-link";
 import { ToolIcon } from "./tool-icon";
@@ -15,8 +16,12 @@ interface ToolProps {
 }
 
 function ToolLayout({ children }: ToolProps) {
-  const { isSupported, documentPiPWindow, requestPiPWindow, closePiPWindow } =
-    useDocumentPiP();
+  const {
+    isSupportDocumentPiP,
+    documentPiPWindow,
+    requestPiPWindow,
+    closePiPWindow,
+  } = useDocumentPiPContext();
   const segments = useSelectedLayoutSegments();
   const path = segments.join("/");
 
@@ -40,7 +45,7 @@ function ToolLayout({ children }: ToolProps) {
         <h1 className="mb-4 flex items-center text-3xl font-semibold">
           <ToolIcon className="mr-2 size-6" name={name} path={path} />
           <span>{name}</span>
-          {isSupported && !documentPiPWindow ? (
+          {isSupportDocumentPiP && !documentPiPWindow ? (
             <Tooltip content="Open in Picture-in-Picture mode(Beta)">
               <Button
                 variant="ghost"
@@ -53,20 +58,18 @@ function ToolLayout({ children }: ToolProps) {
             </Tooltip>
           ) : null}
         </h1>
-        {children && documentPiPWindow ? (
-          <DocumentPiP
-            pipWindow={documentPiPWindow}
-            placeholder={
-              <div className="flex aspect-video flex-col items-center justify-center">
-                <div className="mb-2 text-xl font-semibold">
-                  Picture in Picture Mode Activated
-                </div>
-                <Button onClick={closePiPWindow}>Click to close</Button>
+        {documentPiPWindow ? (
+          <PortalContainerProvider container={documentPiPWindow.document.body}>
+            <Portal container={documentPiPWindow.document.body} className="p-4">
+              {children}
+            </Portal>
+            <div className="flex aspect-video flex-col items-center justify-center">
+              <div className="mb-2 text-xl font-semibold">
+                Picture in Picture Mode Activated
               </div>
-            }
-          >
-            <div className="p-4">{children}</div>
-          </DocumentPiP>
+              <Button onClick={closePiPWindow}>Click to close</Button>
+            </div>
+          </PortalContainerProvider>
         ) : (
           children
         )}

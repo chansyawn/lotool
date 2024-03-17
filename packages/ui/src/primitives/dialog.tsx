@@ -5,12 +5,13 @@ import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { Cross2Icon } from "@radix-ui/react-icons"
 
 import { cn } from "@lotool/theme/utils"
+import { withPortalProvider } from "../components/portal-provider"
 
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
 
-const DialogPortal = DialogPrimitive.Portal
+const DialogPortal = withPortalProvider(DialogPrimitive.Portal)
 
 const DialogClose = DialogPrimitive.Close
 

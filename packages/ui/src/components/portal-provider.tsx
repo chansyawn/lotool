@@ -1,3 +1,5 @@
+"use client";
+
 import { type PortalProps } from "@radix-ui/react-portal";
 import { type ReactElement, createContext, useContext } from "react";
 
@@ -29,7 +31,7 @@ export function PortalContainerProvider({
 export function withPortalProvider<
   Props extends { container?: PortalContainer },
 >(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
-  function ComponentWithPortalProvider(props: Props): JSX.Element {
+  function ComponentWithPortalProvider(props: Props) {
     const container = usePortalContainer();
     return <WrappedComponent container={container} {...props} />;
   }

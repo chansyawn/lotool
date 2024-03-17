@@ -1,24 +1,10 @@
-import React, { createContext, useCallback, useContext, useState } from "react";
-import * as Portal from "@radix-ui/react-portal";
+import { useCallback, useState } from "react";
 import { useHasMounted } from "@/hooks/use-has-mounted";
 
-interface DocumentPiPContextValue {
-  isSupported: boolean;
-  documentPiPWindow: Window | null;
-  requestPiPWindow: (width: number, height: number) => Promise<void>;
-  closePiPWindow: () => void;
-}
-
-const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(
-  undefined,
-);
-export function DocumentPiPProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const useDocumentPiP = () => {
   const hasMounted = useHasMounted();
-  const isSupport = hasMounted && "documentPictureInPicture" in window;
+  const isSupportDocumentPiP =
+    hasMounted && "documentPictureInPicture" in window;
   const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(
     null,
   );
@@ -72,50 +58,10 @@ export function DocumentPiPProvider({
     [documentPiPWindow],
   );
 
-  return (
-    <DocumentPiPContext.Provider
-      value={{
-        isSupported: isSupport,
-        documentPiPWindow,
-        requestPiPWindow,
-        closePiPWindow,
-      }}
-    >
-      {children}
-    </DocumentPiPContext.Provider>
-  );
-}
-
-export const useDocumentPiP = () => {
-  const context = useContext(DocumentPiPContext);
-  if (context === undefined) {
-    throw new Error("useDocumentPiP must be used within a DocumentPiPProvider");
-  }
-  return context;
+  return {
+    isSupportDocumentPiP,
+    documentPiPWindow,
+    requestPiPWindow,
+    closePiPWindow,
+  };
 };
-
-const DefaultContainerContext = createContext<HTMLElement | undefined>(
-  undefined,
-);
-export const useDefaultContainer = () => useContext(DefaultContainerContext);
-
-interface DocumentPiPProps {
-  pipWindow: Window;
-  children: React.ReactNode;
-  placeholder?: React.ReactNode;
-}
-
-export function DocumentPiP({
-  pipWindow,
-  children,
-  placeholder,
-}: DocumentPiPProps) {
-  const container = pipWindow.document.body;
-
-  return (
-    <DefaultContainerContext.Provider value={container}>
-      <Portal.Root container={container}>{children}</Portal.Root>
-      {placeholder}
-    </DefaultContainerContext.Provider>
-  );
-}

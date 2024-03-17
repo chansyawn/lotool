@@ -10,8 +10,11 @@ import {
 import * as SelectPrimitive from "@radix-ui/react-select"
 
 import { cn } from "@lotool/theme/utils"
+import { withPortalProvider } from "../components/portal-provider"
 
 const Select = SelectPrimitive.Root
+
+const SelectPortal = withPortalProvider(SelectPrimitive.Portal)
 
 const SelectGroup = SelectPrimitive.Group
 
@@ -76,7 +79,7 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = "popper", ...props }, ref) => (
-  <SelectPrimitive.Portal>
+  <SelectPortal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
@@ -100,7 +103,7 @@ const SelectContent = React.forwardRef<
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
+  </SelectPortal>
 ))
 SelectContent.displayName = SelectPrimitive.Content.displayName
 

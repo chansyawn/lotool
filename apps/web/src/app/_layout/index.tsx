@@ -5,7 +5,7 @@ import React from "react";
 import { ScrollArea } from "@lotool/ui";
 import { ColorModeProvider } from "@/contexts/color-mode";
 import { globalStore } from "@/app/store";
-import { DocumentPiPProvider } from "@/contexts/document-pip";
+import { DocumentPiPProvider } from "@/features/document-pip";
 import { Menu } from "./menu";
 import { Header } from "./header";
 

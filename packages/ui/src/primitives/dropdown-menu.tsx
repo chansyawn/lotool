@@ -9,6 +9,7 @@ import {
 } from "@radix-ui/react-icons"
 
 import { cn } from "@lotool/theme/utils"
+import { withPortalProvider } from "../components/portal-provider"
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -16,7 +17,7 @@ const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group
 
-const DropdownMenuPortal = DropdownMenuPrimitive.Portal
+const DropdownMenuPortal = withPortalProvider(DropdownMenuPrimitive.Portal)
 
 const DropdownMenuSub = DropdownMenuPrimitive.Sub
 
