@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 
 export function CurrentTime() {
-  const [currentTimestamp, setCurrentTimestamp] = useState(
-    new Date().valueOf(),
-  );
+  const [currentTimestamp, setCurrentTimestamp] = useState(new Date().valueOf());
   const currTimestampSeconds = (currentTimestamp / 1000).toFixed();
 
   useEffect(() => {

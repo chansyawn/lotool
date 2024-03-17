@@ -6,29 +6,17 @@ import { InputArea } from "@/components/input-area";
 import { OutputArea } from "@/components/output-area";
 import { EditBar } from "./edit-bar";
 import { useHash } from "./use-hash";
-import {
-  characterEncodingAtom,
-  multiLineModeAtom,
-  outputEncodingAtom,
-} from "./persist";
+import { characterEncodingAtom, multiLineModeAtom, outputEncodingAtom } from "./persist";
 
 const inputAtom = atom("");
 
-const ENABLED_ALGORITHM = [
-  Hash.MD5,
-  Hash.SHA1,
-  Hash.SHA256,
-  Hash.SHA384,
-  Hash.SHA512,
-];
+const ENABLED_ALGORITHM = [Hash.MD5, Hash.SHA1, Hash.SHA256, Hash.SHA384, Hash.SHA512];
 
 function Page() {
   const [input, setInput] = useAtom(inputAtom);
   const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
   const [outputEncoding, setOutputEncoding] = useAtom(outputEncodingAtom);
-  const [characterEncoding, setCharacterEncoding] = useAtom(
-    characterEncodingAtom,
-  );
+  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
 
   const output = useHash(input, {
     multiLineMode,
@@ -47,12 +35,7 @@ function Page() {
         multiLineMode={multiLineMode}
         onMultiLineModeChange={setMultiLineMode}
       />
-      <InputArea
-        className="h-48"
-        title="Input"
-        value={input}
-        onChange={setInput}
-      />
+      <InputArea className="h-48" title="Input" value={input} onChange={setInput} />
       {output.map(({ algorithm, value }) => (
         <OutputArea key={algorithm} title={algorithm} value={value} />
       ))}

@@ -19,10 +19,7 @@ import {
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
-import {
-  getEtcTimezoneNameByOffset,
-  getISOTimezoneNameByOffset,
-} from "./utils";
+import { getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
 
 interface TimezoneSelectorProps {
   value: string;
@@ -35,9 +32,7 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
     Boolean(ALL_UTC_OFFSETS.find(({ value: timezone }) => timezone === value)),
   );
   const timezoneOptions = utcMode ? ALL_UTC_OFFSETS : SUPPORTED_TIMEZONES;
-  const currentTimezone = timezoneOptions.find(
-    ({ value: timezone }) => timezone === value,
-  );
+  const currentTimezone = timezoneOptions.find(({ value: timezone }) => timezone === value);
   if (!currentTimezone) {
     throw new Error(`Invalid timezone: ${value}`);
   }
@@ -70,38 +65,21 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full"
-        >
+        <Button variant="outline" role="combobox" aria-expanded={open} className="w-full">
           <span className="mr-auto truncate">{value}</span>
           <CaretSortIcon className="ml-2 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" align="start">
         <Command>
-          <CommandInput
-            className="border-b-0"
-            placeholder="Search Timezone..."
-          />
+          <CommandInput className="border-b-0" placeholder="Search Timezone..." />
           <div className="flex items-center border-b p-2">
-            <Switch
-              id="utc-mode"
-              checked={utcMode}
-              onCheckedChange={handleUtcModeChange}
-            />
+            <Switch id="utc-mode" checked={utcMode} onCheckedChange={handleUtcModeChange} />
             <Label htmlFor="utc-mode" className="ml-2 text-sm font-normal">
               Etc timezone
             </Label>
             {utcMode ? (
-              <Button
-                size="sm"
-                className="ml-auto h-auto font-normal"
-                variant="link"
-                asChild
-              >
+              <Button size="sm" className="ml-auto h-auto font-normal" variant="link" asChild>
                 <a
                   href="https://en.wikipedia.org/wiki/Tz_database#Area"
                   target="_blank"
@@ -125,10 +103,7 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
                 >
                   <div className="flex">
                     <CheckIcon
-                      className={cn(
-                        "mr-2",
-                        value === timezone ? "opacity-100" : "opacity-0",
-                      )}
+                      className={cn("mr-2", value === timezone ? "opacity-100" : "opacity-0")}
                     />
                     <span className="truncate">{label}</span>
                     <Badge variant="outline" className="ml-2 whitespace-nowrap">

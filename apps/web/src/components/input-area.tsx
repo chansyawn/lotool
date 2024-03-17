@@ -2,13 +2,7 @@
 
 import React from "react";
 import { ClipboardIcon, Cross1Icon } from "@radix-ui/react-icons";
-import {
-  Button,
-  Textarea,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@lotool/ui";
+import { Button, Textarea, Tooltip, TooltipContent, TooltipTrigger } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { useClipboard } from "@/hooks/use-clipboard";
 

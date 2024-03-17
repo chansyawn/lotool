@@ -22,15 +22,13 @@ export function PortalContainerProvider({
   children,
 }: PortalContainerProviderProps): ReactElement {
   return (
-    <PortalContainerContext.Provider value={container}>
-      {children}
-    </PortalContainerContext.Provider>
+    <PortalContainerContext.Provider value={container}>{children}</PortalContainerContext.Provider>
   );
 }
 
-export function withPortalProvider<
-  Props extends { container?: PortalContainer },
->(WrappedComponent: React.ComponentType<Props>): React.ComponentType<Props> {
+export function withPortalProvider<Props extends { container?: PortalContainer }>(
+  WrappedComponent: React.ComponentType<Props>,
+): React.ComponentType<Props> {
   function ComponentWithPortalProvider(props: Props) {
     const container = usePortalContainer();
     return <WrappedComponent container={container} {...props} />;

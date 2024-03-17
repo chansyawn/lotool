@@ -7,15 +7,10 @@ interface TimestampUnitSwitcherProps {
   onChange: (value: TimestampUnit) => void;
 }
 
-export function TimestampUnitSwitcher({
-  value,
-  onChange,
-}: TimestampUnitSwitcherProps) {
+export function TimestampUnitSwitcher({ value, onChange }: TimestampUnitSwitcherProps) {
   const renderOption = (timestampUnit: TimestampUnit) => {
     return value === timestampUnit ? (
-      <div className="bg-secondary rounded px-1 font-medium">
-        {timestampUnit}
-      </div>
+      <div className="bg-secondary rounded px-1 font-medium">{timestampUnit}</div>
     ) : (
       <button
         type="button"

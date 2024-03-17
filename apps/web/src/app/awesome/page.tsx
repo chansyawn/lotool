@@ -26,11 +26,7 @@ function TimestampPage() {
                 className="hover:bg-secondary flex w-fit items-center gap-1 rounded px-1 py-0.5"
               >
                 {icon ? (
-                  <Image
-                    className="size-5 rounded"
-                    src={icon}
-                    alt={`${name}-logo`}
-                  />
+                  <Image className="size-5 rounded" src={icon} alt={`${name}-logo`} />
                 ) : (
                   <GlobeIcon className="size-5" />
                 )}
@@ -39,9 +35,7 @@ function TimestampPage() {
             </HoverCardTrigger>
             <HoverCardContent>
               <div className="flex flex-col gap-2">
-                {icon ? (
-                  <Image className="size-8" src={icon} alt={`${name}-logo`} />
-                ) : null}
+                {icon ? <Image className="size-8" src={icon} alt={`${name}-logo`} /> : null}
                 <div className="font-medium">{name}</div>
                 <div>{desc}</div>
               </div>

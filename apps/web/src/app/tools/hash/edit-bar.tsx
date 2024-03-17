@@ -12,14 +12,8 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@lotool/ui";
-import {
-  CHARACTER_ENCODING_LIST,
-  type CharacterEncoding,
-} from "@lotool/lib/character-encoding";
-import {
-  TEXT_ENCODING_LIST,
-  type TextEncoding,
-} from "@lotool/lib/text-encoding";
+import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
+import { TEXT_ENCODING_LIST, type TextEncoding } from "@lotool/lib/text-encoding";
 import React from "react";
 
 interface EditBarProps {
@@ -96,13 +90,7 @@ export function EditBar({
   );
 }
 
-function EditBarItem({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function EditBarItem({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1">
       <div className="px-1 text-sm font-medium">{label}</div>

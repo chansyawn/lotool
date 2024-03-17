@@ -18,45 +18,37 @@ const getColorModeFromStorage = (value: string | null) => {
   return "system";
 };
 
-const colorModeAtom = atomWithStorage<ColorMode>(
-  LocalStorageKey.ColorMode,
-  "system",
-  {
-    getItem: (key) => getColorModeFromStorage(localStorage.getItem(key)),
-    setItem: (key, value) => {
-      localStorage.setItem(key, value);
-    },
-    removeItem: (key) => {
-      localStorage.removeItem(key);
-    },
-    subscribe: (key, callback) => {
-      if (
-        typeof window === "undefined" ||
-        typeof window.addEventListener === "undefined"
-      )
-        return () => void 0;
-
-      const handleStorageChange = (e: StorageEvent) => {
-        if (e.storageArea === localStorage && e.key === key) {
-          callback(getColorModeFromStorage(e.newValue));
-        }
-      };
-
-      window.addEventListener("storage", handleStorageChange);
-      return () => {
-        window.removeEventListener("storage", handleStorageChange);
-      };
-    },
+const colorModeAtom = atomWithStorage<ColorMode>(LocalStorageKey.ColorMode, "system", {
+  getItem: (key) => getColorModeFromStorage(localStorage.getItem(key)),
+  setItem: (key, value) => {
+    localStorage.setItem(key, value);
   },
-);
+  removeItem: (key) => {
+    localStorage.removeItem(key);
+  },
+  subscribe: (key, callback) => {
+    if (typeof window === "undefined" || typeof window.addEventListener === "undefined")
+      return () => void 0;
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.storageArea === localStorage && e.key === key) {
+        callback(getColorModeFromStorage(e.newValue));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  },
+});
 
 export const useColorMode = () => {
   return useAtom(colorModeAtom);
 };
 
 const setColorModeInDocumentElement = (colorMode: ColorMode) => {
-  const systemColorMode = window.matchMedia("(prefers-color-scheme: dark)")
-    .matches
+  const systemColorMode = window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
   document.documentElement.setAttribute(

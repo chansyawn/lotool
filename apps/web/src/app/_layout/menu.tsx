@@ -59,9 +59,7 @@ export function MenuContent({ onMenuItemClick }: MenuContentProps) {
             onClick={onMenuItemClick}
             className={cn(
               "group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline",
-              pathname === `/tools/${path}`
-                ? "text-foreground"
-                : "text-muted-foreground",
+              pathname === `/tools/${path}` ? "text-foreground" : "text-muted-foreground",
             )}
           >
             <ToolIcon className="mr-2 size-3.5" name={name} path={path} />

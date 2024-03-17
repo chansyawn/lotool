@@ -7,19 +7,13 @@ import {
   getSeconds,
   getYear,
 } from "date-fns";
-import {
-  getTimezoneOffset,
-  getEtcTimezoneNameByOffset,
-  getISOTimezoneNameByOffset,
-} from "./utils";
+import { getTimezoneOffset, getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
 
-export const SUPPORTED_TIMEZONES = Intl.supportedValuesOf("timeZone").map(
-  (item) => ({
-    label: item,
-    value: item,
-    offset: getTimezoneOffset(item),
-  }),
-);
+export const SUPPORTED_TIMEZONES = Intl.supportedValuesOf("timeZone").map((item) => ({
+  label: item,
+  value: item,
+  offset: getTimezoneOffset(item),
+}));
 
 export const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => ({
   label: getEtcTimezoneNameByOffset(60 * (idx - 14)),
@@ -27,9 +21,7 @@ export const ALL_UTC_OFFSETS = new Array(26).fill(0).map((_, idx) => ({
   offset: 60 * (idx - 11),
 }));
 
-const getIntlDateTimeFormatterPreset = (
-  preset: "full" | "long" | "medium" | "short",
-) => ({
+const getIntlDateTimeFormatterPreset = (preset: "full" | "long" | "medium" | "short") => ({
   label: `Intl-${preset}`,
   formatter: (value: number, timezone: string) =>
     new Intl.DateTimeFormat(undefined, {
@@ -52,10 +44,7 @@ export const TIME_FORMATTER: {
         timeZone: timezone,
       })
         .format(value)
-        .replace(
-          " ",
-          "T",
-        )}${getISOTimezoneNameByOffset(getTimezoneOffset(timezone))}`,
+        .replace(" ", "T")}${getISOTimezoneNameByOffset(getTimezoneOffset(timezone))}`,
   },
   getIntlDateTimeFormatterPreset("short"),
   getIntlDateTimeFormatterPreset("medium"),

@@ -1,4 +1,1 @@
-export {
-  DocumentPiPProvider,
-  useDocumentPiPContext,
-} from "./document-pip-context";
+export { DocumentPiPProvider, useDocumentPiPContext } from "./document-pip-context";

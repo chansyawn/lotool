@@ -22,12 +22,8 @@ interface ToolProps {
 }
 
 function ToolLayout({ children }: ToolProps) {
-  const {
-    isSupportDocumentPiP,
-    documentPiPWindow,
-    requestPiPWindow,
-    closePiPWindow,
-  } = useDocumentPiPContext();
+  const { isSupportDocumentPiP, documentPiPWindow, requestPiPWindow, closePiPWindow } =
+    useDocumentPiPContext();
   const segments = useSelectedLayoutSegments();
   const path = segments.join("/");
 
@@ -52,18 +48,11 @@ function ToolLayout({ children }: ToolProps) {
           {isSupportDocumentPiP && !documentPiPWindow ? (
             <Tooltip>
               <TooltipTrigger>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="ml-auto"
-                  onClick={openPiPWindow}
-                >
+                <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
                   <OpenInNewWindowIcon className="size-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                Open in Picture-in-Picture mode(Beta)
-              </TooltipContent>
+              <TooltipContent>Open in Picture-in-Picture mode(Beta)</TooltipContent>
             </Tooltip>
           ) : null}
         </h1>
@@ -73,9 +62,7 @@ function ToolLayout({ children }: ToolProps) {
               {children}
             </Portal>
             <div className="flex aspect-video flex-col items-center justify-center">
-              <div className="mb-2 text-xl font-semibold">
-                Picture in Picture Mode Activated
-              </div>
+              <div className="mb-2 text-xl font-semibold">Picture in Picture Mode Activated</div>
               <Button onClick={closePiPWindow}>Click to close</Button>
             </div>
           </PortalContainerProvider>

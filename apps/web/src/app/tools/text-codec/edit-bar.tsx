@@ -1,10 +1,7 @@
 "use client";
 
 import { LoopIcon, RowsIcon } from "@radix-ui/react-icons";
-import {
-  TEXT_ENCODING_LIST,
-  type TextEncoding,
-} from "@lotool/lib/text-encoding";
+import { TEXT_ENCODING_LIST, type TextEncoding } from "@lotool/lib/text-encoding";
 import {
   Tabs,
   TabsList,
@@ -20,10 +17,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@lotool/ui";
-import {
-  CHARACTER_ENCODING_LIST,
-  type CharacterEncoding,
-} from "@lotool/lib/character-encoding";
+import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
 import React from "react";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
@@ -54,10 +48,7 @@ export function EditBar({
   return (
     <div className="flex flex-wrap items-end gap-2">
       <EditBarItem label="Mode">
-        <Tabs
-          value={mode}
-          onValueChange={onModeChange as (value: string) => void}
-        >
+        <Tabs value={mode} onValueChange={onModeChange as (value: string) => void}>
           <TabsList>
             {MODE_OPTIONS.map((item) => (
               <TabsTrigger key={item} value={item}>
@@ -130,13 +121,7 @@ export function EditBar({
   );
 }
 
-function EditBarItem({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function EditBarItem({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1">
       <div className="px-1 text-sm font-medium">{label}</div>

@@ -22,10 +22,7 @@ export const atomWithValidatedStorage = <Value extends Record<string, unknown>>(
       localStorage.removeItem(key);
     },
     subscribe: (key, callback, initialValue) => {
-      if (
-        typeof window === "undefined" ||
-        typeof window.addEventListener === "undefined"
-      ) {
+      if (typeof window === "undefined" || typeof window.addEventListener === "undefined") {
         return () => void 0;
       }
 

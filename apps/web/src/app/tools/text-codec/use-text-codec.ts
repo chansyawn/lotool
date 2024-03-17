@@ -1,11 +1,5 @@
-import {
-  type TextEncoding,
-  TEXT_ENCODING_LIST,
-} from "@lotool/lib/text-encoding";
-import {
-  CHARACTER_ENCODING_LIST,
-  type CharacterEncoding,
-} from "@lotool/lib/character-encoding";
+import { type TextEncoding, TEXT_ENCODING_LIST } from "@lotool/lib/text-encoding";
+import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
 
 interface UseTextCodecOptions {
   mode: "Encode" | "Decode";
@@ -19,8 +13,7 @@ export const useTextCodec = (
   { mode, multiLineMode, textEncoding, characterEncoding }: UseTextCodecOptions,
 ) => {
   const generateOutput = (input: string) => {
-    const { encode: encodeText, decode: decodeText } =
-      TEXT_ENCODING_LIST[textEncoding];
+    const { encode: encodeText, decode: decodeText } = TEXT_ENCODING_LIST[textEncoding];
     const { encode: encodeCharacter, decode: decodeCharacter } =
       CHARACTER_ENCODING_LIST[characterEncoding];
 

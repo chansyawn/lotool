@@ -20,12 +20,7 @@ export function RelatedLink({ links }: RelatedLinkProps) {
       <ul className="space-y-2">
         {links.map(({ label, href, type }) => (
           <li key={label}>
-            <Button
-              size="sm"
-              className="space-x-1 text-sm"
-              variant="secondary"
-              asChild
-            >
+            <Button size="sm" className="space-x-1 text-sm" variant="secondary" asChild>
               <a href={href} target="_blank" rel="noopener">
                 <RelatedLinkIcon type={type} />
                 <span>{label}</span>

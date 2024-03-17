@@ -19,12 +19,7 @@ export interface TimeBreakdownProps {
   timezone: string;
 }
 
-function TimeBreakdown({
-  value,
-  onChange,
-  level,
-  timezone,
-}: TimeBreakdownProps) {
+function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps) {
   const timezoneOffset = getTimezoneOffset(timezone);
   const date = addMinutes(new UTCDate(value), -timezoneOffset);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
@@ -35,10 +30,7 @@ function TimeBreakdown({
         let width = "8ch";
         if (field === "year") {
           const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
-          const yearLength = Math.max(
-            4,
-            `${getYear(addDays(value, isPositiveYear))}`.length,
-          );
+          const yearLength = Math.max(4, `${getYear(addDays(value, isPositiveYear))}`.length);
           width = `${6 + yearLength}ch`;
         } else if (field === "milliseconds") {
           width = "9ch";
@@ -68,8 +60,7 @@ function TimeBreakdown({
           key: label,
           label: (
             <span>
-              {formatter(value, timezone)}{" "}
-              <Badge variant="secondary">{label}</Badge>
+              {formatter(value, timezone)} <Badge variant="secondary">{label}</Badge>
             </span>
           ),
           data: formatter(value, timezone),
@@ -93,11 +84,7 @@ export function TimeBreakdownWithFixedTimezone({
     <div className="flex gap-x-2">
       <div className="w-40 flex-shrink-0 md:w-64">
         <span className="text-sm">Timezone</span>
-        <Button
-          className="w-full justify-start disabled:opacity-100"
-          variant="outline"
-          disabled
-        >
+        <Button className="w-full justify-start disabled:opacity-100" variant="outline" disabled>
           <span className="truncate">{timezone}</span>
         </Button>
       </div>

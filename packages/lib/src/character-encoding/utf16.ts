@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- trust me */
 /* eslint-disable no-bitwise -- trust me */
 
-export const utf8ToUtf16 = (
-  utf8Data: Uint8Array,
-  endianness: "BE" | "LE" = "BE",
-): ArrayBuffer => {
+export const utf8ToUtf16 = (utf8Data: Uint8Array, endianness: "BE" | "LE" = "BE"): ArrayBuffer => {
   const utf16Data: number[] = [];
 
   for (let i = 0; i < utf8Data.length; ) {
@@ -19,10 +16,7 @@ export const utf8ToUtf16 = (
     } else if (firstByte < 0xf0) {
       const secondByte = utf8Data[i++]!;
       const thirdByte = utf8Data[i++]!;
-      codePoint =
-        ((firstByte & 0xf) << 12) |
-        ((secondByte & 0x3f) << 6) |
-        (thirdByte & 0x3f);
+      codePoint = ((firstByte & 0xf) << 12) | ((secondByte & 0x3f) << 6) | (thirdByte & 0x3f);
     } else {
       const secondByte = utf8Data[i++]!;
       const thirdByte = utf8Data[i++]!;

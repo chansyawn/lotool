@@ -13,8 +13,6 @@ export const binaryToString = (binary: ArrayBuffer, radix: number): string => {
 export const stringToBinary = (str: string, radix: number): ArrayBuffer => {
   const itemMaxLength = Math.ceil(8 / Math.log2(radix));
   return new Uint8Array(
-    splitStringIntoChunks(str, itemMaxLength).map((item) =>
-      parseInt(item, radix),
-    ),
+    splitStringIntoChunks(str, itemMaxLength).map((item) => parseInt(item, radix)),
   ).buffer;
 };

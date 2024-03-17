@@ -8,20 +8,12 @@ interface DocumentPiPContextValue {
   closePiPWindow: () => void;
 }
 
-const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(
-  undefined,
-);
+const DocumentPiPContext = createContext<DocumentPiPContextValue | undefined>(undefined);
 
-export function DocumentPiPProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function DocumentPiPProvider({ children }: { children: React.ReactNode }) {
   const documentPiPValue = useDocumentPiP();
   return (
-    <DocumentPiPContext.Provider value={documentPiPValue}>
-      {children}
-    </DocumentPiPContext.Provider>
+    <DocumentPiPContext.Provider value={documentPiPValue}>{children}</DocumentPiPContext.Provider>
   );
 }
 

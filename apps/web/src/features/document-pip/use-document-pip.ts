@@ -3,11 +3,8 @@ import { useHasMounted } from "@/hooks/use-has-mounted";
 
 export const useDocumentPiP = () => {
   const hasMounted = useHasMounted();
-  const isSupportDocumentPiP =
-    hasMounted && "documentPictureInPicture" in window;
-  const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(
-    null,
-  );
+  const isSupportDocumentPiP = hasMounted && "documentPictureInPicture" in window;
+  const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(null);
 
   const closePiPWindow = useCallback(() => {
     if (documentPiPWindow !== null) {
@@ -34,9 +31,7 @@ export const useDocumentPiP = () => {
       // https://developer.chrome.com/docs/web-platform/document-picture-in-picture/#copy-style-sheets-to-the-picture-in-picture-window
       [...document.styleSheets].forEach((styleSheet) => {
         try {
-          const cssRules = [...styleSheet.cssRules]
-            .map((rule) => rule.cssText)
-            .join("");
+          const cssRules = [...styleSheet.cssRules].map((rule) => rule.cssText).join("");
           const style = document.createElement("style");
           style.textContent = cssRules;
           pip.document.head.appendChild(style);

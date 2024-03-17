@@ -11,17 +11,9 @@ interface OutputAreaProps {
   value: string;
 }
 
-export function OutputArea({
-  title,
-  style,
-  className,
-  value,
-}: OutputAreaProps) {
+export function OutputArea({ title, style, className, value }: OutputAreaProps) {
   return (
-    <div
-      className={cn("flex flex-col overflow-hidden", className)}
-      style={style}
-    >
+    <div className={cn("flex flex-col overflow-hidden", className)} style={style}>
       <div className="mb-1 flex items-center gap-2 px-1">
         <div className="mr-auto text-lg font-medium">{title}</div>
         <CopyButton data={value} variant="ghost" />

@@ -8,10 +8,7 @@ export enum Hash {
   SHA512 = "SHA-512",
 }
 
-export const HASH_LIST: Record<
-  Hash,
-  (binary: ArrayBuffer) => Promise<ArrayBuffer>
-> = {
+export const HASH_LIST: Record<Hash, (binary: ArrayBuffer) => Promise<ArrayBuffer>> = {
   [Hash.MD5]: async (data) =>
     new Promise((resolve) => {
       resolve(md5(data));

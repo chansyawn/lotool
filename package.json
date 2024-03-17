@@ -15,10 +15,7 @@
     ]
   },
   "prettier": {
-    "plugins": [
-      "prettier-plugin-packagejson",
-      "prettier-plugin-tailwindcss"
-    ]
+    "printWidth": 100
   },
   "devDependencies": {
     "@commitlint/cli": "19.2.0",

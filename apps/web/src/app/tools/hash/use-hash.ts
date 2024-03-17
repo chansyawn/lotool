@@ -1,12 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import {
-  type TextEncoding,
-  TEXT_ENCODING_LIST,
-} from "@lotool/lib/text-encoding";
-import {
-  CHARACTER_ENCODING_LIST,
-  type CharacterEncoding,
-} from "@lotool/lib/character-encoding";
+import { type TextEncoding, TEXT_ENCODING_LIST } from "@lotool/lib/text-encoding";
+import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
 import { HASH_LIST, type Hash } from "@lotool/lib/hash";
 
 interface UseHashOptions {
@@ -24,22 +18,12 @@ interface HashOptions {
 
 export const useHash = (
   input: string,
-  {
-    multiLineMode,
-    outputEncoding,
-    characterEncoding,
-    enabledAlgorithm,
-  }: UseHashOptions,
+  { multiLineMode, outputEncoding, characterEncoding, enabledAlgorithm }: UseHashOptions,
 ) => {
-  const [output, setOutput] = useState<{ algorithm: Hash; value: string }[]>(
-    [],
-  );
+  const [output, setOutput] = useState<{ algorithm: Hash; value: string }[]>([]);
 
   const hash = useCallback(
-    async (
-      text: string,
-      { algorithm, characterEncoding, outputEncoding }: HashOptions,
-    ) => {
+    async (text: string, { algorithm, characterEncoding, outputEncoding }: HashOptions) => {
       try {
         const data = CHARACTER_ENCODING_LIST[characterEncoding].encode(text);
         const hash = await HASH_LIST[algorithm](data);

@@ -25,13 +25,9 @@ const persistAtom = atomWithValidatedStorage<Persist>(
   PERSIST_SCHEMA,
 );
 
-export const textEncodingAtom = focusAtom(persistAtom, (optic) =>
-  optic.prop("textEncoding"),
-);
+export const textEncodingAtom = focusAtom(persistAtom, (optic) => optic.prop("textEncoding"));
 export const characterEncodingAtom = focusAtom(persistAtom, (optic) =>
   optic.prop("characterEncoding"),
 );
 export const modeAtom = focusAtom(persistAtom, (optic) => optic.prop("mode"));
-export const multiLineModeAtom = focusAtom(persistAtom, (optic) =>
-  optic.prop("multiLineMode"),
-);
+export const multiLineModeAtom = focusAtom(persistAtom, (optic) => optic.prop("multiLineMode"));

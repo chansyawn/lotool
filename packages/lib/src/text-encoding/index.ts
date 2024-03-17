@@ -16,8 +16,7 @@ export const TEXT_ENCODING_LIST: Record<
 > = {
   [TextEncoding.Base64]: {
     encode: (binary) => btoa(String.fromCharCode(...new Uint8Array(binary))),
-    decode: (text) =>
-      Uint8Array.from(atob(text), (c) => c.charCodeAt(0)).buffer,
+    decode: (text) => Uint8Array.from(atob(text), (c) => c.charCodeAt(0)).buffer,
   },
   [TextEncoding.Base64URL]: {
     encode: (binary) =>
@@ -26,10 +25,7 @@ export const TEXT_ENCODING_LIST: Record<
         .replaceAll("/", "_")
         .replaceAll("=", ""),
     decode: (text) =>
-      Uint8Array.from(
-        atob(text.replaceAll("-", "+").replaceAll("_", "/")),
-        (c) => c.charCodeAt(0),
-      ),
+      Uint8Array.from(atob(text.replaceAll("-", "+").replaceAll("_", "/")), (c) => c.charCodeAt(0)),
   },
   [TextEncoding.Binary]: {
     encode: (binary) => binaryToString(binary, 2),

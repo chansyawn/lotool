@@ -5,12 +5,7 @@ import { InputArea } from "@/components/input-area";
 import { OutputArea } from "@/components/output-area";
 import { EditBar } from "./edit-bar";
 import { useTextCodec } from "./use-text-codec";
-import {
-  characterEncodingAtom,
-  modeAtom,
-  multiLineModeAtom,
-  textEncodingAtom,
-} from "./persist";
+import { characterEncodingAtom, modeAtom, multiLineModeAtom, textEncodingAtom } from "./persist";
 
 const inputAtom = atom("");
 
@@ -19,9 +14,7 @@ function Page() {
   const [mode, setMode] = useAtom(modeAtom);
   const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
   const [textEncoding, setTextEncoding] = useAtom(textEncodingAtom);
-  const [characterEncoding, setCharacterEncoding] = useAtom(
-    characterEncodingAtom,
-  );
+  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
 
   const output = useTextCodec(input, {
     mode,

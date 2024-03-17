@@ -9,9 +9,10 @@ const PERSIST_SCHEMA = z.object({
   unit: z.literal("seconds").or(z.literal("milliseconds")),
   customTimezone: z.array(
     z.enum(
-      [...ALL_UTC_OFFSETS, ...SUPPORTED_TIMEZONES].map(
-        ({ value }) => value,
-      ) as [string, ...string[]],
+      [...ALL_UTC_OFFSETS, ...SUPPORTED_TIMEZONES].map(({ value }) => value) as [
+        string,
+        ...string[],
+      ],
     ),
   ),
 });

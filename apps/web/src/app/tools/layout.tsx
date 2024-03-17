@@ -5,9 +5,7 @@ import { TOOL_CONFIG } from "./config";
 import { Tool } from "./_layout";
 
 export function generateMetadata(): Metadata {
-  const tool = TOOL_CONFIG.find(
-    (tool) => `/tools/${tool.path}` === headers().get("x-tool-path"),
-  );
+  const tool = TOOL_CONFIG.find((tool) => `/tools/${tool.path}` === headers().get("x-tool-path"));
   if (!tool) {
     return {};
   }

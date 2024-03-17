@@ -10,10 +10,7 @@ import { RelativeTime } from "./relative-time";
 import { TimeShortcuts } from "./time-shortcuts";
 import { type TimestampUnit, timezoneAtomsAtom, unitAtom } from "./persist";
 import { fixTimestamp } from "./utils";
-import {
-  TimeBreakdownWithCustomTimezone,
-  TimeBreakdownWithFixedTimezone,
-} from "./time-breakdown";
+import { TimeBreakdownWithCustomTimezone, TimeBreakdownWithFixedTimezone } from "./time-breakdown";
 
 // Max timestamp in ECMAScript Date is milliseconds of ±100,000,000 days,
 // minus two day for timezone convert correctly there.
@@ -85,17 +82,11 @@ function Page() {
           min={-MAX_TIMESTAMP / unitRatio}
           max={MAX_TIMESTAMP / unitRatio}
         />
-        <TimestampUnitSwitcher
-          value={unit}
-          onChange={handleMillisecondModeChange}
-        />
+        <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
       </div>
       {Math.abs(timestamp) === MAX_TIMESTAMP && (
         <div className="text-destructive text-sm">
-          <p>
-            Reach the max timestamp in ECMAScript Date (milliseconds of
-            ±100,000,000 days)
-          </p>
+          <p>Reach the max timestamp in ECMAScript Date (milliseconds of ±100,000,000 days)</p>
           <p>
             minus two day for timezone convert correctly there.
             <a
