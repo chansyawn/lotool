@@ -2,7 +2,7 @@
 
 import { Provider } from "jotai";
 import React from "react";
-import { ScrollArea, TooltipProvider } from "@lotool/ui";
+import { ScrollArea, Toaster, TooltipProvider } from "@lotool/ui";
 import { ColorModeProvider } from "@/contexts/color-mode";
 import { globalStore } from "@/app/store";
 import { DocumentPiPProvider } from "@/features/document-pip";
@@ -24,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </ScrollArea>
               </div>
             </div>
+            <Toaster />
           </TooltipProvider>
         </DocumentPiPProvider>
       </ColorModeProvider>

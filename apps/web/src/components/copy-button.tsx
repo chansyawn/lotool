@@ -11,7 +11,7 @@ import {
   TooltipContent,
 } from "@lotool/ui";
 import React from "react";
-import { useClipboard } from "@/hooks/use-clipboard";
+import { useClipboard } from "@/features/clipboard";
 
 type CopyButtonProps = (
   | { mode?: "single"; data: string | (() => string) }
