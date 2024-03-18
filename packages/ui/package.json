@@ -32,13 +32,13 @@
     "@radix-ui/react-toggle": "1.0.3",
     "@radix-ui/react-tooltip": "1.0.7",
     "class-variance-authority": "0.7.0",
-    "cmdk": "0.2.1"
+    "cmdk": "1.0.0"
   },
   "devDependencies": {
     "@turbo/gen": "1.12.5",
     "@types/eslint": "8.56.5",
     "@types/node": "20.11.28",
-    "@types/react": "18.2.66",
+    "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22"
   },
   "peerDependencies": {
