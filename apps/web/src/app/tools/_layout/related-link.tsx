@@ -16,7 +16,7 @@ export function RelatedLink({ links }: RelatedLinkProps) {
   return (
     <div>
       <h2 className="mb-1 font-medium">Related Links</h2>
-      <ul className="space-y-2">
+      <ul>
         {links.map(({ label, href, type }) => (
           <li key={label}>
             <a
