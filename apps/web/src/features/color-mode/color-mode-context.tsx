@@ -3,9 +3,9 @@
 import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { useHasMounted } from "@/hooks/use-has-mounted";
-import { useMediaQuery } from "@/hooks/use-media-query";
-import { LocalStorageKey } from "@/constants/local-storage-key";
+import { useHasMounted } from "@/features/dom/use-has-mounted";
+import { useMediaQuery } from "@/features/media-query/use-media-query";
+import { LocalStorageKey } from "@/features/storage/local-storage-key";
 
 export const colorModeAttribute = "data-color-mode";
 
@@ -73,18 +73,3 @@ export function ColorModeProvider({ children }: ColorModeProviderProps) {
 
   return <>{children}</>;
 }
-
-export const initColorModeScript = `
-(function () {
-  const colorMode = localStorage.getItem("${LocalStorageKey.ColorMode}");
-  if (colorMode && ["light", "dark"].includes(colorMode)) {
-    document.documentElement.setAttribute("${colorModeAttribute}", colorMode);
-  } else {
-    document.documentElement.setAttribute(
-      "${colorModeAttribute}",
-      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
-    );
-    localStorage.setItem("${LocalStorageKey.ColorMode}", "system");
-  }
-})();
-`;

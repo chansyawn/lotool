@@ -5,8 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fonts } from "@lotool/theme/font";
 import { cn } from "@lotool/theme/utils";
 import { Layout } from "@/app/_layout";
-import "@lotool/theme/global.css";
-import { initColorModeScript } from "@/contexts/color-mode";
+import "@lotool/theme/globals.css";
+import { initColorModeScript } from "@/features/color-mode/init-color-mode";
 
 export const metadata: Metadata = {
   title: "Lotool",

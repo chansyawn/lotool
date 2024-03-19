@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { focusAtom } from "jotai-optics";
 import { splitAtom } from "jotai/utils";
-import { atomWithValidatedStorage } from "@/utils/atom-with-validated-storage";
-import { LocalStorageKey } from "@/constants/local-storage-key";
+import { atomWithValidatedStorage } from "@/features/storage/atom-with-validated-storage";
+import { LocalStorageKey } from "@/features/storage/local-storage-key";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 
 const PERSIST_SCHEMA = z.object({

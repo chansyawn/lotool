@@ -3,9 +3,9 @@
 import { Provider } from "jotai";
 import React from "react";
 import { ScrollArea, Toaster, TooltipProvider } from "@lotool/ui";
-import { ColorModeProvider } from "@/contexts/color-mode";
+import { ColorModeProvider } from "@/features/color-mode/color-mode-context";
 import { globalStore } from "@/app/store";
-import { DocumentPiPProvider } from "@/features/document-pip";
+import { DocumentPiPProvider } from "@/features/document-pip/document-pip-context";
 import { Menu } from "./menu";
 import { Header } from "./header";
 

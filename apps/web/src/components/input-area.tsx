@@ -4,7 +4,7 @@ import React from "react";
 import { ClipboardIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { Button, Textarea, Tooltip, TooltipContent, TooltipTrigger } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
-import { useClipboard } from "@/features/clipboard";
+import { useClipboard } from "@/features/clipboard/use-clipboard";
 
 interface InputAreaProps {
   style?: React.CSSProperties;

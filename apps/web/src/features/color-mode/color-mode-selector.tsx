@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@lotool/ui";
 import { useMemo } from "react";
-import { useColorMode } from "@/contexts/color-mode";
+import { useColorMode } from "./color-mode-context";
 
 export function ColorModeSelector() {
   const [, setColorMode] = useColorMode();

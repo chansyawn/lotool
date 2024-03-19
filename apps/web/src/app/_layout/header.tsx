@@ -1,5 +1,5 @@
+import { ColorModeSelector } from "@/features/color-mode/color-mode-selector";
 import { Logo } from "./logo";
-import { ColorModeSelector } from "./color-mode-selector";
 
 export function Header() {
   return (

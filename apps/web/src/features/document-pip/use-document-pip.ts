@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
-import { useHasMounted } from "@/hooks/use-has-mounted";
 
 export const useDocumentPiP = () => {
-  const hasMounted = useHasMounted();
-  const isSupportDocumentPiP = hasMounted && "documentPictureInPicture" in window;
+  const isSupportDocumentPiP =
+    typeof window !== "undefined" && "documentPictureInPicture" in window;
   const [documentPiPWindow, setDocumentPiPWindow] = useState<Window | null>(null);
 
   const closePiPWindow = useCallback(() => {

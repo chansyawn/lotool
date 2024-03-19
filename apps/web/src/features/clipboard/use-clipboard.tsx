@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { useBrowserPermission, useBrowserPermissionCheck } from "@/features/browser-permission";
+import { useBrowserPermission } from "@/features/browser-permission/use-browser-permission";
+import { useBrowserPermissionCheck } from "@/features/browser-permission/use-browser-permission-check";
 
 export interface UseClipboardOptions {
   timeout?: number;

@@ -1,6 +1,6 @@
 import { atomWithStorage } from "jotai/utils";
 import { type z } from "zod";
-import { type LocalStorageKey } from "@/constants/local-storage-key";
+import { type LocalStorageKey } from "./local-storage-key";
 
 export const atomWithValidatedStorage = <Value extends Record<string, unknown>>(
   key: LocalStorageKey,

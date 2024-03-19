@@ -12,7 +12,7 @@ import {
 } from "@lotool/ui";
 import React from "react";
 import { Portal } from "@radix-ui/react-portal";
-import { useDocumentPiPContext } from "@/features/document-pip";
+import { useDocumentPiPContext } from "@/features/document-pip/document-pip-context";
 import { TOOL_CONFIG } from "../config";
 import { RelatedLink } from "./related-link";
 import { ToolIcon } from "./tool-icon";

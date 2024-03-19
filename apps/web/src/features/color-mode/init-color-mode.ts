@@ -1,4 +1,4 @@
-import { LocalStorageKey } from "@/constants/local-storage-key";
+import { LocalStorageKey } from "@/features/storage/local-storage-key";
 
 export const colorModeAttribute = "data-color-mode";
 
