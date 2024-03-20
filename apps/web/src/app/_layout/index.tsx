@@ -19,7 +19,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Header />
               <div className="container relative flex w-full flex-1 flex-col overflow-hidden lg:flex-row">
                 <Menu />
-                <ScrollArea className="flex-1 overflow-auto py-2">
+                <ScrollArea className="flex-1 overflow-auto p-2">
                   <main>{children}</main>
                 </ScrollArea>
               </div>

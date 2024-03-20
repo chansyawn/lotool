@@ -30,7 +30,7 @@ export function Menu() {
           Menu
         </button>
         {!collapsed && (
-          <div className="absolute z-10 h-[calc(100%-2rem)] w-full bg-white">
+          <div className="absolute z-10 h-[calc(100%-2rem)] w-full bg-background">
             <MenuContent onMenuItemClick={handleMenuItemClick} />
           </div>
         )}
