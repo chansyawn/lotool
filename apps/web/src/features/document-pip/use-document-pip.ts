@@ -46,7 +46,7 @@ export const useDocumentPiP = () => {
           pip.document.head.appendChild(link);
         }
       });
-
+      pip.document.body.className = document.body.className;
       setDocumentPiPWindow(pip);
     },
     [documentPiPWindow],
