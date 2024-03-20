@@ -106,14 +106,16 @@ export function EditBar({
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Toggle
-            variant="outline"
-            className="size-9 p-0"
-            pressed={multiLineMode}
-            onPressedChange={onMultiLineModeChange}
-          >
-            <RowsIcon />
-          </Toggle>
+          <div>
+            <Toggle
+              variant="outline"
+              className="size-9 p-0"
+              pressed={multiLineMode}
+              onPressedChange={onMultiLineModeChange}
+            >
+              <RowsIcon />
+            </Toggle>
+          </div>
         </TooltipTrigger>
         <TooltipContent>Handle each line separately</TooltipContent>
       </Tooltip>
