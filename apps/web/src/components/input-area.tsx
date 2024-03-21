@@ -25,27 +25,29 @@ export function InputArea({
   placeholder,
   extra,
 }: InputAreaProps) {
-  const { paste } = useClipboard();
+  const { pasteable, paste } = useClipboard();
 
   return (
     <div className={cn("flex flex-col", className)} style={style}>
       <div className="mb-1 flex items-center gap-1 px-1">
         <div className="mr-auto text-lg font-medium">{title}</div>
         {extra}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => {
-                void paste().then(onChange);
-              }}
-            >
-              <ClipboardIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Paste from clipboard</TooltipContent>
-        </Tooltip>
+        {pasteable ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  void paste().then(onChange);
+                }}
+              >
+                <ClipboardIcon />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Paste from clipboard</TooltipContent>
+          </Tooltip>
+        ) : null}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
