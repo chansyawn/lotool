@@ -11,9 +11,11 @@ const browserPermissionAtomFamily = atomFamily((permission: string) => {
   const permissionAtom = atom<ExpandedPermissionState>("unknown");
 
   const effect = atomEffect((_, set) => {
-    let permissionStatus: PermissionStatus;
+    let permissionStatus: PermissionStatus | undefined;
     const listener = () => {
-      set(permissionAtom, permissionStatus.state);
+      if (permissionStatus) {
+        set(permissionAtom, permissionStatus.state);
+      }
     };
 
     navigator.permissions
@@ -28,7 +30,9 @@ const browserPermissionAtomFamily = atomFamily((permission: string) => {
       });
 
     return () => {
-      permissionStatus.removeEventListener("change", listener);
+      if (permissionStatus) {
+        permissionStatus.removeEventListener("change", listener);
+      }
     };
   });
 
