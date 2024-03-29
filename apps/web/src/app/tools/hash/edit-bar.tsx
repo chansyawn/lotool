@@ -1,38 +1,15 @@
 "use client";
 
-import { RowsIcon } from "@radix-ui/react-icons";
-import {
-  Select,
-  Tooltip,
-  Toggle,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  TooltipTrigger,
-  TooltipContent,
-} from "@lotool/ui";
-import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@lotool/ui";
 import { TEXT_ENCODING_LIST, type TextEncoding } from "@lotool/lib/text-encoding";
 import React from "react";
 
 interface EditBarProps {
   outEncoding: TextEncoding;
   onOutputEncodingChange: (value: TextEncoding) => void;
-  characterEncoding: CharacterEncoding;
-  onCharacterEncodingChange: (value: CharacterEncoding) => void;
-  multiLineMode: boolean;
-  onMultiLineModeChange: (value: boolean) => void;
 }
 
-export function EditBar({
-  outEncoding,
-  onOutputEncodingChange,
-  characterEncoding,
-  onCharacterEncodingChange,
-  multiLineMode,
-  onMultiLineModeChange,
-}: EditBarProps) {
+export function EditBar({ outEncoding, onOutputEncodingChange }: EditBarProps) {
   return (
     <div className="flex flex-wrap items-end gap-2">
       <EditBarItem label="Output Encoding">
@@ -54,40 +31,6 @@ export function EditBar({
           </SelectContent>
         </Select>
       </EditBarItem>
-      <EditBarItem label="Character Encoding">
-        <Select
-          value={characterEncoding}
-          onValueChange={(value: CharacterEncoding) => {
-            onCharacterEncodingChange(value);
-          }}
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.keys(CHARACTER_ENCODING_LIST).map((item) => (
-              <SelectItem key={item} value={item}>
-                {item}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </EditBarItem>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <div>
-            <Toggle
-              variant="outline"
-              className="size-9 p-0"
-              pressed={multiLineMode}
-              onPressedChange={onMultiLineModeChange}
-            >
-              <RowsIcon />
-            </Toggle>
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>Handle each line separately</TooltipContent>
-      </Tooltip>
     </div>
   );
 }

@@ -2,42 +2,52 @@
 
 import { atom, useAtom } from "jotai";
 import { Hash } from "@lotool/lib/hash";
-import { InputArea } from "@/components/input-area";
-import { OutputArea } from "@/components/output-area";
-import { EditBar } from "./edit-bar";
-import { useHash } from "./use-hash";
-import { characterEncodingAtom, multiLineModeAtom, outputEncodingAtom } from "./persist";
-
-const inputAtom = atom("");
+import { CharacterEncoding } from "@lotool/lib/character-encoding";
+import { InputBlob } from "@/components/input-blob";
+import { TextEncodingSelector } from "@/components/text-encoding-selector";
+import { Labeled } from "@/components/labeled";
+import { outputEncodingAtom } from "./persist";
+import { HashResult } from "./hash-result";
 
 const ENABLED_ALGORITHM = [Hash.MD5, Hash.SHA1, Hash.SHA256, Hash.SHA384, Hash.SHA512];
 
-function Page() {
-  const [input, setInput] = useAtom(inputAtom);
-  const [multiLineMode, setMultiLineMode] = useAtom(multiLineModeAtom);
-  const [outputEncoding, setOutputEncoding] = useAtom(outputEncodingAtom);
-  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
+const textAtom = atom("");
+const fileAtom = atom<File | undefined>(undefined);
+const characterEncodingAtom = atom(CharacterEncoding.UTF8);
+const inputTypeAtom = atom<"text" | "file">("text");
 
-  const output = useHash(input, {
-    multiLineMode,
-    outputEncoding,
-    characterEncoding,
-    enabledAlgorithm: ENABLED_ALGORITHM,
-  });
+function Page() {
+  const [outputEncoding, setOutputEncoding] = useAtom(outputEncodingAtom);
+  const [inputType, setInputType] = useAtom(inputTypeAtom);
+  const [text, setText] = useAtom(textAtom);
+  const [file, setFile] = useAtom(fileAtom);
+  const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
+  const input = inputType === "text" ? new Blob([text]) : file;
 
   return (
     <div className="space-y-2">
-      <EditBar
-        outEncoding={outputEncoding}
-        onOutputEncodingChange={setOutputEncoding}
+      <InputBlob
+        inputType={inputType}
+        text={text}
+        file={file}
+        extra={
+          <Labeled label="Output Encoding">
+            <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
+          </Labeled>
+        }
+        onInputTypeChange={setInputType}
+        onTextChange={setText}
+        onFileChange={setFile}
         characterEncoding={characterEncoding}
         onCharacterEncodingChange={setCharacterEncoding}
-        multiLineMode={multiLineMode}
-        onMultiLineModeChange={setMultiLineMode}
       />
-      <InputArea className="h-48" title="Input" value={input} onChange={setInput} />
-      {output.map(({ algorithm, value }) => (
-        <OutputArea key={algorithm} title={algorithm} value={value} />
+      {ENABLED_ALGORITHM.map((algorithm) => (
+        <HashResult
+          key={algorithm}
+          algorithm={algorithm}
+          value={input ?? new Blob()}
+          outputEncoding={outputEncoding}
+        />
       ))}
     </div>
   );

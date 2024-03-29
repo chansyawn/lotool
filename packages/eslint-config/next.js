@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/no-misused-promises": ["error", { checksVoidReturn: false }],
   },
   settings: { "import/resolver": { typescript: { project } } },
   ignorePatterns: ["/*", "!/src"],
