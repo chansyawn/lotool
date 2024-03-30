@@ -24,14 +24,15 @@ function Page() {
   const [text, setText] = useAtom(textAtom);
   const [file, setFile] = useAtom(fileAtom);
   const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
-  const input = useMemo(
-    () => (inputType === "text" ? new Blob([text]) : file),
-    [inputType, text, file],
-  );
 
   const params = useMemo(
-    () => asTuple([input ?? new Blob(), ALL_ALGORITHM, { outputEncoding }]),
-    [input, outputEncoding],
+    () =>
+      asTuple([
+        inputType === "text" ? new Blob([text]) : file ?? new Blob(),
+        ALL_ALGORITHM,
+        { outputEncoding },
+      ]),
+    [file, inputType, outputEncoding, text],
   );
 
   const { running, output } = useHash(params);
