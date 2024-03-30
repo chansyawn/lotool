@@ -1,24 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { type TextEncoding } from "@lotool/lib/text-encoding";
-import { type Hash } from "@lotool/lib/hash";
 import { useWorkerFn } from "@/features/worker/use-worker-fn";
 import { useDebounceFn } from "@/features/debounce/use-debounce";
-import { type HashWorkerParameter, type HashWorkerResult } from "./hash-worker";
+import { type HashWorker } from "./hash-worker";
 
-interface HashOptions {
-  algorithm: Hash;
-  outputEncoding: TextEncoding;
-}
-
-type UseHashOptions = HashOptions;
-
-export const useHash = (input: Blob, { outputEncoding, algorithm }: UseHashOptions) => {
-  const [output, setOutput] = useState("");
+export const useHash = (params: Parameters<HashWorker>) => {
+  const [output, setOutput] = useState<ReturnType<HashWorker>>([]);
 
   const worker = useCallback(() => new Worker(new URL("./hash-worker.ts", import.meta.url)), []);
-  const { run, running } = useWorkerFn<HashWorkerParameter, HashWorkerResult>(worker);
+  const { run, running } = useWorkerFn<HashWorker>(worker);
+
   const generateHash = useCallback(
-    (...args: HashWorkerParameter) =>
+    (...args: Parameters<HashWorker>) =>
       run(...args).then((value) => {
         setOutput(value);
       }),
@@ -27,8 +19,8 @@ export const useHash = (input: Blob, { outputEncoding, algorithm }: UseHashOptio
   const debouncedGenerate = useDebounceFn(generateHash);
 
   useEffect(() => {
-    debouncedGenerate(input, algorithm, outputEncoding);
-  }, [algorithm, input, outputEncoding, debouncedGenerate]);
+    debouncedGenerate(...params);
+  }, [debouncedGenerate, params]);
 
   return { output, running };
 };

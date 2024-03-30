@@ -1,4 +1,12 @@
-import { md5 } from "./md5";
+import {
+  createHMAC,
+  createMD5,
+  createSHA1,
+  createSHA256,
+  createSHA384,
+  createSHA512,
+} from "hash-wasm";
+import { type IHasher } from "hash-wasm/dist/lib/WASMInterface";
 
 export enum Hash {
   MD5 = "MD5",
@@ -8,13 +16,16 @@ export enum Hash {
   SHA512 = "SHA-512",
 }
 
-export const HASH_LIST: Record<Hash, (binary: ArrayBuffer) => Promise<ArrayBuffer>> = {
-  [Hash.MD5]: async (data) =>
-    new Promise((resolve) => {
-      resolve(md5(data));
-    }),
-  [Hash.SHA1]: async (data) => await crypto.subtle.digest("SHA-1", data),
-  [Hash.SHA256]: async (data) => await crypto.subtle.digest("SHA-256", data),
-  [Hash.SHA384]: async (data) => await crypto.subtle.digest("SHA-384", data),
-  [Hash.SHA512]: async (data) => await crypto.subtle.digest("SHA-512", data),
+export type HashCreator = (hmac?: Uint8Array) => Promise<IHasher>;
+
+const withHMAC = (hasher: () => Promise<IHasher>) => (hmac?: Uint8Array) => {
+  return hmac ? createHMAC(hasher(), hmac) : hasher();
+};
+
+export const HASH_MAP: Record<Hash, HashCreator> = {
+  [Hash.MD5]: withHMAC(createMD5),
+  [Hash.SHA1]: withHMAC(createSHA1),
+  [Hash.SHA256]: withHMAC(createSHA256),
+  [Hash.SHA384]: withHMAC(createSHA384),
+  [Hash.SHA512]: withHMAC(createSHA512),
 };

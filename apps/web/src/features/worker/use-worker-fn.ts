@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { type PrimitiveFunction } from "@/types/function";
 
 interface WorkerRef {
   thread: Worker;
@@ -9,7 +10,7 @@ interface UseWorkerOptions {
   timeout?: number;
 }
 
-export const useWorkerFn = <T extends unknown[], K>(
+export const useWorkerFn = <T extends PrimitiveFunction>(
   worker: () => Worker,
   { timeout }: UseWorkerOptions = {},
 ) => {
@@ -28,8 +29,8 @@ export const useWorkerFn = <T extends unknown[], K>(
   }, []);
 
   const run = useCallback(
-    (...args: T) => {
-      return new Promise<K>((resolve, reject) => {
+    (...args: Parameters<T>) => {
+      return new Promise<ReturnType<T>>((resolve, reject) => {
         if (workerRef.current) {
           terminate();
         }
@@ -43,7 +44,7 @@ export const useWorkerFn = <T extends unknown[], K>(
           : undefined;
 
         thread.postMessage(args);
-        thread.onmessage = (e: MessageEvent<K>) => {
+        thread.onmessage = (e: MessageEvent<ReturnType<T>>) => {
           resolve(e.data);
           terminate();
         };

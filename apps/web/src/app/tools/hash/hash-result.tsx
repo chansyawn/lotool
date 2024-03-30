@@ -1,17 +1,12 @@
-import { type Hash } from "@lotool/lib/hash";
-import { type TextEncoding } from "@lotool/lib/text-encoding";
 import { CopyButton } from "@/components/copy-button";
-import { useHash } from "./use-hash";
 
 interface HashResultProps {
-  algorithm: Hash;
-  value: Blob;
-  outputEncoding: TextEncoding;
+  algorithm: string;
+  output: string;
+  running: boolean;
 }
 
-export function HashResult({ algorithm, value, outputEncoding }: HashResultProps) {
-  const { output, running } = useHash(value, { algorithm, outputEncoding });
-
+export function HashResult({ algorithm, output, running }: HashResultProps) {
   return (
     <div className="flex flex-col overflow-hidden">
       <div className="mb-1 flex items-center gap-2 px-1">

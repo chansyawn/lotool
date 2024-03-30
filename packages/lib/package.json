@@ -15,5 +15,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
+  "dependencies": {
+    "hash-wasm": "4.11.0"
   }
 }

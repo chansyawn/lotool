@@ -1,16 +1,18 @@
 "use client";
 
 import { atom, useAtom } from "jotai";
-import { Hash } from "@lotool/lib/hash";
 import { CharacterEncoding } from "@lotool/lib/character-encoding";
+import { useMemo } from "react";
+import { Hash } from "@lotool/lib/hash";
 import { InputBlob } from "@/components/input-blob";
 import { TextEncodingSelector } from "@/components/text-encoding-selector";
 import { Labeled } from "@/components/labeled";
+import { asTuple } from "@/types/utils";
 import { outputEncodingAtom } from "./persist";
 import { HashResult } from "./hash-result";
+import { useHash } from "./use-hash";
 
-const ENABLED_ALGORITHM = [Hash.MD5, Hash.SHA1, Hash.SHA256, Hash.SHA384, Hash.SHA512];
-
+const ALL_ALGORITHM = Object.values(Hash);
 const textAtom = atom("");
 const fileAtom = atom<File | undefined>(undefined);
 const characterEncodingAtom = atom(CharacterEncoding.UTF8);
@@ -22,7 +24,17 @@ function Page() {
   const [text, setText] = useAtom(textAtom);
   const [file, setFile] = useAtom(fileAtom);
   const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
-  const input = inputType === "text" ? new Blob([text]) : file;
+  const input = useMemo(
+    () => (inputType === "text" ? new Blob([text]) : file),
+    [inputType, text, file],
+  );
+
+  const params = useMemo(
+    () => asTuple([input ?? new Blob(), ALL_ALGORITHM, { outputEncoding }]),
+    [input, outputEncoding],
+  );
+
+  const { running, output } = useHash(params);
 
   return (
     <div className="space-y-2">
@@ -41,13 +53,8 @@ function Page() {
         characterEncoding={characterEncoding}
         onCharacterEncodingChange={setCharacterEncoding}
       />
-      {ENABLED_ALGORITHM.map((algorithm) => (
-        <HashResult
-          key={algorithm}
-          algorithm={algorithm}
-          value={input ?? new Blob()}
-          outputEncoding={outputEncoding}
-        />
+      {output.map(({ algorithm, output }) => (
+        <HashResult key={algorithm} running={running} output={output} algorithm={algorithm} />
       ))}
     </div>
   );
