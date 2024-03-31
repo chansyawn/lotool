@@ -1,18 +1,43 @@
-import { useCallback, useRef, useState } from "react";
-import { type PrimitiveFunction } from "@/types/function";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { type PrimitiveFunctionAsync, type PrimitiveFunction } from "@/types/function";
+
+export type WorkerReturnType<T extends PrimitiveFunction> = T extends PrimitiveFunctionAsync
+  ? Awaited<ReturnType<T>>
+  : ReturnType<T>;
 
 interface WorkerRef {
   thread: Worker;
   timeoutTimer: ReturnType<typeof setTimeout> | undefined;
 }
 
-interface UseWorkerOptions {
+interface UseWorkerOptions<T> {
   timeout?: number;
+  processCallback?: (content: T) => void;
+  onStart?: () => void;
+  onFinish?: () => void;
+  onAbort?: () => void;
+  onTimeout?: () => void;
+  onError?: (error: Error) => void;
+  onFinally?: () => void;
 }
 
-export const useWorkerFn = <T extends PrimitiveFunction>(
+interface WorkerMessage<T> {
+  type: "final" | "process";
+  content: T;
+}
+
+export const useWorkerFn = <F extends PrimitiveFunction, C>(
   worker: () => Worker,
-  { timeout }: UseWorkerOptions = {},
+  {
+    timeout,
+    processCallback,
+    onStart,
+    onFinish,
+    onAbort,
+    onTimeout,
+    onError,
+    onFinally,
+  }: UseWorkerOptions<C> = {},
 ) => {
   const [running, setRunning] = useState(false);
   const workerRef = useRef<WorkerRef>();
@@ -29,9 +54,10 @@ export const useWorkerFn = <T extends PrimitiveFunction>(
   }, []);
 
   const run = useCallback(
-    (...args: Parameters<T>) => {
-      return new Promise<ReturnType<T>>((resolve, reject) => {
+    (...args: Parameters<F>) => {
+      return new Promise<WorkerReturnType<F>>((resolve) => {
         if (workerRef.current) {
+          onAbort?.();
           terminate();
         }
         setRunning(true);
@@ -39,28 +65,66 @@ export const useWorkerFn = <T extends PrimitiveFunction>(
         const timeoutTimer = timeout
           ? setTimeout(() => {
               terminate();
-              reject(new Error("timeout"));
+              onTimeout?.();
             }, timeout)
           : undefined;
 
+        onStart?.();
         thread.postMessage(args);
-        thread.onmessage = (e: MessageEvent<ReturnType<T>>) => {
-          resolve(e.data);
-          terminate();
+        thread.onmessage = (e: MessageEvent<WorkerMessage<WorkerReturnType<F>>>) => {
+          const { type, content } = e.data;
+          if (type === "final") {
+            resolve(content);
+            onFinish?.();
+            onFinally?.();
+            terminate();
+          } else {
+            processCallback?.(content);
+          }
         };
         thread.onerror = (e) => {
-          reject(new Error(e.message));
+          onError?.(new Error(e.message));
+          onFinally?.();
           terminate();
         };
 
         workerRef.current = { thread, timeoutTimer };
       });
     },
-    [terminate, timeout, worker],
+    [
+      onAbort,
+      onError,
+      onFinally,
+      onFinish,
+      onStart,
+      onTimeout,
+      processCallback,
+      terminate,
+      timeout,
+      worker,
+    ],
   );
 
-  return {
-    run,
-    running,
-  };
+  useEffect(() => {
+    return () => {
+      terminate();
+    };
+  }, [terminate]);
+
+  return { run, running };
 };
+
+export const createOnMessage =
+  <F extends PrimitiveFunction, C>(func: (callback: (content: C) => void) => F) =>
+  async (e: MessageEvent<Parameters<F>>) => {
+    const workerFn = func((content) => {
+      self.postMessage({
+        type: "process",
+        content,
+      });
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is fine
+    const res = { type: "final", content: await workerFn(...e.data) };
+    self.postMessage(res);
+  };
