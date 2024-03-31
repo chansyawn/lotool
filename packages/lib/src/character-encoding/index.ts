@@ -1,7 +1,7 @@
 import { utf8ToUtf16 } from "./utf16";
 
 export enum CharacterEncoding {
-  Ascii = "AscII",
+  // Ascii = "AscII",
   UTF8 = "UTF-8",
   UTF16LE = "UTF-16 LE",
   UTF16BE = "UTF-16 BE",
@@ -14,16 +14,16 @@ export const CHARACTER_ENCODING_LIST: Record<
     decode: (binary: ArrayBuffer) => string;
   }
 > = {
-  [CharacterEncoding.Ascii]: {
-    encode: (text) => {
-      // eslint-disable-next-line no-control-regex -- match all ascii chars, including control chars
-      if (!/^[\x00-\x7F]*$/.test(text)) {
-        throw new Error("Unsupported ascii text.");
-      }
-      return new TextEncoder().encode(text);
-    },
-    decode: (binary) => new TextDecoder("ascii").decode(binary),
-  },
+  // [CharacterEncoding.Ascii]: {
+  //   encode: (text) => {
+  //     // eslint-disable-next-line no-control-regex -- match all ascii chars, including control chars
+  //     if (!/^[\x00-\x7F]*$/.test(text)) {
+  //       throw new Error("Unsupported ascii text.");
+  //     }
+  //     return new TextEncoder().encode(text);
+  //   },
+  //   decode: (binary) => new TextDecoder("ascii").decode(binary),
+  // },
   [CharacterEncoding.UTF8]: {
     encode: (text) => new TextEncoder().encode(text),
     decode: (binary) => new TextDecoder("utf-8").decode(binary),

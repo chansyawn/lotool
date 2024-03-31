@@ -3,14 +3,17 @@
 import { atom, useAtom } from "jotai";
 import { useMemo } from "react";
 import { Hash } from "@lotool/lib/hash";
-import { Badge, Progress, ToggleGroup, ToggleGroupItem } from "@lotool/ui";
+import { Badge, Input, Progress, ToggleGroup, ToggleGroupItem } from "@lotool/ui";
+import { CHARACTER_ENCODING_LIST } from "@lotool/lib/character-encoding";
 import { InputBlob } from "@/components/input-blob";
 import { TextEncodingSelector } from "@/components/text-encoding-selector";
 import { Labeled } from "@/components/labeled";
 import { asTuple } from "@/types/utils";
+import { CharacterEncodingSelector } from "@/components/character-encoding-selector";
 import {
   characterEncodingAtom,
   enabledAlgorithmsAtom,
+  hmacCharacterEncodingAtom,
   inputTypeAtom,
   outputEncodingAtom,
 } from "./persist";
@@ -20,6 +23,7 @@ import { useHash } from "./use-hash";
 const ALL_ALGORITHM = Object.values(Hash);
 const textAtom = atom("");
 const fileAtom = atom<File | undefined>(undefined);
+const hmacAtom = atom("");
 
 function Page() {
   const [outputEncoding, setOutputEncoding] = useAtom(outputEncodingAtom);
@@ -28,15 +32,20 @@ function Page() {
   const [file, setFile] = useAtom(fileAtom);
   const [characterEncoding, setCharacterEncoding] = useAtom(characterEncodingAtom);
   const [enabledAlgorithms, setEnabledAlgorithms] = useAtom(enabledAlgorithmsAtom);
+  const [hmac, setHmac] = useAtom(hmacAtom);
+  const [hmacCharacterEncoding, setHmacCharacterEncoding] = useAtom(hmacCharacterEncodingAtom);
 
   const params = useMemo(
     () =>
       asTuple([
         inputType === "text" ? new Blob([text]) : file ?? new Blob(),
         enabledAlgorithms,
-        { outputEncoding },
+        {
+          outputEncoding,
+          hmacKey: hmac ? CHARACTER_ENCODING_LIST[hmacCharacterEncoding].encode(hmac) : undefined,
+        },
       ]),
-    [enabledAlgorithms, file, inputType, outputEncoding, text],
+    [enabledAlgorithms, file, hmac, hmacCharacterEncoding, inputType, outputEncoding, text],
   );
 
   const { progress, calculating, output } = useHash(params);
@@ -48,9 +57,25 @@ function Page() {
         text={text}
         file={file}
         extra={
-          <Labeled label="Output Encoding">
-            <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
-          </Labeled>
+          <>
+            <Labeled label="Output Encoding">
+              <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
+            </Labeled>
+            <Labeled label="HMAC Secret" className="flex-1">
+              <Input
+                value={hmac}
+                onChange={(e) => {
+                  setHmac(e.target.value);
+                }}
+              />
+            </Labeled>
+            <Labeled label="Secret Encoding">
+              <CharacterEncodingSelector
+                characterEncoding={hmacCharacterEncoding}
+                onCharacterEncodingChange={setHmacCharacterEncoding}
+              />
+            </Labeled>
+          </>
         }
         onInputTypeChange={setInputType}
         onTextChange={setText}
@@ -85,7 +110,7 @@ function Page() {
           return (
             <HashResult
               key={algorithm}
-              running={calculating}
+              calculating={calculating}
               content={content}
               algorithm={algorithm}
             />

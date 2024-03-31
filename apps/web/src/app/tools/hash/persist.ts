@@ -12,6 +12,7 @@ const PERSIST_SCHEMA = z.object({
   multiLineMode: z.boolean(),
   enabledAlgorithms: z.array(z.nativeEnum(Hash)),
   inputType: z.enum(["text", "file"]),
+  hmacCharacterEncoding: z.nativeEnum(CharacterEncoding),
 });
 
 type Persist = z.infer<typeof PERSIST_SCHEMA>;
@@ -24,6 +25,7 @@ const persistAtom = atomWithValidatedStorage<Persist>(
     multiLineMode: false,
     enabledAlgorithms: [Hash.MD5, Hash.SHA1, Hash.SHA256, Hash.SHA512],
     inputType: "text",
+    hmacCharacterEncoding: CharacterEncoding.UTF8,
   },
   PERSIST_SCHEMA,
 );
@@ -37,3 +39,6 @@ export const enabledAlgorithmsAtom = focusAtom(persistAtom, (optic) =>
   optic.prop("enabledAlgorithms"),
 );
 export const inputTypeAtom = focusAtom(persistAtom, (optic) => optic.prop("inputType"));
+export const hmacCharacterEncodingAtom = focusAtom(persistAtom, (optic) =>
+  optic.prop("hmacCharacterEncoding"),
+);

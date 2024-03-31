@@ -1,11 +1,11 @@
 import { TEXT_ENCODING_LIST, TextEncoding } from "@lotool/lib/text-encoding";
-import { type Hash, HASH_MAP } from "@lotool/lib/hash";
+import { type Hash, HASH_MAP, withHMAC } from "@lotool/lib/hash";
 import { createOnMessage } from "@/features/worker/use-worker-fn";
 
 export type HashFunction = (
   input: Blob,
   algorithms: Hash[],
-  options?: { outputEncoding?: TextEncoding; hmacKey?: Uint8Array },
+  options?: { outputEncoding?: TextEncoding; hmacKey?: ArrayBuffer },
 ) => Promise<{ algorithm: Hash; output: string }[]>;
 
 self.onmessage = createOnMessage<HashFunction, number>(
@@ -18,7 +18,7 @@ self.onmessage = createOnMessage<HashFunction, number>(
     const hashFunctions = await Promise.all(
       algorithms.map(async (algorithm) => ({
         algorithm,
-        hasher: await HASH_MAP[algorithm](hmacKey),
+        hasher: await withHMAC(HASH_MAP[algorithm])(hmacKey ? new Uint8Array(hmacKey) : undefined),
       })),
     );
 

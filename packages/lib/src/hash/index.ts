@@ -25,28 +25,28 @@ export enum Hash {
 
 export type HashCreator = (hmac?: Uint8Array) => Promise<IHasher>;
 
-const withHMAC = (hasher: () => Promise<IHasher>) => (hmac?: Uint8Array) => {
+export const withHMAC = (hasher: () => Promise<IHasher>) => (hmac?: Uint8Array) => {
   return hmac ? hash.createHMAC(hasher(), hmac) : hasher();
 };
 
-export const HASH_MAP: Record<Hash, HashCreator> = {
-  [Hash.ADLER32]: withHMAC(hash.createAdler32),
-  [Hash.BLAKE2B]: withHMAC(hash.createBLAKE2b),
-  [Hash.BLAKE2S]: withHMAC(hash.createBLAKE2s),
-  [Hash.BLAKE3]: withHMAC(hash.createBLAKE3),
-  [Hash.CRC32]: withHMAC(hash.createCRC32),
-  [Hash.CRC32C]: withHMAC(hash.createCRC32C),
-  [Hash.MD4]: withHMAC(hash.createMD4),
-  [Hash.MD5]: withHMAC(hash.createMD5),
-  [Hash.SHA1]: withHMAC(hash.createSHA1),
-  [Hash.SHA224]: withHMAC(hash.createSHA224),
-  [Hash.SHA256]: withHMAC(hash.createSHA256),
-  [Hash.SHA384]: withHMAC(hash.createSHA384),
-  [Hash.SHA512]: withHMAC(hash.createSHA512),
-  [Hash.SM3]: withHMAC(hash.createSM3),
-  [Hash.WHIRLPOOL]: withHMAC(hash.createWhirlpool),
-  [Hash.XXHASH32]: withHMAC(hash.createXXHash32),
-  [Hash.XXHASH64]: withHMAC(hash.createXXHash64),
-  [Hash.XXHASH3]: withHMAC(hash.createXXHash3),
-  [Hash.XXHASH128]: withHMAC(hash.createXXHash128),
+export const HASH_MAP: Record<Hash, () => Promise<IHasher>> = {
+  [Hash.ADLER32]: hash.createAdler32,
+  [Hash.BLAKE2B]: hash.createBLAKE2b,
+  [Hash.BLAKE2S]: hash.createBLAKE2s,
+  [Hash.BLAKE3]: hash.createBLAKE3,
+  [Hash.CRC32]: hash.createCRC32,
+  [Hash.CRC32C]: hash.createCRC32C,
+  [Hash.MD4]: hash.createMD4,
+  [Hash.MD5]: hash.createMD5,
+  [Hash.SHA1]: hash.createSHA1,
+  [Hash.SHA224]: hash.createSHA224,
+  [Hash.SHA256]: hash.createSHA256,
+  [Hash.SHA384]: hash.createSHA384,
+  [Hash.SHA512]: hash.createSHA512,
+  [Hash.SM3]: hash.createSM3,
+  [Hash.WHIRLPOOL]: hash.createWhirlpool,
+  [Hash.XXHASH32]: hash.createXXHash32,
+  [Hash.XXHASH64]: hash.createXXHash64,
+  [Hash.XXHASH3]: hash.createXXHash3,
+  [Hash.XXHASH128]: hash.createXXHash128,
 };
