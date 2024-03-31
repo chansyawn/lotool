@@ -1,18 +1,18 @@
 import { Link1Icon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import { type RelatedLinkType } from "./related-link";
+import { type ReferencesType } from "./references";
 import * as icons from "./icons";
 
-export const LINK_ICONS: Record<RelatedLinkType, string> = {
+export const LINK_ICONS: Record<ReferencesType, string> = {
   wikipedia: icons.wikipedia,
   github: icons.github,
 };
 
-interface RelatedLinkIconProps {
-  type?: RelatedLinkType;
+interface ReferencesIconProps {
+  type?: ReferencesType;
 }
 
-export function RelatedLinkIcon({ type }: RelatedLinkIconProps) {
+export function ReferencesIcon({ type }: ReferencesIconProps) {
   if (!type) {
     return <Link1Icon className="size-4" />;
   }

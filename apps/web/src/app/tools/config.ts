@@ -1,4 +1,4 @@
-import { type RelatedLinkInfo } from "./_layout/related-link";
+import { type RelatedLinkInfo } from "./_layout/references";
 import { config as timestamp } from "./timestamp";
 import { config as textCodec } from "./text-codec";
 import { config as hash } from "./hash";

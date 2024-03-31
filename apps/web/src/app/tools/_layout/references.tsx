@@ -1,21 +1,21 @@
-import { RelatedLinkIcon } from "./related-link-icon";
+import { ReferencesIcon } from "./references-icon";
 
-export type RelatedLinkType = "wikipedia" | "github";
+export type ReferencesType = "wikipedia" | "github";
 
 export interface RelatedLinkInfo {
-  type?: RelatedLinkType;
+  type?: ReferencesType;
   label: string;
   href: string;
 }
 
-interface RelatedLinkProps {
+interface ReferencesProps {
   links: RelatedLinkInfo[];
 }
 
-export function RelatedLink({ links }: RelatedLinkProps) {
+export function References({ links }: ReferencesProps) {
   return (
     <div>
-      <h2 className="mb-1 font-medium">Related Links</h2>
+      <h2 className="mb-1 font-medium">References</h2>
       <ul>
         {links.map(({ label, href, type }) => (
           <li key={label}>
@@ -25,7 +25,7 @@ export function RelatedLink({ links }: RelatedLinkProps) {
               target="_blank"
               rel="noopener"
             >
-              <RelatedLinkIcon type={type} />
+              <ReferencesIcon type={type} />
               <span>{label}</span>
             </a>
           </li>

@@ -35,7 +35,7 @@ export function Menu() {
           </div>
         )}
       </div>
-      <div className="sticky hidden w-52 pt-2 lg:block">
+      <div className="sticky hidden w-48 pt-2 lg:block">
         <MenuContent />
       </div>
     </>

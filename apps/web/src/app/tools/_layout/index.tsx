@@ -14,7 +14,7 @@ import React from "react";
 import { Portal } from "@radix-ui/react-portal";
 import { useDocumentPiPContext } from "@/features/document-pip/document-pip-context";
 import { TOOL_CONFIG } from "../config";
-import { RelatedLink } from "./related-link";
+import { References } from "./references";
 import { ToolIcon } from "./tool-icon";
 
 interface ToolProps {
@@ -70,8 +70,8 @@ function ToolLayout({ children }: ToolProps) {
           children
         )}
       </div>
-      <aside className="mt-4 flex-shrink-0 xl:ml-2 xl:mt-0 xl:w-[18rem]">
-        {relatedLink ? <RelatedLink links={relatedLink} /> : null}
+      <aside className="mt-4 flex-shrink-0 xl:ml-4 xl:mt-0 xl:w-48">
+        {relatedLink ? <References links={relatedLink} /> : null}
       </aside>
     </div>
   );
