@@ -28,7 +28,7 @@ export function InputBlobText({
               onCharacterEncodingChange={onCharacterEncodingChange}
             />
           </Labeled>
-          <PasteButton onPaste={onValueChange} />
+          <PasteButton onPaste={onValueChange} variant="outline" />
         </div>
         <Textarea
           className="resize-none mt-2 flex-1 break-all"

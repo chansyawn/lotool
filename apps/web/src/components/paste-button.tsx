@@ -1,20 +1,23 @@
-import { Tooltip, TooltipTrigger, Button, TooltipContent } from "@lotool/ui";
+import { Tooltip, TooltipTrigger, Button, TooltipContent, type ButtonProps } from "@lotool/ui";
 import { ClipboardIcon } from "@radix-ui/react-icons";
 import { useClipboard } from "@/features/clipboard/use-clipboard";
 
 interface PasteButtonProps {
+  className?: string;
+  variant?: ButtonProps["variant"];
   onPaste: (value: string) => void;
 }
 
-export function PasteButton({ onPaste }: PasteButtonProps) {
+export function PasteButton({ onPaste, variant, className }: PasteButtonProps) {
   const { pasteable, paste } = useClipboard();
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          className={className}
           disabled={!pasteable}
-          variant="outline"
+          variant={variant}
           size="icon"
           onClick={() => {
             void paste().then(onPaste);

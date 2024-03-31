@@ -24,10 +24,11 @@ type CopyButtonProps = (
       }[];
     }
 ) & {
+  className?: string;
   variant?: ButtonProps["variant"];
 };
 
-export function CopyButton({ variant, ...props }: CopyButtonProps) {
+export function CopyButton({ className, variant, ...props }: CopyButtonProps) {
   const { copy, copied } = useClipboard();
 
   const Icon = copied ? CheckIcon : CopyIcon;
@@ -38,7 +39,7 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
         <Tooltip>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
-              <Button variant={variant} size="icon">
+              <Button variant={variant} size="icon" className={className}>
                 <Icon />
               </Button>
             </DropdownMenuTrigger>
@@ -67,6 +68,7 @@ export function CopyButton({ variant, ...props }: CopyButtonProps) {
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
+          className={className}
           variant={variant}
           size="icon"
           onClick={() => {
