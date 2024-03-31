@@ -24,7 +24,7 @@ export function TimestampBreakdownInput({
         className="block"
         value={value}
         onChange={(e) => {
-          if (!e.target.valueAsNumber) {
+          if (isNaN(e.target.valueAsNumber)) {
             return;
           }
           onChange(e.target.valueAsNumber);

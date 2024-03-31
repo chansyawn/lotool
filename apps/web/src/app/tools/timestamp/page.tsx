@@ -47,10 +47,10 @@ function Page() {
   };
 
   const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!e.target.valueAsNumber) {
+    if (isNaN(e.target.valueAsNumber)) {
       return;
     }
-    handleTimestampChange(Number(e.target.valueAsNumber) * unitRatio);
+    handleTimestampChange(e.target.valueAsNumber * unitRatio);
   };
 
   const handleMillisecondModeChange = (value: TimestampUnit) => {
