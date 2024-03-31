@@ -53,18 +53,19 @@ export function MenuContent({ onMenuItemClick }: MenuContentProps) {
     <ScrollArea className="h-full">
       <ul className="px-1">
         {TOOL_CONFIG.map(({ path, name }) => (
-          <Link
-            key={path}
-            href={`/tools/${path}`}
-            onClick={onMenuItemClick}
-            className={cn(
-              "group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline",
-              pathname === `/tools/${path}` ? "text-foreground" : "text-muted-foreground",
-            )}
-          >
-            <ToolIcon className="mr-2 size-3.5" name={name} path={path} />
-            <div className="font-medium">{name}</div>
-          </Link>
+          <li key={path}>
+            <Link
+              href={`/tools/${path}`}
+              onClick={onMenuItemClick}
+              className={cn(
+                "flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline",
+                pathname === `/tools/${path}` ? "text-foreground" : "text-muted-foreground",
+              )}
+            >
+              <ToolIcon className="mr-2 size-3.5" name={name} path={path} />
+              <div className="font-medium">{name}</div>
+            </Link>
+          </li>
         ))}
       </ul>
     </ScrollArea>
