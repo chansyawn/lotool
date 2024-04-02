@@ -3,7 +3,7 @@
 import { atom, useAtom } from "jotai";
 import { useMemo } from "react";
 import { Hash } from "@lotool/lib/hash";
-import { Badge, Input, Progress, ToggleGroup, ToggleGroupItem } from "@lotool/ui";
+import { Input, ToggleGroup, ToggleGroupItem } from "@lotool/ui";
 import { CHARACTER_ENCODING_LIST } from "@lotool/lib/character-encoding";
 import { InputBlob } from "@/components/input-blob";
 import { TextEncodingSelector } from "@/components/text-encoding-selector";
@@ -18,7 +18,6 @@ import {
   outputEncodingAtom,
 } from "./persist";
 import { HashResult } from "./hash-result";
-import { useHash } from "./use-hash";
 
 const ALL_ALGORITHM = Object.values(Hash);
 const textAtom = atom("");
@@ -47,8 +46,6 @@ function Page() {
       ]),
     [enabledAlgorithms, file, hmac, hmacCharacterEncoding, inputType, outputEncoding, text],
   );
-
-  const { progress, calculating, output } = useHash(params);
 
   return (
     <div className="space-y-2">
@@ -98,25 +95,7 @@ function Page() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-      {calculating ? (
-        <div className="flex items-center gap-2">
-          <Badge variant="outline">{(progress * 100).toFixed(2)}%</Badge>
-          <Progress className="h-2" value={progress * 100} />
-        </div>
-      ) : null}
-      {ALL_ALGORITHM.filter((algorithm) => enabledAlgorithms.includes(algorithm)).map(
-        (algorithm) => {
-          const content = output.find((o) => o.algorithm === algorithm)?.output ?? " ";
-          return (
-            <HashResult
-              key={algorithm}
-              calculating={calculating}
-              content={content}
-              algorithm={algorithm}
-            />
-          );
-        },
-      )}
+      <HashResult hashParams={params} enabledAlgorithms={enabledAlgorithms} />
     </div>
   );
 }

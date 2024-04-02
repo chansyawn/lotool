@@ -1,21 +1,37 @@
-import { CopyButton } from "@/components/copy-button";
+import { Badge, Progress } from "@lotool/ui";
+import { Hash } from "@lotool/lib/hash";
+import { HashResultItem } from "./hash-result-item";
+import { useHash } from "./use-hash";
 
 interface HashResultProps {
-  algorithm: string;
-  content: string;
-  calculating: boolean;
+  hashParams: Parameters<typeof useHash>[0];
+  enabledAlgorithms: string[];
 }
 
-export function HashResult({ algorithm, content, calculating }: HashResultProps) {
+export function HashResult({ hashParams, enabledAlgorithms }: HashResultProps) {
+  const { progress, calculating, output } = useHash(hashParams);
+
   return (
-    <div className="flex flex-col overflow-hidden">
-      <div className="mb-1 flex items-center gap-2 px-1">
-        <div className="text-lg font-medium">{algorithm}</div>
-        <CopyButton data={content} variant="ghost" className="ml-auto" />
-      </div>
-      <div className="bg-muted text-muted-foreground flex-1 overflow-auto whitespace-pre-wrap break-all rounded-md border px-3 py-2 text-sm shadow-sm">
-        {calculating ? "Calculating..." : content}
-      </div>
-    </div>
+    <>
+      {calculating ? (
+        <div className="flex items-center gap-2">
+          <Badge variant="outline">{(progress * 100).toFixed(2)}%</Badge>
+          <Progress className="h-2" value={progress * 100} />
+        </div>
+      ) : null}
+      {Object.values(Hash)
+        .filter((algorithm) => enabledAlgorithms.includes(algorithm))
+        .map((algorithm) => {
+          const content = output.find((o) => o.algorithm === algorithm)?.output ?? " ";
+          return (
+            <HashResultItem
+              key={algorithm}
+              calculating={calculating}
+              content={content}
+              algorithm={algorithm}
+            />
+          );
+        })}
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, type DragEventHandler } from "react";
+import { useState, type DragEventHandler, type ChangeEventHandler } from "react";
 import { cn } from "@lotool/theme/utils";
 import { UploadIcon } from "@radix-ui/react-icons";
 import { Badge } from "@lotool/ui";
@@ -8,20 +8,14 @@ import { BinaryPreview } from "./binary-preview";
 
 interface InputBlobFileProps {
   value: File | undefined;
-  onValueChange: (value: File) => void;
+  onValueChange: (value: File | undefined) => void;
 }
 
 export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
   const [activated, setActivated] = useState(false);
 
-  const handleButtonClick = async () => {
-    try {
-      const [fileHandle] = await window.showOpenFilePicker();
-      const file = await fileHandle.getFile();
-      onValueChange(file);
-    } catch (e) {
-      //
-    }
+  const handleButtonClick: ChangeEventHandler<HTMLInputElement> = (e) => {
+    onValueChange(e.target.files?.[0]);
   };
 
   const handleDrop: DragEventHandler = (e) => {
@@ -37,13 +31,11 @@ export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
   return (
     <div className="gap-2 mt-2 flex h-72">
       <Labeled label="File" className="flex-1 flex flex-col font-medium">
-        <button
-          type="button"
+        <label
           className={cn(
-            "flex items-center gap-2 justify-center border rounded border-dashed cursor-pointer hover:bg-secondary transition-colors w-full flex-1 flex-col p-2",
+            "flex items-center gap-2 justify-center border rounded border-dashed cursor-pointer hover:bg-secondary transition-colors w-full flex-1 flex-col p-2 text-center",
             activated && "bg-secondary",
           )}
-          onClick={handleButtonClick}
           onDragOver={(e) => {
             e.preventDefault();
           }}
@@ -55,6 +47,7 @@ export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
             setActivated(false);
           }}
         >
+          <input type="file" className="hidden" onChange={handleButtonClick} />
           {value ? (
             <>
               <div>{value.name}</div>
@@ -68,7 +61,7 @@ export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
               <UploadIcon className="size-4" /> Drag and drop or click to select file
             </span>
           )}
-        </button>
+        </label>
       </Labeled>
       <BinaryPreview blob={value} />
     </div>
