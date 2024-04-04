@@ -28,16 +28,17 @@ export function BinaryPreview({ blob }: BinaryPreviewProps) {
 
   useEffect(() => {
     if (!blob) {
+      setBinary(undefined);
       return;
     }
     void readBinaryFromBlob(blob).then(setBinary);
   }, [blob]);
 
   return (
-    <Labeled className="flex flex-col h-full w-[24ch]" label="Binary Preview">
-      <ScrollArea className="px-2 bg-muted rounded font-mono py-1 overflow-y-auto flex-1 relative text-sm">
+    <Labeled className="flex h-32 flex-col sm:h-auto sm:w-[24ch] " label="Binary Preview">
+      <ScrollArea className="bg-muted relative flex-1 overflow-y-auto rounded px-2 py-1 font-mono text-sm">
         {(blob?.size ?? 0) > MAX_BYTES && (
-          <div className="text-destructive sticky top-0 bg-secondary text-xs font-medium">
+          <div className="text-destructive bg-secondary sticky top-0 text-xs font-medium">
             Only display the first {MAX_BYTES} bytes of the binary.
           </div>
         )}

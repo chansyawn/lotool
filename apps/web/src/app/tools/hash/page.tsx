@@ -49,31 +49,30 @@ function Page() {
 
   return (
     <div className="space-y-2">
+      <Labeled label="Output Encoding">
+        <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
+      </Labeled>
+      <div className="flex gap-2">
+        <Labeled label="HMAC Secret Encoding">
+          <CharacterEncodingSelector
+            characterEncoding={hmacCharacterEncoding}
+            onCharacterEncodingChange={setHmacCharacterEncoding}
+          />
+        </Labeled>
+        <Labeled label="HMAC Secret" className="flex-1">
+          <Input
+            className="min-w-48"
+            value={hmac}
+            onChange={(e) => {
+              setHmac(e.target.value);
+            }}
+          />
+        </Labeled>
+      </div>
       <InputBlob
         inputType={inputType}
         text={text}
         file={file}
-        extra={
-          <>
-            <Labeled label="Output Encoding">
-              <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
-            </Labeled>
-            <Labeled label="HMAC Secret" className="flex-1">
-              <Input
-                value={hmac}
-                onChange={(e) => {
-                  setHmac(e.target.value);
-                }}
-              />
-            </Labeled>
-            <Labeled label="Secret Encoding">
-              <CharacterEncodingSelector
-                characterEncoding={hmacCharacterEncoding}
-                onCharacterEncodingChange={setHmacCharacterEncoding}
-              />
-            </Labeled>
-          </>
-        }
         onInputTypeChange={setInputType}
         onTextChange={setText}
         onFileChange={setFile}

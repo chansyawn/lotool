@@ -3,8 +3,6 @@ import { cn } from "@lotool/theme/utils";
 import { UploadIcon } from "@radix-ui/react-icons";
 import { Badge } from "@lotool/ui";
 import { formatBytes } from "@/features/formatter/byte";
-import { Labeled } from "../labeled";
-import { BinaryPreview } from "./binary-preview";
 
 interface InputBlobFileProps {
   value: File | undefined;
@@ -29,41 +27,38 @@ export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
   };
 
   return (
-    <div className="gap-2 mt-2 flex h-72">
-      <Labeled label="File" className="flex-1 flex flex-col font-medium">
-        <label
-          className={cn(
-            "flex items-center gap-2 justify-center border rounded border-dashed cursor-pointer hover:bg-secondary transition-colors w-full flex-1 flex-col p-2 text-center",
-            activated && "bg-secondary",
-          )}
-          onDragOver={(e) => {
-            e.preventDefault();
-          }}
-          onDrop={handleDrop}
-          onDragEnter={() => {
-            setActivated(true);
-          }}
-          onDragLeave={() => {
-            setActivated(false);
-          }}
-        >
-          <input type="file" className="hidden" onChange={handleButtonClick} />
-          {value ? (
-            <>
-              <div>{value.name}</div>
-              <div className="gap-1 flex">
-                <Badge>{formatBytes(value.size)}</Badge>
-                {value.type ? <Badge>{value.type}</Badge> : null}
-              </div>
-            </>
-          ) : (
-            <span className="flex items-center gap-1 font-medium">
-              <UploadIcon className="size-4" /> Drag and drop or click to select file
-            </span>
-          )}
-        </label>
-      </Labeled>
-      <BinaryPreview blob={value} />
+    <div className="flex h-full gap-2">
+      <label
+        className={cn(
+          "hover:bg-secondary flex w-full flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded border border-dashed p-2 text-center transition-colors",
+          activated && "bg-secondary",
+        )}
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        onDrop={handleDrop}
+        onDragEnter={() => {
+          setActivated(true);
+        }}
+        onDragLeave={() => {
+          setActivated(false);
+        }}
+      >
+        <input type="file" className="hidden" onChange={handleButtonClick} />
+        {value ? (
+          <>
+            <div>{value.name}</div>
+            <div className="flex gap-1">
+              <Badge>{formatBytes(value.size)}</Badge>
+              {value.type ? <Badge>{value.type}</Badge> : null}
+            </div>
+          </>
+        ) : (
+          <span className="flex items-center gap-1 font-medium">
+            <UploadIcon className="size-4" /> Drag and drop or click to select file
+          </span>
+        )}
+      </label>
     </div>
   );
 }
