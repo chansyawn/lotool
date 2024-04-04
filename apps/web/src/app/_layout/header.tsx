@@ -8,7 +8,7 @@ export function Header() {
     <header className="border-b-secondary bg-background z-10 w-full border-b px-2">
       <div className="container flex items-center">
         <Logo />
-        <div className="flex ml-auto gap-1">
+        <div className="ml-auto flex gap-1">
           <a href="https://github.com/chansyawn/lotool" target="_blank" rel="noopener">
             <Button variant="ghost" size="icon">
               <GitHubLogoIcon />

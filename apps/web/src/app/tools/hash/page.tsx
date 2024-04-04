@@ -81,7 +81,7 @@ function Page() {
         onCharacterEncodingChange={setCharacterEncoding}
       />
       <ToggleGroup
-        className="justify-start flex-wrap"
+        className="flex-wrap justify-start"
         type="multiple"
         variant="outline"
         value={enabledAlgorithms}

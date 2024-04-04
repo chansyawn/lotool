@@ -21,7 +21,7 @@ export function References({ links }: ReferencesProps) {
           <li key={label}>
             <a
               href={href}
-              className="space-x-1 text-sm inline-flex items-center hover:border-b border-primary"
+              className="border-primary inline-flex items-center space-x-1 text-sm hover:border-b"
               target="_blank"
               rel="noopener"
             >
