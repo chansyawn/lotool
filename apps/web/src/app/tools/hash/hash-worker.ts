@@ -2,10 +2,15 @@ import { TEXT_ENCODING_LIST, TextEncoding } from "@lotool/lib/text-encoding";
 import { type Hash, HASH_MAP, withHMAC } from "@lotool/lib/hash";
 import { createOnMessage } from "@/features/worker/use-worker-fn";
 
+export interface HashOptions {
+  outputEncoding?: TextEncoding;
+  hmacKey?: ArrayBuffer;
+}
+
 export type HashFunction = (
   input: Blob,
   algorithms: Hash[],
-  options?: { outputEncoding?: TextEncoding; hmacKey?: ArrayBuffer },
+  options?: HashOptions,
 ) => Promise<{ algorithm: Hash; output: string }[]>;
 
 self.onmessage = createOnMessage<HashFunction, number>(

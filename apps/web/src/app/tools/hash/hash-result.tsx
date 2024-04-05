@@ -2,14 +2,16 @@ import { Badge, Progress } from "@lotool/ui";
 import { Hash } from "@lotool/lib/hash";
 import { HashResultItem } from "./hash-result-item";
 import { useHash } from "./use-hash";
+import { type HashOptions } from "./hash-worker";
 
 interface HashResultProps {
-  hashParams: Parameters<typeof useHash>[0];
-  enabledAlgorithms: string[];
+  input: Blob;
+  algorithms: Hash[];
+  options?: HashOptions;
 }
 
-export function HashResult({ hashParams, enabledAlgorithms }: HashResultProps) {
-  const { progress, calculating, output } = useHash(hashParams);
+export function HashResult({ input, algorithms, options }: HashResultProps) {
+  const { progress, calculating, output } = useHash(input, algorithms, options);
 
   return (
     <>
@@ -20,7 +22,7 @@ export function HashResult({ hashParams, enabledAlgorithms }: HashResultProps) {
         </div>
       ) : null}
       {Object.values(Hash)
-        .filter((algorithm) => enabledAlgorithms.includes(algorithm))
+        .filter((algorithm) => algorithms.includes(algorithm))
         .map((algorithm) => {
           const content = output.find((o) => o.algorithm === algorithm)?.output ?? " ";
           return (

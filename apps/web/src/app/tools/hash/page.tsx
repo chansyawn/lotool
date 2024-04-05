@@ -8,7 +8,6 @@ import { CHARACTER_ENCODING_LIST } from "@lotool/lib/character-encoding";
 import { InputBlob } from "@/components/input-blob";
 import { TextEncodingSelector } from "@/components/text-encoding-selector";
 import { Labeled } from "@/components/labeled";
-import { asTuple } from "@/types/utils";
 import { CharacterEncodingSelector } from "@/components/character-encoding-selector";
 import {
   characterEncodingAtom,
@@ -34,17 +33,17 @@ function Page() {
   const [hmac, setHmac] = useAtom(hmacAtom);
   const [hmacCharacterEncoding, setHmacCharacterEncoding] = useAtom(hmacCharacterEncodingAtom);
 
-  const params = useMemo(
-    () =>
-      asTuple([
-        inputType === "text" ? new Blob([text]) : file ?? new Blob(),
-        enabledAlgorithms,
-        {
-          outputEncoding,
-          hmacKey: hmac ? CHARACTER_ENCODING_LIST[hmacCharacterEncoding].encode(hmac) : undefined,
-        },
-      ]),
-    [enabledAlgorithms, file, hmac, hmacCharacterEncoding, inputType, outputEncoding, text],
+  const input = useMemo(
+    () => (inputType === "text" ? new Blob([text]) : file ?? new Blob()),
+    [file, inputType, text],
+  );
+
+  const hashOptions = useMemo(
+    () => ({
+      outputEncoding,
+      hmacKey: hmac ? CHARACTER_ENCODING_LIST[hmacCharacterEncoding].encode(hmac) : undefined,
+    }),
+    [hmac, hmacCharacterEncoding, outputEncoding],
   );
 
   return (
@@ -75,7 +74,9 @@ function Page() {
         file={file}
         onInputTypeChange={setInputType}
         onTextChange={setText}
-        onFileChange={setFile}
+        onFileChange={(file) => {
+          setFile(file);
+        }}
         characterEncoding={characterEncoding}
         onCharacterEncodingChange={setCharacterEncoding}
       />
@@ -94,7 +95,7 @@ function Page() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-      <HashResult hashParams={params} enabledAlgorithms={enabledAlgorithms} />
+      <HashResult input={input} algorithms={enabledAlgorithms} options={hashOptions} />
     </div>
   );
 }
