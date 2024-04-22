@@ -9,9 +9,9 @@
     "./tailwind.config.js": "./tailwind.config.js"
   },
   "dependencies": {
-    "@next/font": "14.1.3",
+    "@next/font": "14.2.2",
     "clsx": "2.1.0",
-    "tailwind-merge": "2.2.2",
+    "tailwind-merge": "2.3.0",
     "tailwindcss-animate": "1.0.7"
   },
   "peerDependencies": {
