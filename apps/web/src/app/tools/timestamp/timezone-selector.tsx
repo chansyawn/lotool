@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import {
   Popover,
   PopoverTrigger,
@@ -18,6 +17,7 @@ import {
   ScrollArea,
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 import { getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
 
@@ -67,7 +67,7 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-full">
           <span className="mr-auto truncate">{value}</span>
-          <CaretSortIcon className="ml-2 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" align="start">
@@ -101,9 +101,12 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
                     handleSelect(timezone);
                   }}
                 >
-                  <div className="flex">
-                    <CheckIcon
-                      className={cn("mr-2", value === timezone ? "opacity-100" : "opacity-0")}
+                  <div className="flex items-center">
+                    <Check
+                      className={cn(
+                        "mr-2 size-4",
+                        value === timezone ? "opacity-100" : "opacity-0",
+                      )}
                     />
                     <span className="truncate">{label}</span>
                     <Badge variant="outline" className="ml-2 whitespace-nowrap">

@@ -1,5 +1,5 @@
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "@lotool/ui";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ColorModeSelector } from "@/features/color-mode/color-mode-selector";
 import { Logo } from "./logo";
 
@@ -11,7 +11,7 @@ export function Header() {
         <div className="ml-auto flex gap-1">
           <a href="https://github.com/chansyawn/lotool" target="_blank" rel="noopener">
             <Button variant="ghost" size="icon">
-              <GitHubLogoIcon />
+              <SiGithub className="size-4" />
             </Button>
           </a>
           <ColorModeSelector />

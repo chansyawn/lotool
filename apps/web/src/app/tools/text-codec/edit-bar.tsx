@@ -1,6 +1,5 @@
 "use client";
 
-import { LoopIcon, RowsIcon } from "@radix-ui/react-icons";
 import { TEXT_ENCODING_LIST, type TextEncoding } from "@lotool/lib/text-encoding";
 import {
   Tabs,
@@ -19,6 +18,7 @@ import {
 } from "@lotool/ui";
 import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
 import React from "react";
+import { AlignJustify, Repeat2 } from "lucide-react";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
 
@@ -99,7 +99,7 @@ export function EditBar({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-            <LoopIcon />
+            <Repeat2 className="size-4" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>Use output as input</TooltipContent>
@@ -109,11 +109,11 @@ export function EditBar({
           <div>
             <Toggle
               variant="outline"
-              className="size-9 p-0"
+              className="size-10 p-0"
               pressed={multiLineMode}
               onPressedChange={onMultiLineModeChange}
             >
-              <RowsIcon />
+              <AlignJustify className="size-4" />
             </Toggle>
           </div>
         </TooltipTrigger>

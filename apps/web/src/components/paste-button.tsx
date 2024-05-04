@@ -1,5 +1,5 @@
 import { Tooltip, TooltipTrigger, Button, TooltipContent, type ButtonProps } from "@lotool/ui";
-import { ClipboardIcon } from "@radix-ui/react-icons";
+import { Clipboard } from "lucide-react";
 import { useClipboard } from "@/features/clipboard/use-clipboard";
 
 interface PasteButtonProps {
@@ -23,7 +23,7 @@ export function PasteButton({ onPaste, variant, className }: PasteButtonProps) {
             void paste().then(onPaste);
           }}
         >
-          <ClipboardIcon />
+          <Clipboard className="size-4" />
         </Button>
       </TooltipTrigger>
       <TooltipContent>Paste from clipboard</TooltipContent>

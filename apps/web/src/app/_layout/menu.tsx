@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@lotool/theme/utils";
 import { ScrollArea } from "@lotool/ui";
+import { Menu as MenuIcon } from "lucide-react";
 import { ToolIcon } from "@/app/tools/_layout/tool-icon";
 import { TOOL_CONFIG } from "@/app/tools/config";
 
@@ -26,7 +26,7 @@ export function Menu() {
           className="border-secondary flex h-10 w-full cursor-pointer items-center border-b px-4"
           onClick={handleCollapseMenu}
         >
-          <HamburgerMenuIcon className="mr-2" />
+          <MenuIcon className="mr-2 size-4" />
           Menu
         </button>
         {!collapsed && (

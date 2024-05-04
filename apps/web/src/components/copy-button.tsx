@@ -1,4 +1,4 @@
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
+import { Check, Copy } from "lucide-react";
 import {
   Button,
   type ButtonProps,
@@ -31,7 +31,7 @@ type CopyButtonProps = (
 export function CopyButton({ className, variant, ...props }: CopyButtonProps) {
   const { copy, copied } = useClipboard();
 
-  const Icon = copied ? CheckIcon : CopyIcon;
+  const Icon = copied ? Check : Copy;
 
   if (props.mode === "multiple") {
     return (
@@ -40,7 +40,7 @@ export function CopyButton({ className, variant, ...props }: CopyButtonProps) {
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button variant={variant} size="icon" className={className}>
-                <Icon />
+                <Icon className="size-4" />
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
@@ -75,7 +75,7 @@ export function CopyButton({ className, variant, ...props }: CopyButtonProps) {
             copy(typeof data === "string" ? data : data());
           }}
         >
-          <Icon />
+          <Icon className="size-4" />
         </Button>
       </TooltipTrigger>
       <TooltipContent>Copy to clipboard</TooltipContent>

@@ -2,7 +2,6 @@
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import dynamic from "next/dynamic";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import {
   Button,
   PortalContainerProvider,
@@ -12,6 +11,7 @@ import {
 } from "@lotool/ui";
 import React from "react";
 import { Portal } from "@radix-ui/react-portal";
+import { PictureInPicture } from "lucide-react";
 import { useDocumentPiPContext } from "@/features/document-pip/document-pip-context";
 import { TOOL_CONFIG } from "../config";
 import { References } from "./references";
@@ -49,7 +49,7 @@ function ToolLayout({ children }: ToolProps) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" className="ml-auto" onClick={openPiPWindow}>
-                  <OpenInNewWindowIcon className="size-4" />
+                  <PictureInPicture className="size-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Open in Picture-in-Picture mode(Beta)</TooltipContent>

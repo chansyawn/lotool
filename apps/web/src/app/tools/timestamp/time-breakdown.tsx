@@ -2,10 +2,10 @@
 
 import { type PrimitiveAtom, useAtom } from "jotai";
 import React from "react";
-import { TrashIcon } from "@radix-ui/react-icons";
 import { addDays, getYear, set, addMinutes } from "date-fns";
 import { UTCDate } from "@date-fns/utc";
 import { Button, Badge } from "@lotool/ui";
+import { Trash } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
@@ -122,7 +122,7 @@ export function TimeBreakdownWithCustomTimezone({
       <div className="flex flex-wrap items-end gap-x-2 gap-y-1">
         <TimeBreakdown timezone={timezone} {...breakdownProps} />
         <Button size="icon" variant="secondary" onClick={onRemove}>
-          <TrashIcon />
+          <Trash className="size-4" />
         </Button>
       </div>
     </div>
