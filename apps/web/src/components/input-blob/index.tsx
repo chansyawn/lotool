@@ -29,11 +29,11 @@ export function InputBlob({
   onCharacterEncodingChange,
 }: InputBlobProps) {
   return (
-    <div className="flex flex-col gap-2 sm:h-96 sm:flex-row">
+    <div className="flex flex-col gap-2 lg:aspect-video lg:flex-row">
       <Tabs
         value={inputType}
         onValueChange={onInputTypeChange as (value: string) => void}
-        className="flex flex-1 flex-col"
+        className="flex flex-[3] flex-col"
       >
         <div className="flex gap-2">
           <Labeled label="Input Type">
@@ -52,7 +52,7 @@ export function InputBlob({
             <PasteButton onPaste={onTextChange} variant="outline" className="ml-auto" />
           </TabsContent>
         </div>
-        <TabsContent value="text" className="h-48 sm:flex-1">
+        <TabsContent value="text" className="h-48 lg:flex-1">
           <Textarea
             className="h-full resize-none break-all"
             value={text}
@@ -61,7 +61,7 @@ export function InputBlob({
             }}
           />
         </TabsContent>
-        <TabsContent value="file" className="h-48 sm:flex-1">
+        <TabsContent value="file" className="h-48 lg:flex-1">
           <InputBlobFile value={file} onValueChange={onFileChange} />
         </TabsContent>
       </Tabs>

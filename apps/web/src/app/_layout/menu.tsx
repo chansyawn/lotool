@@ -1,46 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@lotool/theme/utils";
 import { ScrollArea } from "@lotool/ui";
-import { MenuIcon } from "lucide-react";
 import { ToolIcon } from "@/app/tools/_layout/tool-icon";
 import { TOOL_CONFIG } from "@/app/tools/config";
-
-export function Menu() {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const handleCollapseMenu = () => {
-    setCollapsed((pre) => !pre);
-  };
-
-  const handleMenuItemClick = () => {
-    setCollapsed(true);
-  };
-
-  return (
-    <>
-      <div className="lg:hidden">
-        <button
-          type="button"
-          className="border-secondary flex h-10 w-full cursor-pointer items-center border-b px-4"
-          onClick={handleCollapseMenu}
-        >
-          <MenuIcon className="mr-2 size-4" />
-          Menu
-        </button>
-        {!collapsed && (
-          <div className="bg-background absolute z-10 h-[calc(100%-2rem)] w-full">
-            <MenuContent onMenuItemClick={handleMenuItemClick} />
-          </div>
-        )}
-      </div>
-      <div className="sticky hidden w-48 pt-2 lg:block">
-        <MenuContent />
-      </div>
-    </>
-  );
-}
 
 interface MenuContentProps {
   onMenuItemClick?: () => void;
@@ -51,23 +14,22 @@ export function MenuContent({ onMenuItemClick }: MenuContentProps) {
 
   return (
     <ScrollArea className="h-full">
-      <ul className="px-1">
+      <nav className="grid items-start font-medium">
         {TOOL_CONFIG.map(({ path, name }) => (
-          <li key={path}>
-            <Link
-              href={`/tools/${path}`}
-              onClick={onMenuItemClick}
-              className={cn(
-                "flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline",
-                pathname === `/tools/${path}` ? "text-foreground" : "text-muted-foreground",
-              )}
-            >
-              <ToolIcon className="mr-2 size-3.5" name={name} path={path} />
-              <div className="font-medium">{name}</div>
-            </Link>
-          </li>
+          <Link
+            key={path}
+            href={`/tools/${path}`}
+            onClick={onMenuItemClick}
+            className={cn(
+              "hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
+              pathname === `/tools/${path}` ? "bg-muted text-primary" : "text-muted-foreground",
+            )}
+          >
+            <ToolIcon name={name} path={path} className="size-4" />
+            <div className="font-medium">{name}</div>
+          </Link>
         ))}
-      </ul>
+      </nav>
     </ScrollArea>
   );
 }

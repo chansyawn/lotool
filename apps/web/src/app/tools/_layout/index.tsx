@@ -40,7 +40,7 @@ function ToolLayout({ children }: ToolProps) {
   const { name, relatedLink } = tool;
 
   return (
-    <div className="px-4 xl:flex">
+    <div className="px-4">
       <div className="flex-grow">
         <h1 className="mb-4 flex items-center text-3xl font-semibold">
           <ToolIcon className="mr-2 size-6" name={name} path={path} />
@@ -70,7 +70,7 @@ function ToolLayout({ children }: ToolProps) {
           children
         )}
       </div>
-      <aside className="mt-4 flex-shrink-0 xl:ml-4 xl:mt-0 xl:w-48">
+      <aside className="mt-4 flex-shrink-0">
         {relatedLink ? <References links={relatedLink} /> : null}
       </aside>
     </div>

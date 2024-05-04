@@ -48,25 +48,27 @@ function Page() {
 
   return (
     <div className="space-y-2">
-      <Labeled label="Output Encoding">
-        <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
-      </Labeled>
-      <div className="flex gap-2">
-        <Labeled label="HMAC Secret Encoding">
-          <CharacterEncodingSelector
-            characterEncoding={hmacCharacterEncoding}
-            onCharacterEncodingChange={setHmacCharacterEncoding}
-          />
+      <div className="flex flex-wrap gap-2">
+        <Labeled label="Output Encoding">
+          <TextEncodingSelector value={outputEncoding} onValueChange={setOutputEncoding} />
         </Labeled>
-        <Labeled label="HMAC Secret" className="flex-1">
-          <Input
-            className="min-w-48"
-            value={hmac}
-            onChange={(e) => {
-              setHmac(e.target.value);
-            }}
-          />
-        </Labeled>
+        <div className="flex flex-grow gap-2">
+          <Labeled label="HMAC Secret Encoding">
+            <CharacterEncodingSelector
+              characterEncoding={hmacCharacterEncoding}
+              onCharacterEncodingChange={setHmacCharacterEncoding}
+            />
+          </Labeled>
+          <Labeled label="HMAC Secret" className="flex-1">
+            <Input
+              className="min-w-48"
+              value={hmac}
+              onChange={(e) => {
+                setHmac(e.target.value);
+              }}
+            />
+          </Labeled>
+        </div>
       </div>
       <InputBlob
         inputType={inputType}
