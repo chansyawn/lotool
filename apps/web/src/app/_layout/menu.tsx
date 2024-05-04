@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@lotool/theme/utils";
 import { ScrollArea } from "@lotool/ui";
-import { Menu as MenuIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { ToolIcon } from "@/app/tools/_layout/tool-icon";
 import { TOOL_CONFIG } from "@/app/tools/config";
 

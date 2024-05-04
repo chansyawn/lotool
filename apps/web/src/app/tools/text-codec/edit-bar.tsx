@@ -18,7 +18,7 @@ import {
 } from "@lotool/ui";
 import { CHARACTER_ENCODING_LIST, type CharacterEncoding } from "@lotool/lib/character-encoding";
 import React from "react";
-import { AlignJustify, Repeat2 } from "lucide-react";
+import { AlignJustifyIcon, Repeat2Icon } from "lucide-react";
 
 const MODE_OPTIONS = ["Encode", "Decode"];
 
@@ -99,7 +99,7 @@ export function EditBar({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant="outline" size="icon" onClick={onExchangeButtonClick}>
-            <Repeat2 className="size-4" />
+            <Repeat2Icon className="size-4" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>Use output as input</TooltipContent>
@@ -113,7 +113,7 @@ export function EditBar({
               pressed={multiLineMode}
               onPressedChange={onMultiLineModeChange}
             >
-              <AlignJustify className="size-4" />
+              <AlignJustifyIcon className="size-4" />
             </Toggle>
           </div>
         </TooltipTrigger>

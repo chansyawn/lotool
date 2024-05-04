@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Clipboard, X } from "lucide-react";
+import { ClipboardIcon, XIcon } from "lucide-react";
 import { Button, Textarea, Tooltip, TooltipContent, TooltipTrigger } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { useClipboard } from "@/features/clipboard/use-clipboard";
@@ -42,7 +42,7 @@ export function InputArea({
                   void paste().then(onChange);
                 }}
               >
-                <Clipboard className="size-4" />
+                <ClipboardIcon className="size-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Paste from clipboard</TooltipContent>
@@ -57,7 +57,7 @@ export function InputArea({
                 onChange("");
               }}
             >
-              <X className="size-4" />
+              <XIcon className="size-4" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Clear content</TooltipContent>

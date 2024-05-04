@@ -1,6 +1,6 @@
 import { useState, type DragEventHandler, type ChangeEventHandler } from "react";
 import { cn } from "@lotool/theme/utils";
-import { Upload } from "lucide-react";
+import { UploadIcon } from "lucide-react";
 import { Badge } from "@lotool/ui";
 import { formatBytes } from "@/features/formatter/byte";
 
@@ -55,7 +55,7 @@ export function InputBlobFile({ value, onValueChange }: InputBlobFileProps) {
           </>
         ) : (
           <span className="flex items-center gap-1 font-medium">
-            <Upload className="size-4" /> Drag and drop or click to select file
+            <UploadIcon className="size-4" /> Drag and drop or click to select file
           </span>
         )}
       </label>

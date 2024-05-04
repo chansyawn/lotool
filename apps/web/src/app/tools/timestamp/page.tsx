@@ -3,7 +3,7 @@
 import { type ChangeEventHandler } from "react";
 import { atom, useAtom } from "jotai";
 import { Input, Button } from "@lotool/ui";
-import { Plus } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { CurrentTime } from "./current-time";
 import { TimestampUnitSwitcher } from "./timestamp-unit-switcher";
 import { RelativeTime } from "./relative-time";
@@ -115,7 +115,7 @@ function Page() {
         timezone="Etc/UTC"
         suffix={
           <Button size="icon" variant="secondary" onClick={handleAddTimezone}>
-            <Plus className="size-4" />
+            <PlusIcon className="size-4" />
           </Button>
         }
       />

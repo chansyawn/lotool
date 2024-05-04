@@ -1,4 +1,4 @@
-import { Check, Copy } from "lucide-react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import {
   Button,
   type ButtonProps,
@@ -31,7 +31,7 @@ type CopyButtonProps = (
 export function CopyButton({ className, variant, ...props }: CopyButtonProps) {
   const { copy, copied } = useClipboard();
 
-  const Icon = copied ? Check : Copy;
+  const Icon = copied ? CheckIcon : CopyIcon;
 
   if (props.mode === "multiple") {
     return (

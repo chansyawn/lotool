@@ -1,4 +1,4 @@
-import { Link2 } from "lucide-react";
+import { Link2Icon } from "lucide-react";
 import { type IconType, SiGithub, SiWikipedia } from "@icons-pack/react-simple-icons";
 import { type ReferencesType } from "./references";
 
@@ -13,7 +13,7 @@ interface ReferencesIconProps {
 
 export function ReferencesIcon({ type }: ReferencesIconProps) {
   if (!type) {
-    return <Link2 className="size-4" />;
+    return <Link2Icon className="size-4" />;
   }
 
   const Icon = LINK_ICONS[type];
