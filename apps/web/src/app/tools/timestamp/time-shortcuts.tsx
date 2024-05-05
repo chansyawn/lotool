@@ -43,7 +43,7 @@ export function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps) {
         <Button
           className="h-auto px-2 py-1"
           size="sm"
-          variant="secondary"
+          variant="outline"
           key={name}
           onClick={() => {
             onClick(getValue(timestamp));

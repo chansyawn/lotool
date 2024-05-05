@@ -5,7 +5,7 @@ import React from "react";
 import { addDays, getYear, set, addMinutes } from "date-fns";
 import { UTCDate } from "@date-fns/utc";
 import { Button, Badge } from "@lotool/ui";
-import { TrashIcon } from "lucide-react";
+import { EarthIcon, MinusCircleIcon } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
@@ -71,26 +71,25 @@ function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps)
   );
 }
 
-type TimeBreakdownWithFixedTimezoneProps = {
-  suffix?: React.ReactNode;
-} & TimeBreakdownProps;
-
 export function TimeBreakdownWithFixedTimezone({
   timezone,
-  suffix,
   ...breakdownProps
-}: TimeBreakdownWithFixedTimezoneProps) {
+}: TimeBreakdownProps) {
   return (
-    <div className="flex gap-x-2">
-      <div className="w-40 flex-shrink-0 md:w-64">
-        <span className="text-sm">Timezone</span>
-        <Button className="w-full justify-start disabled:opacity-100" variant="outline" disabled>
+    <div>
+      <div className="flex gap-2">
+        <Button
+          className="w-fit justify-start disabled:opacity-100"
+          variant="secondary"
+          size="sm"
+          disabled
+        >
+          <EarthIcon className="mr-1 size-4" />
           <span className="truncate">{timezone}</span>
         </Button>
       </div>
-      <div className="flex flex-wrap items-end gap-x-2 gap-y-1">
+      <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1">
         <TimeBreakdown timezone={timezone} {...breakdownProps} />
-        {suffix}
       </div>
     </div>
   );
@@ -109,21 +108,20 @@ export function TimeBreakdownWithCustomTimezone({
   const [timezone, onTimezoneChange] = useAtom(timezoneAtom);
 
   return (
-    <div className="flex gap-x-2">
-      <div className="w-40 flex-shrink-0 md:w-64">
-        <span className="text-sm">Timezone</span>
+    <div>
+      <div className="flex gap-2">
         <TimezoneSelector
           value={timezone}
           onChange={(value) => {
             onTimezoneChange(value);
           }}
         />
-      </div>
-      <div className="flex flex-wrap items-end gap-x-2 gap-y-1">
-        <TimeBreakdown timezone={timezone} {...breakdownProps} />
-        <Button size="icon" variant="secondary" onClick={onRemove}>
-          <TrashIcon className="size-4" />
+        <Button variant="ghost" size="icon" className="size-9" onClick={onRemove}>
+          <MinusCircleIcon className="size-4" />
         </Button>
+      </div>
+      <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1">
+        <TimeBreakdown timezone={timezone} {...breakdownProps} />
       </div>
     </div>
   );

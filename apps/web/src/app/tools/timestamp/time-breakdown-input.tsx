@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@lotool/ui";
+import { Labeled } from "@/components/labeled";
 
 interface TimestampBreakdownInputProps {
   label: string;
@@ -16,8 +17,7 @@ export function TimestampBreakdownInput({
   width,
 }: TimestampBreakdownInputProps) {
   return (
-    <div>
-      <span className="text-sm">{label}</span>
+    <Labeled label={label}>
       <Input
         type="number"
         style={{ width }}
@@ -30,6 +30,6 @@ export function TimestampBreakdownInput({
           onChange(e.target.valueAsNumber);
         }}
       />
-    </div>
+    </Labeled>
   );
 }

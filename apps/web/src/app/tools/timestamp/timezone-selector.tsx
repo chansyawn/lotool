@@ -17,7 +17,7 @@ import {
   ScrollArea,
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
-import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
+import { CheckIcon, ChevronsUpDownIcon, EarthIcon } from "lucide-react";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 import { getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
 
@@ -65,12 +65,13 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="w-full">
+        <Button variant="secondary" size="sm" role="combobox" aria-expanded={open}>
+          <EarthIcon className="mr-1 size-4" />
           <span className="mr-auto truncate">{value}</span>
           <ChevronsUpDownIcon className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0" align="start">
+      <PopoverContent className="w-fit p-0" align="start">
         <Command>
           <CommandInput className="border-b-0" placeholder="Search Timezone..." />
           <div className="flex items-center border-b p-2">

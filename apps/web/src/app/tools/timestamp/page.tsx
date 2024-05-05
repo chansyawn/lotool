@@ -1,9 +1,9 @@
 "use client";
 
-import { type ChangeEventHandler } from "react";
+import React, { type ChangeEventHandler } from "react";
 import { atom, useAtom } from "jotai";
 import { Input, Button } from "@lotool/ui";
-import { PlusIcon } from "lucide-react";
+import { PlusCircleIcon } from "lucide-react";
 import { CurrentTime } from "./current-time";
 import { TimestampUnitSwitcher } from "./timestamp-unit-switcher";
 import { RelativeTime } from "./relative-time";
@@ -71,67 +71,71 @@ function Page() {
   };
 
   return (
-    <div className="space-y-1">
-      <CurrentTime />
-      <div className="flex flex-wrap items-baseline gap-2">
-        <Input
-          type="number"
-          className="w-56 px-2 text-xl"
-          value={timestampDisplay}
-          onChange={handleInput}
-          min={-MAX_TIMESTAMP / unitRatio}
-          max={MAX_TIMESTAMP / unitRatio}
-        />
-        <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
-      </div>
-      {Math.abs(timestamp) === MAX_TIMESTAMP && (
-        <div className="text-destructive text-sm">
-          <p>Reach the max timestamp in ECMAScript Date (milliseconds of ±100,000,000 days)</p>
-          <p>
-            minus two day for timezone convert correctly there.
-            <a
-              className="ml-1 cursor-pointer underline"
-              target="_blank"
-              href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
-              rel="noopener"
-            >
-              Read more
-            </a>
-          </p>
+    <div>
+      <div className="space-y-1">
+        <CurrentTime />
+        <div className="flex flex-wrap items-baseline gap-2">
+          <Input
+            type="number"
+            className="w-56 px-2 text-xl"
+            value={timestampDisplay}
+            onChange={handleInput}
+            min={-MAX_TIMESTAMP / unitRatio}
+            max={MAX_TIMESTAMP / unitRatio}
+          />
+          <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
         </div>
-      )}
-      <RelativeTime timestamp={timestamp} />
-      <TimeShortcuts timestamp={timestamp} onClick={handleShortcutClick} />
-      <TimeBreakdownWithFixedTimezone
-        value={timestamp}
-        level={unit}
-        onChange={handleTimestampChange}
-        timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
-      />
-      <TimeBreakdownWithFixedTimezone
-        value={timestamp}
-        level="hours"
-        onChange={handleTimestampChange}
-        timezone="Etc/UTC"
-        suffix={
-          <Button size="icon" variant="secondary" onClick={handleAddTimezone}>
-            <PlusIcon className="size-4" />
-          </Button>
-        }
-      />
-      {timezoneAtoms.map((atom, idx) => (
-        <TimeBreakdownWithCustomTimezone
-          // eslint-disable-next-line react/no-array-index-key -- key is the order of array there
-          key={idx}
+        {Math.abs(timestamp) === MAX_TIMESTAMP && (
+          <div className="text-destructive text-sm">
+            <p>Reach the max timestamp in ECMAScript Date (milliseconds of ±100,000,000 days)</p>
+            <p>
+              minus two day for timezone convert correctly there.
+              <a
+                className="ml-1 cursor-pointer underline"
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
+                rel="noopener"
+              >
+                Read more
+              </a>
+            </p>
+          </div>
+        )}
+        <RelativeTime timestamp={timestamp} />
+        <TimeShortcuts timestamp={timestamp} onClick={handleShortcutClick} />
+      </div>
+      <div className="mt-3 flex flex-col gap-2">
+        <TimeBreakdownWithFixedTimezone
           value={timestamp}
-          level="hours"
+          level={unit}
           onChange={handleTimestampChange}
-          timezoneAtom={atom}
-          onRemove={() => {
-            dispatchTimezones({ type: "remove", atom });
-          }}
+          timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
         />
-      ))}
+        <TimeBreakdownWithFixedTimezone
+          value={timestamp}
+          level={unit}
+          onChange={handleTimestampChange}
+          timezone="Etc/UTC"
+        />
+        {timezoneAtoms.map((atom, idx) => (
+          // eslint-disable-next-line react/no-array-index-key -- key is the order of array there
+          <React.Fragment key={idx}>
+            <TimeBreakdownWithCustomTimezone
+              value={timestamp}
+              level={unit}
+              onChange={handleTimestampChange}
+              timezoneAtom={atom}
+              onRemove={() => {
+                dispatchTimezones({ type: "remove", atom });
+              }}
+            />
+          </React.Fragment>
+        ))}
+      </div>
+      <Button size="sm" className="mt-2" onClick={handleAddTimezone}>
+        <PlusCircleIcon className="mr-1 size-4" />
+        Add timezone
+      </Button>
     </div>
   );
 }
