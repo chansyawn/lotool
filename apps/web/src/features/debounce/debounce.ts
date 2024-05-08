@@ -1,16 +1,16 @@
-import { type PrimitiveFunction } from "@/types/function";
-
-export const debounce = <T extends PrimitiveFunction>(
-  fn: T,
-  timeout = 300,
-): { run: (...args: Parameters<T>) => void; cancel: () => void } => {
+export const debounce = <T extends unknown[], U>(
+  fn: (...args: T) => PromiseLike<U> | U,
+  delay = 300,
+) => {
   let timer: ReturnType<typeof setTimeout>;
   return {
-    run: (...args: Parameters<T>) => {
+    run: (...args: T): Promise<U> => {
       clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn(...args);
-      }, timeout);
+      return new Promise((resolve) => {
+        timer = setTimeout(() => {
+          resolve(fn(...args));
+        }, delay);
+      });
     },
     cancel: () => {
       clearTimeout(timer);

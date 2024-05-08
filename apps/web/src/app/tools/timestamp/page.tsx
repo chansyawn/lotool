@@ -1,37 +1,24 @@
 "use client";
 
 import React, { type ChangeEventHandler } from "react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { Input, Button } from "@lotool/ui";
 import { PlusCircleIcon } from "lucide-react";
 import { CurrentTime } from "./current-time";
 import { TimestampUnitSwitcher } from "./timestamp-unit-switcher";
 import { RelativeTime } from "./relative-time";
 import { TimeShortcuts } from "./time-shortcuts";
-import { type TimestampUnit, timezoneAtomsAtom, unitAtom } from "./persist";
+import { type TimestampUnit, timezoneAtomsAtom } from "./persist";
 import { fixTimestamp } from "./utils";
 import { TimeBreakdownWithCustomTimezone, TimeBreakdownWithFixedTimezone } from "./time-breakdown";
-
-// Max timestamp in ECMAScript Date is milliseconds of ±100,000,000 days,
-// minus two day for timezone convert correctly there.
-// https://stackoverflow.com/questions/12666127/what-range-of-dates-are-permitted-in-javascript
-// https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760
-const MAX_TIMESTAMP = 1000 * 60 * 60 * 24 * (100000000 - 2);
-
-const TimeUnitConfig: Record<TimestampUnit, { ratio: number }> = {
-  seconds: { ratio: 1000 },
-  milliseconds: { ratio: 1 },
-};
-
-const timestampAtom = atom<number | undefined>(undefined);
+import { MAX_TIMESTAMP, TIME_UNIT_RATIO } from "./constant";
+import { timestampAtom, unitAtom } from "./atom";
 
 function Page() {
   const [unit, setUnit] = useAtom(unitAtom);
   const [timezoneAtoms, dispatchTimezones] = useAtom(timezoneAtomsAtom);
-  const unitRatio = TimeUnitConfig[unit].ratio;
-
-  const [_timestamp, setTimestamp] = useAtom(timestampAtom);
-  const timestamp = _timestamp ?? fixTimestamp(new Date().valueOf(), unitRatio);
+  const [timestamp, setTimestamp] = useAtom(timestampAtom);
+  const unitRatio = TIME_UNIT_RATIO[unit];
   const timestampDisplay = timestamp / unitRatio;
 
   const handleTimestampChange = (value: number) => {
@@ -55,7 +42,7 @@ function Page() {
 
   const handleMillisecondModeChange = (value: TimestampUnit) => {
     setUnit(value);
-    const targetRatio = TimeUnitConfig[value].ratio;
+    const targetRatio = TIME_UNIT_RATIO[value];
     handleTimestampChange((timestamp * targetRatio) / unitRatio);
   };
 

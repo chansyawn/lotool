@@ -6,31 +6,23 @@ import { LocalStorageKey } from "@/features/storage/local-storage-key";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
 
 const PERSIST_SCHEMA = z.object({
-  unit: z.literal("seconds").or(z.literal("milliseconds")),
   customTimezone: z.array(
-    z.enum(
-      [...ALL_UTC_OFFSETS, ...SUPPORTED_TIMEZONES].map(({ value }) => value) as [
-        string,
-        ...string[],
-      ],
-    ),
+    z.enum([...ALL_UTC_OFFSETS, ...SUPPORTED_TIMEZONES] as [string, ...string[]]),
   ),
 });
 
 type Persist = z.infer<typeof PERSIST_SCHEMA>;
 
-export type TimestampUnit = Persist["unit"];
+export type TimestampUnit = "seconds" | "milliseconds";
 
 const persistAtom = atomWithValidatedStorage<Persist>(
   LocalStorageKey.ToolPersistTimestamp,
   {
-    unit: "seconds",
     customTimezone: [],
   },
   PERSIST_SCHEMA,
 );
 
-export const unitAtom = focusAtom(persistAtom, (optic) => optic.prop("unit"));
 export const timezoneAtomsAtom = splitAtom(
   focusAtom(persistAtom, (optic) => optic.prop("customTimezone")),
 );

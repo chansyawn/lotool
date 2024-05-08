@@ -1,7 +1,7 @@
 "use client";
 
 import { type PrimitiveAtom, useAtom } from "jotai";
-import React from "react";
+import React, { useDeferredValue } from "react";
 import { addDays, getYear, set, addMinutes } from "date-fns";
 import { UTCDate } from "@date-fns/utc";
 import { Button, Badge } from "@lotool/ui";
@@ -20,7 +20,7 @@ export interface TimeBreakdownProps {
 }
 
 function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps) {
-  const timezoneOffset = getTimezoneOffset(timezone);
+  const timezoneOffset = getTimezoneOffset(timezone, value);
   const date = addMinutes(new UTCDate(value), -timezoneOffset);
   const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
 
@@ -103,25 +103,26 @@ type TimeBreakdownWithCustomTimezoneProps = {
 export function TimeBreakdownWithCustomTimezone({
   timezoneAtom,
   onRemove,
+  value,
   ...breakdownProps
 }: TimeBreakdownWithCustomTimezoneProps) {
   const [timezone, onTimezoneChange] = useAtom(timezoneAtom);
+  const deferredTimestamp = useDeferredValue(value);
 
   return (
     <div>
       <div className="flex gap-2">
         <TimezoneSelector
           value={timezone}
-          onChange={(value) => {
-            onTimezoneChange(value);
-          }}
+          onChange={onTimezoneChange}
+          timestamp={deferredTimestamp}
         />
-        <Button variant="ghost" size="icon" className="size-9" onClick={onRemove}>
-          <MinusCircleIcon className="size-4" />
+        <Button variant="secondary" size="icon" className="size-9" onClick={onRemove}>
+          <MinusCircleIcon className="text-destructive size-4" />
         </Button>
       </div>
       <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1">
-        <TimeBreakdown timezone={timezone} {...breakdownProps} />
+        <TimeBreakdown value={value} timezone={timezone} {...breakdownProps} />
       </div>
     </div>
   );

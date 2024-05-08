@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { memo, useState } from "react";
 import {
   Popover,
   PopoverTrigger,
@@ -18,46 +18,42 @@ import {
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
 import { CheckIcon, ChevronsUpDownIcon, EarthIcon } from "lucide-react";
+import { useAtomValue } from "jotai";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
-import { getEtcTimezoneNameByOffset, getISOTimezoneNameByOffset } from "./utils";
+import { getEtcTimezoneNameByOffset, getTimezoneOffset } from "./utils";
+import { allETCTimezonesAtom, supportedTimezonesAtom } from "./atom";
 
 interface TimezoneSelectorProps {
+  timestamp: number;
   value: string;
   onChange: (value: string) => void;
 }
 
-export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
+export const TimezoneSelector = memo(({ timestamp, value, onChange }: TimezoneSelectorProps) => {
   const [open, setOpen] = useState(false);
-  const [utcMode, setUtcMode] = useState(
-    Boolean(ALL_UTC_OFFSETS.find(({ value: timezone }) => timezone === value)),
-  );
-  const timezoneOptions = utcMode ? ALL_UTC_OFFSETS : SUPPORTED_TIMEZONES;
-  const currentTimezone = timezoneOptions.find(({ value: timezone }) => timezone === value);
+  const utcMode = Boolean(ALL_UTC_OFFSETS.find((timezone) => timezone === value));
+
+  const supportedTimezones = useAtomValue(supportedTimezonesAtom);
+  const allETCTimezones = useAtomValue(allETCTimezonesAtom);
+
+  const timezoneOptions = utcMode ? allETCTimezones : supportedTimezones;
+  const currentTimezone = timezoneOptions.find(({ label }) => label === value);
   if (!currentTimezone) {
     throw new Error(`Invalid timezone: ${value}`);
   }
-  const lastSelectedTimezone = useRef(currentTimezone);
 
   const handleUtcModeChange = (utcMode: boolean) => {
-    setUtcMode(utcMode);
     if (utcMode) {
-      onChange(getEtcTimezoneNameByOffset(currentTimezone.offset));
-    }
-    // if last selected timezone is same as current timezone, revert back to last selected
-    else if (lastSelectedTimezone.current.offset === currentTimezone.offset) {
-      onChange(lastSelectedTimezone.current.value);
+      onChange(getEtcTimezoneNameByOffset(getTimezoneOffset(currentTimezone.label, timestamp)));
     } else {
       onChange(
-        SUPPORTED_TIMEZONES.find(
-          ({ offset }) => offset === currentTimezone.offset,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- temp
-        )?.value ?? SUPPORTED_TIMEZONES[0]!.value,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- temp
+        SUPPORTED_TIMEZONES[0]!,
       );
     }
   };
 
   const handleSelect = (timezone: string) => {
-    lastSelectedTimezone.current = currentTimezone;
     onChange(timezone);
     setOpen(false);
   };
@@ -71,7 +67,7 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
           <ChevronsUpDownIcon className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-fit p-0" align="start">
+      <PopoverContent className="w-auto p-0" align="start">
         <Command>
           <CommandInput className="border-b-0" placeholder="Search Timezone..." />
           <div className="flex items-center border-b p-2">
@@ -94,25 +90,21 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
           <CommandEmpty>No timezone found.</CommandEmpty>
           <CommandGroup className="w-full">
             <ScrollArea className="h-56 w-full">
-              {timezoneOptions.map(({ label, value: timezone, offset }) => (
+              {timezoneOptions.map(({ label, offset, dst }) => (
                 <CommandItem
-                  key={timezone}
-                  value={timezone}
+                  key={label}
+                  value={label}
                   onSelect={() => {
-                    handleSelect(timezone);
+                    handleSelect(label);
                   }}
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center gap-1">
                     <CheckIcon
-                      className={cn(
-                        "mr-2 size-4",
-                        value === timezone ? "opacity-100" : "opacity-0",
-                      )}
+                      className={cn("size-4", value === label ? "opacity-100" : "opacity-0")}
                     />
                     <span className="truncate">{label}</span>
-                    <Badge variant="outline" className="ml-2 whitespace-nowrap">
-                      {getISOTimezoneNameByOffset(offset)}
-                    </Badge>
+                    <Badge variant="outline">{offset}</Badge>
+                    {dst ? <Badge variant="outline">DST</Badge> : null}
                   </div>
                 </CommandItem>
               ))}
@@ -122,4 +114,5 @@ export function TimezoneSelector({ value, onChange }: TimezoneSelectorProps) {
       </PopoverContent>
     </Popover>
   );
-}
+});
+TimezoneSelector.displayName = "TimezoneSelector";
