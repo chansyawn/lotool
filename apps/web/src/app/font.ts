@@ -1,4 +1,4 @@
-import { Roboto_Flex as RobotoFlexFont, Roboto_Mono as RobotoMonoFont } from "@next/font/google";
+import { Roboto_Flex as RobotoFlexFont, Roboto_Mono as RobotoMonoFont } from "next/font/google";
 
 const RobotoFlex = RobotoFlexFont({
   subsets: ["latin"],
