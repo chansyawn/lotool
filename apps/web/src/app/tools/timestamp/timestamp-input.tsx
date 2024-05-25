@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Input } from "@lotool/ui";
+import { Input, Tooltip, TooltipContent, TooltipTrigger } from "@lotool/ui";
 import { PasteButton } from "@/components/paste-button";
 import { type TimestampGranularity } from "./persist";
 import {
   TIMESTAMP_GRANULARITY_VALUE_LENGTH,
   TimestampGranularitySwitcher,
 } from "./timestamp-granularity-switcher";
+import { MAX_TIMESTAMP } from "./constant";
 
 interface TimestampInputProps {
   timestamp: number;
@@ -42,6 +43,8 @@ export function TimestampInput({
     handleValueChange(`${timestamp}${granularityValue}`, TIMESTAMP_GRANULARITY_VALUE_LENGTH[value]);
   };
 
+  const isReachMaxTimestamp = Math.abs(timestamp) === MAX_TIMESTAMP;
+
   return (
     <div>
       <div className="mb-2 flex items-center gap-2">
@@ -67,6 +70,28 @@ export function TimestampInput({
           }}
         />
       </div>
+      {isReachMaxTimestamp ? (
+        <div className="text-destructive mb-1 px-1 text-xs">
+          Reach the maximum supported timestamp.
+          <Tooltip>
+            <TooltipTrigger className="ml-1 underline">Why is {MAX_TIMESTAMP}?</TooltipTrigger>
+            <TooltipContent>
+              <p>Max timestamp in ECMAScript Date is milliseconds of ±100,000,000 days,</p>
+              <p>
+                minus two day for timezone convert correctly there.{" "}
+                <a
+                  className="ml-1 cursor-pointer underline"
+                  target="_blank"
+                  href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
+                  rel="noopener"
+                >
+                  Read more
+                </a>
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      ) : null}
       <TimestampGranularitySwitcher value={granularity} onChange={handleGranularityChange} />
     </div>
   );

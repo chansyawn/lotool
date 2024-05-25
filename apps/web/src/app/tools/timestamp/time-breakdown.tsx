@@ -20,7 +20,7 @@ export interface TimeBreakdownProps {
 
 function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
   const timestamp = value * 1000;
-  const timezoneOffset = getTimezoneOffset(timezone, timestamp);
+  const timezoneOffset = getTimezoneOffset(timezone, value);
   const date = addMinutes(new UTCDate(timestamp), -timezoneOffset);
 
   return (
@@ -30,9 +30,7 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
         if (field === "year") {
           const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
           const yearLength = Math.max(4, `${getYear(addDays(timestamp, isPositiveYear))}`.length);
-          width = `${6 + yearLength}ch`;
-        } else if (field === "milliseconds") {
-          width = "9ch";
+          width = `calc(3rem + ${yearLength}ch)`;
         }
 
         return (

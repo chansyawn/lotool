@@ -42,12 +42,13 @@ export function TimestampGranularitySwitcher({
           </button>
         </TooltipTrigger>
         <TooltipContent side="bottom">
-          1 {granularityValueLength === 0 ? "" : `/ 1${"0".repeat(granularityValueLength)}`}{" "}
-          seconds
+          1 {granularityValueLength === 0 ? "" : `/ 1${"0".repeat(granularityValueLength)}`} seconds
         </TooltipContent>
       </Tooltip>
     );
   };
 
-  return <div className="flex">{Object.values(TimestampGranularity).map(renderOption)}</div>;
+  return (
+    <div className="flex flex-wrap">{Object.values(TimestampGranularity).map(renderOption)}</div>
+  );
 }
