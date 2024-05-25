@@ -1,54 +1,19 @@
 "use client";
 
-import React, { type ChangeEventHandler } from "react";
+import React from "react";
 import { useAtom } from "jotai";
-import { Input, Button } from "@lotool/ui";
+import { Button } from "@lotool/ui";
 import { PlusCircleIcon } from "lucide-react";
 import { CurrentTime } from "./current-time";
-import { TimestampUnitSwitcher } from "./timestamp-unit-switcher";
-import { RelativeTime } from "./relative-time";
-import { TimeShortcuts } from "./time-shortcuts";
-import { type TimestampUnit, timezoneAtomsAtom } from "./persist";
-import { fixTimestamp } from "./utils";
+import { granularityAtom, timezoneAtomsAtom } from "./persist";
 import { TimeBreakdownWithCustomTimezone, TimeBreakdownWithFixedTimezone } from "./time-breakdown";
-import { MAX_TIMESTAMP, TIME_UNIT_RATIO } from "./constant";
-import { timestampAtom, unitAtom } from "./atom";
+import { timestampAtom } from "./atom";
+import { TimestampInput } from "./timestamp-input";
 
 function Page() {
-  const [unit, setUnit] = useAtom(unitAtom);
   const [timezoneAtoms, dispatchTimezones] = useAtom(timezoneAtomsAtom);
   const [timestamp, setTimestamp] = useAtom(timestampAtom);
-  const unitRatio = TIME_UNIT_RATIO[unit];
-  const timestampDisplay = timestamp / unitRatio;
-
-  const handleTimestampChange = (value: number) => {
-    if (value > MAX_TIMESTAMP) {
-      setTimestamp(MAX_TIMESTAMP);
-      return;
-    }
-    if (value < -MAX_TIMESTAMP) {
-      setTimestamp(-MAX_TIMESTAMP);
-      return;
-    }
-    setTimestamp(value);
-  };
-
-  const handleInput: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (isNaN(e.target.valueAsNumber)) {
-      return;
-    }
-    handleTimestampChange(e.target.valueAsNumber * unitRatio);
-  };
-
-  const handleMillisecondModeChange = (value: TimestampUnit) => {
-    setUnit(value);
-    const targetRatio = TIME_UNIT_RATIO[value];
-    handleTimestampChange((timestamp * targetRatio) / unitRatio);
-  };
-
-  const handleShortcutClick = (value: number) => {
-    handleTimestampChange(fixTimestamp(value, unitRatio));
-  };
+  const [granularity, setGranularity] = useAtom(granularityAtom);
 
   const handleAddTimezone = () => {
     dispatchTimezones({
@@ -58,50 +23,23 @@ function Page() {
   };
 
   return (
-    <div>
-      <div className="space-y-1">
-        <CurrentTime />
-        <div className="flex flex-wrap items-baseline gap-2">
-          <Input
-            type="number"
-            className="w-56 px-2 text-xl"
-            value={timestampDisplay}
-            onChange={handleInput}
-            min={-MAX_TIMESTAMP / unitRatio}
-            max={MAX_TIMESTAMP / unitRatio}
-          />
-          <TimestampUnitSwitcher value={unit} onChange={handleMillisecondModeChange} />
-        </div>
-        {Math.abs(timestamp) === MAX_TIMESTAMP && (
-          <div className="text-destructive text-sm">
-            <p>Reach the max timestamp in ECMAScript Date (milliseconds of ±100,000,000 days)</p>
-            <p>
-              minus two day for timezone convert correctly there.
-              <a
-                className="ml-1 cursor-pointer underline"
-                target="_blank"
-                href="https://en.wikipedia.org/wiki/Time_formatting_and_storage_bugs#Year_275,760"
-                rel="noopener"
-              >
-                Read more
-              </a>
-            </p>
-          </div>
-        )}
-        <RelativeTime timestamp={timestamp} />
-        <TimeShortcuts timestamp={timestamp} onClick={handleShortcutClick} />
-      </div>
+    <>
+      <CurrentTime />
+      <TimestampInput
+        timestamp={timestamp}
+        onTimestampChange={setTimestamp}
+        granularity={granularity}
+        onGranularityChange={setGranularity}
+      />
       <div className="mt-3 flex flex-col gap-2">
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
-          level={unit}
-          onChange={handleTimestampChange}
+          onChange={setTimestamp}
           timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
         />
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
-          level={unit}
-          onChange={handleTimestampChange}
+          onChange={setTimestamp}
           timezone="Etc/UTC"
         />
         {timezoneAtoms.map((atom, idx) => (
@@ -109,8 +47,7 @@ function Page() {
           <React.Fragment key={idx}>
             <TimeBreakdownWithCustomTimezone
               value={timestamp}
-              level={unit}
-              onChange={handleTimestampChange}
+              onChange={setTimestamp}
               timezoneAtom={atom}
               onRemove={() => {
                 dispatchTimezones({ type: "remove", atom });
@@ -123,7 +60,7 @@ function Page() {
         <PlusCircleIcon className="mr-1 size-4" />
         Add timezone
       </Button>
-    </div>
+    </>
   );
 }
 

@@ -1,27 +1,24 @@
 import { atom } from "jotai";
 import { atomWithDebounce } from "@/features/debounce/atom-with-debounce";
-import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
+import { ALL_UTC_OFFSETS, MAX_TIMESTAMP, SUPPORTED_TIMEZONES } from "./constant";
 import {
-  fixTimestamp,
   getEtcTimezoneNameByOffset,
   getISOTimezoneNameByOffset,
   getTimezoneOffset,
   isDST,
 } from "./utils";
-import { type TimestampUnit } from "./persist";
 
 const { currentValueAtom, debouncedValueAtom } = atomWithDebounce<number>(
-  fixTimestamp(new Date().valueOf(), 1000),
+  Number((new Date().valueOf() / 1000).toFixed(0)),
 );
 
 export const timestampAtom = atom(
   (get) => get(currentValueAtom),
   (_, set, value: number) => {
-    set(debouncedValueAtom, value);
+    const clampedValue = Math.min(Math.max(value, -MAX_TIMESTAMP), MAX_TIMESTAMP);
+    set(debouncedValueAtom, clampedValue);
   },
 );
-
-export const unitAtom = atom<TimestampUnit>("seconds");
 
 export const supportedTimezonesAtom = atom((get) => {
   return SUPPORTED_TIMEZONES.map((timezone) => ({

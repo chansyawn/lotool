@@ -46,7 +46,7 @@ export function TimeShortcuts({ timestamp, onClick }: TimeShortcutsProps) {
           variant="outline"
           key={name}
           onClick={() => {
-            onClick(getValue(timestamp));
+            onClick(getValue(timestamp * 1000) / 1000);
           }}
         >
           {name}

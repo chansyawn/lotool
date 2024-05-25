@@ -10,27 +10,26 @@ import { CopyButton } from "@/components/copy-button";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
 import { getTimezoneOffset } from "./utils";
-import { TIME_FIELDS, TIME_FORMATTER, type TimeField } from "./constant";
+import { TIME_FIELDS, TIME_FORMATTER } from "./constant";
 
 export interface TimeBreakdownProps {
   value: number;
   onChange: (value: number) => void;
-  level: TimeField;
   timezone: string;
 }
 
-function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps) {
-  const timezoneOffset = getTimezoneOffset(timezone, value);
-  const date = addMinutes(new UTCDate(value), -timezoneOffset);
-  const fieldIdx = TIME_FIELDS.findIndex(({ field }) => field === level);
+function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
+  const timestamp = value * 1000;
+  const timezoneOffset = getTimezoneOffset(timezone, timestamp);
+  const date = addMinutes(new UTCDate(timestamp), -timezoneOffset);
 
   return (
     <>
-      {TIME_FIELDS.slice(0, fieldIdx + 1).map(({ label, field, get }) => {
+      {TIME_FIELDS.map(({ label, field, get }) => {
         let width = "8ch";
         if (field === "year") {
           const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
-          const yearLength = Math.max(4, `${getYear(addDays(value, isPositiveYear))}`.length);
+          const yearLength = Math.max(4, `${getYear(addDays(timestamp, isPositiveYear))}`.length);
           width = `${6 + yearLength}ch`;
         } else if (field === "milliseconds") {
           width = "9ch";
@@ -43,10 +42,11 @@ function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps)
             value={get(date) + (field === "month" ? 1 : 0)}
             width={width}
             onChange={(value: number) => {
-              const targetTimestamp = addMinutes(
-                set(date, { [field]: value - (field === "month" ? 1 : 0) }),
-                timezoneOffset,
-              ).valueOf();
+              const targetTimestamp =
+                addMinutes(
+                  set(date, { [field]: value - (field === "month" ? 1 : 0) }),
+                  timezoneOffset,
+                ).valueOf() / 1000;
               if (!Number.isNaN(targetTimestamp)) {
                 onChange(targetTimestamp);
               }
@@ -60,10 +60,10 @@ function TimeBreakdown({ value, onChange, level, timezone }: TimeBreakdownProps)
           key: label,
           label: (
             <span>
-              {formatter(value, timezone)} <Badge variant="secondary">{label}</Badge>
+              {formatter(timestamp, timezone)} <Badge variant="secondary">{label}</Badge>
             </span>
           ),
-          data: formatter(value, timezone),
+          data: formatter(timestamp, timezone),
         }))}
         variant="secondary"
       />
