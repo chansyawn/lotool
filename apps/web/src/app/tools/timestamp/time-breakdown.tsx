@@ -2,8 +2,6 @@
 
 import { type PrimitiveAtom, useAtom } from "jotai";
 import React, { useDeferredValue } from "react";
-import { addDays, getYear, set, addMinutes } from "date-fns";
-import { UTCDate } from "@date-fns/utc";
 import { Button } from "@lotool/ui";
 import { EarthIcon, MinusCircleIcon } from "lucide-react";
 import { TimezoneSelector } from "./timezone-selector";
@@ -20,32 +18,31 @@ export interface TimeBreakdownProps {
 
 function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
   const timestamp = value * 1000;
-  const timezoneOffset = getTimezoneOffset(timezone, value);
-  const date = addMinutes(new UTCDate(timestamp), -timezoneOffset);
+  const realOffset = -new Date(timestamp).getTimezoneOffset() + getTimezoneOffset(timezone, value);
+
+  const date = new Date(timestamp - realOffset * 6e4);
   const deferredTimestamp = useDeferredValue(timestamp);
 
   return (
     <>
-      {TIME_FIELDS.map(({ label, field, get }) => {
+      {TIME_FIELDS.map(({ label, field, get, set }) => {
         let width = "8ch";
         if (field === "year") {
-          const isPositiveYear = getYear(date) >= 0 ? 1 : -1;
-          const yearLength = Math.max(4, `${getYear(addDays(timestamp, isPositiveYear))}`.length);
-          width = `calc(3rem + ${yearLength}ch)`;
+          const isPositiveYear = date.getFullYear() < 0 ? 1 : 0;
+          const yearLength = Math.max(4, String(date.getFullYear()).length);
+          width = `calc(3rem + ${yearLength + isPositiveYear}ch)`;
         }
 
         return (
           <TimestampBreakdownInput
             key={field}
             label={label}
-            value={get(date) + (field === "month" ? 1 : 0)}
+            value={get(date)}
             width={width}
             onChange={(value: number) => {
-              const targetTimestamp =
-                addMinutes(
-                  set(date, { [field]: value - (field === "month" ? 1 : 0) }),
-                  timezoneOffset,
-                ).valueOf() / 1000;
+              const targetTimestamp = Number(
+                (new Date(set(date, value) + realOffset * 6e4).valueOf() / 1000).toFixed(0),
+              );
               if (!Number.isNaN(targetTimestamp)) {
                 onChange(targetTimestamp);
               }

@@ -15,10 +15,5 @@ export const config: ToolConfig = {
       label: "Timezone database",
       href: "https://en.wikipedia.org/wiki/List_of_tz_database_time_zones",
     },
-    {
-      type: "github",
-      label: "date-fns",
-      href: "https://github.com/date-fns/date-fns",
-    },
   ],
 };

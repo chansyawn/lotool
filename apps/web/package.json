@@ -13,7 +13,6 @@
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
-    "@date-fns/utc": "1.2.0",
     "@icons-pack/react-simple-icons": "9.4.1",
     "@lotool/lib": "workspace:*",
     "@lotool/theme": "workspace:*",
@@ -27,7 +26,6 @@
     "@vercel/speed-insights": "1.0.10",
     "autoprefixer": "10.4.18",
     "babel-plugin-react-compiler": "0.0.0-experimental-592953e-20240517",
-    "date-fns": "3.5.0",
     "jotai": "2.7.1",
     "jotai-effect": "0.6.0",
     "jotai-optics": "0.3.2",

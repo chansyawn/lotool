@@ -9,7 +9,7 @@ export const getISOTimezoneNameByOffset = (offset: number) =>
     .padStart(2, "0")}`;
 
 export const getTimezoneOffset = (timezone = "UTC", timestamp = new Date().getTime() / 1000) => {
-  const date = new Date(timestamp * 1000);
+  const date = new Date(Math.max(0, timestamp * 1000));
   const tzDate = new Date(date.toLocaleString("en-US", { timeZone: timezone }));
   return date.getTimezoneOffset() - (tzDate.getTime() - date.getTime()) / 6e4;
 };

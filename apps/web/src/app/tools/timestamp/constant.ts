@@ -1,12 +1,3 @@
-import {
-  type DateValues,
-  getDate,
-  getHours,
-  getMinutes,
-  getMonth,
-  getSeconds,
-  getYear,
-} from "date-fns";
 import { getEtcTimezoneNameByOffset } from "./utils";
 
 export const SUPPORTED_TIMEZONES = Intl.supportedValuesOf("timeZone");
@@ -23,13 +14,47 @@ export const MAX_TIMESTAMP = 60 * 60 * 24 * (100000000 - 2);
 
 export const TIME_FIELDS: {
   label: string;
-  field: keyof DateValues;
-  get: (value: Date | number) => number;
+  field: string;
+  get: (date: Date) => number;
+  set: (date: Date, value: number) => number;
 }[] = [
-  { label: "Year", field: "year", get: getYear },
-  { label: "Month", field: "month", get: getMonth },
-  { label: "Day", field: "date", get: getDate },
-  { label: "Hour", field: "hours", get: getHours },
-  { label: "Minute", field: "minutes", get: getMinutes },
-  { label: "Second", field: "seconds", get: getSeconds },
+  {
+    label: "Year",
+    field: "year",
+    get: (date) => date.getFullYear(),
+    set: (date, value) => {
+      // console.log(date, value, date.setFullYear(value));
+      return date.setFullYear(value);
+    },
+  },
+  {
+    label: "Month",
+    field: "month",
+    get: (date) => date.getMonth() + 1,
+    set: (date, value) => date.setMonth(value - 1),
+  },
+  {
+    label: "Day",
+    field: "date",
+    get: (date) => date.getDate(),
+    set: (date, value) => date.setDate(value),
+  },
+  {
+    label: "Hour",
+    field: "hours",
+    get: (date) => date.getHours(),
+    set: (date, value) => date.setHours(value),
+  },
+  {
+    label: "Minute",
+    field: "minutes",
+    get: (date) => date.getMinutes(),
+    set: (date, value) => date.setMinutes(value),
+  },
+  {
+    label: "Second",
+    field: "seconds",
+    get: (date) => date.getSeconds(),
+    set: (date, value) => date.setSeconds(value),
+  },
 ];

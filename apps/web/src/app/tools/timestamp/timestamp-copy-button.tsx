@@ -1,6 +1,6 @@
 import { Badge } from "@lotool/ui";
 import { CopyButton } from "@/components/copy-button";
-import { getISOTimezoneNameByOffset, getTimezoneOffset } from "./utils";
+import { getTimezoneOffset } from "./utils";
 
 const getIntlDateTimeFormatterPreset = (preset: "full" | "long" | "medium" | "short") => ({
   label: `Intl-${preset}`,
@@ -19,13 +19,7 @@ export const TIME_FORMATTER: {
   {
     label: "ISO",
     formatter: (value, timezone) =>
-      `${new Intl.DateTimeFormat("sv-SE", {
-        dateStyle: "short",
-        timeStyle: "short",
-        timeZone: timezone,
-      })
-        .format(value)
-        .replace(" ", "T")}${getISOTimezoneNameByOffset(getTimezoneOffset(timezone))}`,
+      new Date(value - getTimezoneOffset(timezone, value) * 6e4).toISOString(),
   },
   getIntlDateTimeFormatterPreset("short"),
   getIntlDateTimeFormatterPreset("medium"),
