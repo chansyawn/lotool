@@ -21,7 +21,7 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
   const realOffset = -new Date(timestamp).getTimezoneOffset() + getTimezoneOffset(timezone, value);
 
   const date = new Date(timestamp - realOffset * 6e4);
-  const deferredTimestamp = useDeferredValue(timestamp);
+  const deferredValue = useDeferredValue(value);
 
   return (
     <>
@@ -50,7 +50,7 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
           />
         );
       })}
-      <TimestampCopyButton timestamp={deferredTimestamp} timezone={timezone} />
+      <TimestampCopyButton timestamp={deferredValue} timezone={timezone} />
     </>
   );
 }

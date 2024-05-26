@@ -22,10 +22,9 @@ export function TimestampInput({
   onGranularityChange,
 }: TimestampInputProps) {
   const granularityValueLength = TIMESTAMP_GRANULARITY_VALUE_LENGTH[granularity];
-  const [granularityValue, setGranularityValue] = useState(() => {
-    const valueLength = TIMESTAMP_GRANULARITY_VALUE_LENGTH[granularity];
-    return "0".repeat(valueLength);
-  });
+  const [granularityValue, setGranularityValue] = useState(() =>
+    "0".repeat(granularityValueLength),
+  );
 
   const handleValueChange = (value: string, valueLength: number) => {
     if (!/^-?[0-9]+$/.exec(value)) return;
@@ -46,7 +45,7 @@ export function TimestampInput({
   const isReachMaxTimestamp = Math.abs(timestamp) === MAX_TIMESTAMP;
 
   return (
-    <div>
+    <div className="mt-1">
       <div className="mb-2 flex items-center gap-2">
         <div className="relative">
           <Input

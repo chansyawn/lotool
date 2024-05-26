@@ -9,7 +9,7 @@ const getIntlDateTimeFormatterPreset = (preset: "full" | "long" | "medium" | "sh
       dateStyle: preset,
       timeStyle: preset,
       timeZone: timezone,
-    }).format(value),
+    }).format(value * 1000),
 });
 
 export const TIME_FORMATTER: {
@@ -19,7 +19,7 @@ export const TIME_FORMATTER: {
   {
     label: "ISO",
     formatter: (value, timezone) =>
-      new Date(value - getTimezoneOffset(timezone, value) * 6e4).toISOString(),
+      new Date(value * 1000 - getTimezoneOffset(timezone, value) * 6e4).toISOString(),
   },
   getIntlDateTimeFormatterPreset("short"),
   getIntlDateTimeFormatterPreset("medium"),
