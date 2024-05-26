@@ -10,23 +10,16 @@ export const getISOTimezoneNameByOffset = (offset: number) =>
 
 export const getTimezoneOffset = (timezone = "UTC", timestamp = new Date().getTime() / 1000) => {
   const date = new Date(timestamp * 1000);
-  const utcDate = new Date(date.toLocaleString("en-US", { timeZone: "UTC" }));
   const tzDate = new Date(date.toLocaleString("en-US", { timeZone: timezone }));
-  return (utcDate.getTime() - tzDate.getTime()) / 6e4;
-};
-
-export const isTimezoneHaveDST = (timezone: string, timestamp: number) => {
-  const year = new Date(timestamp * 1000).getUTCFullYear();
-  const winterSolsticeOffset = getTimezoneOffset(timezone, Date.UTC(year, 11, 21) / 1000);
-  const summerSolsticeOffset = getTimezoneOffset(timezone, Date.UTC(year, 6, 21) / 1000);
-  return winterSolsticeOffset !== summerSolsticeOffset;
+  return date.getTimezoneOffset() - (tzDate.getTime() - date.getTime()) / 6e4;
 };
 
 export const isDST = (timezone: string, timestamp: number) => {
-  if (!isTimezoneHaveDST(timezone, timestamp)) {
+  const year = new Date(timestamp * 1000).getUTCFullYear();
+  const winterSolsticeOffset = getTimezoneOffset(timezone, Date.UTC(year, 11, 21) / 1000);
+  const summerSolsticeOffset = getTimezoneOffset(timezone, Date.UTC(year, 6, 21) / 1000);
+  if (winterSolsticeOffset === summerSolsticeOffset) {
     return false;
   }
-  const year = new Date(timestamp * 1000).getUTCFullYear();
-  const summerSolsticeOffset = getTimezoneOffset(timezone, Date.UTC(year, 6, 21) / 1000);
   return getTimezoneOffset(timezone, timestamp) === summerSolsticeOffset;
 };

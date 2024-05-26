@@ -4,13 +4,13 @@ import { type PrimitiveAtom, useAtom } from "jotai";
 import React, { useDeferredValue } from "react";
 import { addDays, getYear, set, addMinutes } from "date-fns";
 import { UTCDate } from "@date-fns/utc";
-import { Button, Badge } from "@lotool/ui";
+import { Button } from "@lotool/ui";
 import { EarthIcon, MinusCircleIcon } from "lucide-react";
-import { CopyButton } from "@/components/copy-button";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
 import { getTimezoneOffset } from "./utils";
-import { TIME_FIELDS, TIME_FORMATTER } from "./constant";
+import { TIME_FIELDS } from "./constant";
+import { TimestampCopyButton } from "./timestamp-copy-button";
 
 export interface TimeBreakdownProps {
   value: number;
@@ -22,6 +22,7 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
   const timestamp = value * 1000;
   const timezoneOffset = getTimezoneOffset(timezone, value);
   const date = addMinutes(new UTCDate(timestamp), -timezoneOffset);
+  const deferredTimestamp = useDeferredValue(timestamp);
 
   return (
     <>
@@ -52,19 +53,7 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
           />
         );
       })}
-      <CopyButton
-        mode="multiple"
-        options={TIME_FORMATTER.map(({ label, formatter }) => ({
-          key: label,
-          label: (
-            <span>
-              {formatter(timestamp, timezone)} <Badge variant="secondary">{label}</Badge>
-            </span>
-          ),
-          data: formatter(timestamp, timezone),
-        }))}
-        variant="secondary"
-      />
+      <TimestampCopyButton timestamp={deferredTimestamp} timezone={timezone} />
     </>
   );
 }

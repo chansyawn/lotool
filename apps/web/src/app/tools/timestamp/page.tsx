@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useDeferredValue } from "react";
 import { useAtom } from "jotai";
 import { Button } from "@lotool/ui";
 import { PlusCircleIcon } from "lucide-react";
@@ -15,6 +15,7 @@ function Page() {
   const [timezoneAtoms, dispatchTimezones] = useAtom(timezoneAtomsAtom);
   const [timestamp, setTimestamp] = useAtom(timestampAtom);
   const [granularity, setGranularity] = useAtom(granularityAtom);
+  const deferredTimestamp = useDeferredValue(timestamp);
 
   const handleAddTimezone = (timezone: string) => {
     dispatchTimezones({ type: "insert", value: timezone });
@@ -54,7 +55,7 @@ function Page() {
       </div>
       <TimezoneSelector
         onChange={handleAddTimezone}
-        timestamp={timestamp}
+        timestamp={deferredTimestamp}
         trigger={
           <Button size="sm" className="mt-2">
             <PlusCircleIcon className="mr-1 size-4" />

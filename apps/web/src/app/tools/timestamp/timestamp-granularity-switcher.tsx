@@ -24,7 +24,7 @@ export function TimestampGranularitySwitcher({
     const granularityValueLength = TIMESTAMP_GRANULARITY_VALUE_LENGTH[timestampUnit];
 
     return (
-      <Tooltip>
+      <Tooltip key={timestampUnit}>
         <TooltipTrigger asChild>
           <button
             type="button"

@@ -15,18 +15,18 @@ export const timestampAtom = atom(
   },
 );
 
-export const supportedTimezonesAtom = atom((get) => {
-  return SUPPORTED_TIMEZONES.map((timezone) => ({
-    label: timezone,
-    offset: getISOTimezoneNameByOffset(getTimezoneOffset(timezone, get(debouncedValueAtom))),
-    dst: isDST(timezone, get(debouncedValueAtom)),
-  }));
-});
+export const supportedTimezonesAtom = atom((get) =>
+  SUPPORTED_TIMEZONES.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom))),
+);
 
 export const allETCTimezonesAtom = atom((get) =>
-  ALL_UTC_OFFSETS.map((timezone) => ({
-    label: timezone,
-    offset: getISOTimezoneNameByOffset(getTimezoneOffset(timezone, get(debouncedValueAtom))),
-    dst: false,
-  })),
+  ALL_UTC_OFFSETS.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom))),
 );
+
+const getTimezoneInfo = (timezone: string, timestamp: number) => {
+  return {
+    label: timezone,
+    offset: getISOTimezoneNameByOffset(getTimezoneOffset(timezone, timestamp)),
+    dst: isDST(timezone, timestamp),
+  };
+};
