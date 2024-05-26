@@ -6,7 +6,7 @@ import { Button } from "@lotool/ui";
 import { EarthIcon, MinusCircleIcon } from "lucide-react";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
-import { getTimezoneOffset } from "./utils";
+import { getTimezoneOffset, toSecondTimestamp } from "./utils";
 import { TIME_FIELDS } from "./constant";
 import { TimestampCopyButton } from "./timestamp-copy-button";
 
@@ -40,8 +40,8 @@ function TimeBreakdown({ value, onChange, timezone }: TimeBreakdownProps) {
             value={get(date)}
             width={width}
             onChange={(value: number) => {
-              const targetTimestamp = Number(
-                (new Date(set(date, value) + realOffset * 6e4).valueOf() / 1000).toFixed(0),
+              const targetTimestamp = toSecondTimestamp(
+                new Date(set(date, value) + realOffset * 6e4).valueOf(),
               );
               if (!Number.isNaN(targetTimestamp)) {
                 onChange(targetTimestamp);

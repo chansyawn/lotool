@@ -4,13 +4,7 @@ import { splitAtom } from "jotai/utils";
 import { atomWithValidatedStorage } from "@/features/storage/atom-with-validated-storage";
 import { LocalStorageKey } from "@/features/storage/local-storage-key";
 import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
-
-export enum TimestampGranularity {
-  Second = "seconds",
-  Millisecond = "milliseconds",
-  Microsecond = "microseconds",
-  Nanosecond = "nanoseconds",
-}
+import { TimestampGranularity } from "./timestamp-granularity";
 
 const PERSIST_SCHEMA = z.object({
   granularity: z.nativeEnum(TimestampGranularity),

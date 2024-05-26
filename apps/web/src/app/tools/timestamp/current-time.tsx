@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toSecondTimestamp } from "./utils";
 
 export function CurrentTime() {
   const [currentTimestamp, setCurrentTimestamp] = useState(new Date().valueOf());
-  const currTimestampSeconds = (currentTimestamp / 1000).toFixed();
+  const currTimestampSeconds = toSecondTimestamp(currentTimestamp);
 
   useEffect(() => {
     const updateInterval = setInterval(() => {

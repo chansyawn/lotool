@@ -2,19 +2,12 @@
 
 import { cn } from "@lotool/theme/utils";
 import { TooltipContent, Tooltip, TooltipTrigger } from "@lotool/ui";
-import { TimestampGranularity } from "./persist";
+import { TIMESTAMP_GRANULARITY_VALUE_LENGTH, TimestampGranularity } from "./timestamp-granularity";
 
 interface TimestampGranularitySwitcherProps {
   value: TimestampGranularity;
   onChange: (value: TimestampGranularity) => void;
 }
-
-export const TIMESTAMP_GRANULARITY_VALUE_LENGTH: Record<TimestampGranularity, number> = {
-  [TimestampGranularity.Second]: 0,
-  [TimestampGranularity.Millisecond]: 3,
-  [TimestampGranularity.Microsecond]: 6,
-  [TimestampGranularity.Nanosecond]: 9,
-};
 
 export function TimestampGranularitySwitcher({
   value,

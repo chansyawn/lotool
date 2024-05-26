@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 import { atomWithDebounce } from "@/features/debounce/atom-with-debounce";
 import { ALL_UTC_OFFSETS, MAX_TIMESTAMP, SUPPORTED_TIMEZONES } from "./constant";
-import { getISOTimezoneNameByOffset, getTimezoneOffset, isDST } from "./utils";
+import { getISOTimezoneNameByOffset, getTimezoneOffset, isDST, toSecondTimestamp } from "./utils";
 
 const { currentValueAtom, debouncedValueAtom } = atomWithDebounce<number>(
-  Number((new Date().valueOf() / 1000).toFixed(0)),
+  toSecondTimestamp(new Date().valueOf()),
 );
 
 export const timestampAtom = atom(

@@ -22,10 +22,7 @@ export const TIME_FIELDS: {
     label: "Year",
     field: "year",
     get: (date) => date.getFullYear(),
-    set: (date, value) => {
-      // console.log(date, value, date.setFullYear(value));
-      return date.setFullYear(value);
-    },
+    set: (date, value) => date.setFullYear(value),
   },
   {
     label: "Month",

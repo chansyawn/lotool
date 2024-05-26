@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Input, Tooltip, TooltipContent, TooltipTrigger } from "@lotool/ui";
 import { PasteButton } from "@/components/paste-button";
-import { type TimestampGranularity } from "./persist";
-import {
-  TIMESTAMP_GRANULARITY_VALUE_LENGTH,
-  TimestampGranularitySwitcher,
-} from "./timestamp-granularity-switcher";
+import { TimestampGranularitySwitcher } from "./timestamp-granularity-switcher";
 import { MAX_TIMESTAMP } from "./constant";
+import {
+  type TimestampGranularity,
+  TIMESTAMP_GRANULARITY_VALUE_LENGTH,
+} from "./timestamp-granularity";
 
 interface TimestampInputProps {
   timestamp: number;
