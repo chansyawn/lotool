@@ -19,39 +19,26 @@ import {
 import { cn } from "@lotool/theme/utils";
 import { CheckIcon, ChevronsUpDownIcon, EarthIcon } from "lucide-react";
 import { useAtomValue } from "jotai";
-import { ALL_UTC_OFFSETS, SUPPORTED_TIMEZONES } from "./constant";
-import { getEtcTimezoneNameByOffset, getTimezoneOffset } from "./utils";
+import { ALL_UTC_OFFSETS } from "./constant";
 import { allETCTimezonesAtom, supportedTimezonesAtom } from "./atom";
 
 interface TimezoneSelectorProps {
-  timestamp: number;
   value?: string;
   onChange: (value: string) => void;
   trigger?: React.ReactNode;
 }
 
-export function TimezoneSelector({ timestamp, value, onChange, trigger }: TimezoneSelectorProps) {
+export function TimezoneSelector({ value, onChange, trigger }: TimezoneSelectorProps) {
   const [open, setOpen] = useState(false);
-  const utcMode = Boolean(ALL_UTC_OFFSETS.find((timezone) => timezone === value));
+  const [utcMode, setUtcMode] = useState(false);
 
   const supportedTimezones = useAtomValue(supportedTimezonesAtom);
   const allETCTimezones = useAtomValue(allETCTimezonesAtom);
 
   const timezoneOptions = utcMode ? allETCTimezones : supportedTimezones;
-  const currentTimezone = timezoneOptions.find(({ label }) => label === value);
 
   const handleUtcModeChange = (utcMode: boolean) => {
-    if (utcMode) {
-      onChange(
-        currentTimezone
-          ? getEtcTimezoneNameByOffset(getTimezoneOffset(currentTimezone.label, timestamp))
-          : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- already checked
-            ALL_UTC_OFFSETS[0]!,
-      );
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- already checked
-      onChange(SUPPORTED_TIMEZONES[0]!);
-    }
+    setUtcMode(utcMode);
   };
 
   const handleSelect = (timezone: string) => {
@@ -59,8 +46,13 @@ export function TimezoneSelector({ timestamp, value, onChange, trigger }: Timezo
     setOpen(false);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    setOpen(open);
+    setUtcMode(ALL_UTC_OFFSETS.find((timezone) => timezone === value) !== undefined);
+  };
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         {trigger ? (
           trigger

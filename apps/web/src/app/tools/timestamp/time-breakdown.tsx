@@ -1,14 +1,15 @@
 "use client";
 
-import { type PrimitiveAtom, useAtom } from "jotai";
+import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import React, { useDeferredValue } from "react";
-import { Button } from "@lotool/ui";
+import { Badge, Button } from "@lotool/ui";
 import { EarthIcon, MinusCircleIcon } from "lucide-react";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
 import { getTimezoneOffset, toSecondTimestamp } from "./utils";
 import { TIME_FIELDS } from "./constant";
 import { TimestampCopyButton } from "./timestamp-copy-button";
+import { allETCTimezonesAtom, supportedTimezonesAtom } from "./atom";
 
 export interface TimeBreakdownProps {
   value: number;
@@ -71,6 +72,7 @@ export function TimeBreakdownWithFixedTimezone({
           <EarthIcon className="mr-1 size-4" />
           <span className="truncate">{timezone}</span>
         </Button>
+        <TimezoneInfo timezone={timezone} />
       </div>
       <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1">
         <TimeBreakdown timezone={timezone} {...breakdownProps} />
@@ -91,23 +93,39 @@ export function TimeBreakdownWithCustomTimezone({
   ...breakdownProps
 }: TimeBreakdownWithCustomTimezoneProps) {
   const [timezone, onTimezoneChange] = useAtom(timezoneAtom);
-  const deferredTimestamp = useDeferredValue(value);
 
   return (
     <div>
-      <div className="flex gap-2">
-        <TimezoneSelector
-          value={timezone}
-          onChange={onTimezoneChange}
-          timestamp={deferredTimestamp}
-        />
-        <Button variant="secondary" size="icon" className="size-9" onClick={onRemove}>
+      <div className="flex items-center gap-2">
+        <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
+        <TimezoneInfo timezone={timezone} />
+        <Button variant="ghost" size="icon" className="-ml-1 size-6" onClick={onRemove}>
           <MinusCircleIcon className="text-destructive size-4" />
         </Button>
       </div>
       <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1">
         <TimeBreakdown value={value} timezone={timezone} {...breakdownProps} />
       </div>
+    </div>
+  );
+}
+
+export function TimezoneInfo({ timezone }: { timezone: string }) {
+  const supportedTimezones = useAtomValue(supportedTimezonesAtom);
+  const allETCTimezones = useAtomValue(allETCTimezonesAtom);
+
+  const timezoneInfo = [...supportedTimezones, ...allETCTimezones].find(
+    ({ label }) => label === timezone,
+  );
+
+  if (!timezoneInfo) {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center gap-1">
+      <Badge variant="outline">{timezoneInfo.offset}</Badge>
+      {timezoneInfo.dst ? <Badge variant="outline">DST</Badge> : null}
     </div>
   );
 }
