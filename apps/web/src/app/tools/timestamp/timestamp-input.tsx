@@ -26,15 +26,19 @@ export function TimestampInput({
     "0".repeat(granularityValueLength),
   );
 
-  const handleValueChange = (value: string, valueLength: number) => {
-    if (!/^-?[0-9]+$/.exec(value)) return;
+  const handleValueChange = (value: string, granularityValueLength: number) => {
+    if (!/^-?[0-9]*$/.exec(value)) return;
 
-    const timestampValue =
-      valueLength === 0 ? Number(value) : Number(String(value).slice(0, -valueLength));
-    const granularityValue = valueLength === 0 ? "" : String(value).slice(-valueLength);
-
-    setGranularityValue(granularityValue);
-    onTimestampChange(timestampValue);
+    if (granularityValueLength === 0) {
+      onTimestampChange(Number(value));
+      setGranularityValue("");
+    } else if (value.length === 0 || Number(value) === 0) {
+      onTimestampChange(0);
+      setGranularityValue("0");
+    } else {
+      onTimestampChange(Number(value.slice(0, -granularityValueLength)));
+      setGranularityValue(value.slice(-granularityValueLength));
+    }
   };
 
   const handleGranularityChange = (value: TimestampGranularity) => {
@@ -44,6 +48,13 @@ export function TimestampInput({
 
   const isReachMaxTimestamp = Math.abs(timestamp) === MAX_TIMESTAMP;
 
+  const [timestampDisplay, granularityValueDisplay] = (() => {
+    if (timestamp === 0 && granularityValueLength !== 0) {
+      return ["", granularityValue];
+    }
+    return [timestamp, granularityValue];
+  })();
+
   return (
     <div className="mt-1">
       <div className="mb-2 flex items-center gap-2">
@@ -52,14 +63,14 @@ export function TimestampInput({
             inputMode="numeric"
             style={{ width: `calc(${14 + granularityValueLength}ch + 2rem)` }}
             className="h-10 bg-transparent text-xl"
-            value={`${timestamp}${granularityValue}`}
+            value={`${timestampDisplay}${granularityValueDisplay}`}
             onChange={(e) => {
               handleValueChange(e.target.value, granularityValueLength);
             }}
           />
           <div className="absolute bottom-0 left-0 right-0 top-0 -z-[1] flex h-10 select-none items-center border border-transparent px-3 text-xl text-transparent">
-            {timestamp}
-            <span className="bg-secondary">{granularityValue}</span>
+            {timestampDisplay}
+            <span className="bg-secondary">{granularityValueDisplay}</span>
           </div>
         </div>
         <PasteButton
