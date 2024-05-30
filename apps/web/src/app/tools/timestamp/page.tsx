@@ -33,12 +33,12 @@ function Page() {
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
           onChange={setTimestamp}
-          timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
+          timezone="Etc/UTC"
         />
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
           onChange={setTimestamp}
-          timezone="Etc/UTC"
+          timezone={Intl.DateTimeFormat().resolvedOptions().timeZone}
         />
         {timezoneAtoms.map((atom) => (
           <TimeBreakdownWithCustomTimezone
