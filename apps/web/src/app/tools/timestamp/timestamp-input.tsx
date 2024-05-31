@@ -7,6 +7,7 @@ import {
   type TimestampGranularity,
   TIMESTAMP_GRANULARITY_VALUE_LENGTH,
 } from "./timestamp-granularity";
+import { TimestampQuickPicker } from "./timestamp-quick-picker";
 
 interface TimestampInputProps {
   timestamp: number;
@@ -103,6 +104,14 @@ export function TimestampInput({
         </div>
       ) : null}
       <TimestampGranularitySwitcher value={granularity} onChange={handleGranularityChange} />
+      <TimestampQuickPicker
+        timestamp={timestamp}
+        granularityValue={granularityValue}
+        granularity={granularity}
+        onChange={(value) => {
+          handleValueChange(value, granularityValueLength);
+        }}
+      />
     </div>
   );
 }
