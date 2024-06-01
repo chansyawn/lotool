@@ -3,7 +3,7 @@
 import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
 import React, { useDeferredValue } from "react";
 import { Badge, Button } from "@lotool/ui";
-import { EarthIcon, MinusCircleIcon } from "lucide-react";
+import { MinusCircleIcon } from "lucide-react";
 import { TimezoneSelector } from "./timezone-selector";
 import { TimestampBreakdownInput } from "./time-breakdown-input";
 import { getTimezoneOffset, toSecondTimestamp } from "./utils";
@@ -69,7 +69,6 @@ export function TimeBreakdownWithFixedTimezone({
           size="sm"
           disabled
         >
-          <EarthIcon className="mr-1 size-4" />
           <span className="truncate">{timezone}</span>
         </Button>
         <TimezoneInfo timezone={timezone} />

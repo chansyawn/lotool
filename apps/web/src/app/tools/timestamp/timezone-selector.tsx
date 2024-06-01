@@ -17,7 +17,7 @@ import {
   ScrollArea,
 } from "@lotool/ui";
 import { cn } from "@lotool/theme/utils";
-import { CheckIcon, ChevronsUpDownIcon, EarthIcon } from "lucide-react";
+import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { useAtomValue } from "jotai";
 import { ALL_UTC_OFFSETS } from "./constant";
 import { allETCTimezonesAtom, supportedTimezonesAtom } from "./atom";
@@ -58,7 +58,6 @@ export function TimezoneSelector({ value, onChange, trigger }: TimezoneSelectorP
           trigger
         ) : (
           <Button variant="secondary" size="sm" role="combobox" aria-expanded={open}>
-            <EarthIcon className="mr-1 size-4" />
             <span className="mr-auto truncate">{value}</span>
             <ChevronsUpDownIcon className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
