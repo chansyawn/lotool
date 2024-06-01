@@ -9,6 +9,10 @@ interface TimestampBreakdownInputProps {
   width: string;
 }
 
+const handleWheel = (e: WheelEvent) => {
+  e.stopPropagation();
+};
+
 export function TimestampBreakdownInput({
   label,
   value,
@@ -18,6 +22,12 @@ export function TimestampBreakdownInput({
   return (
     <div className="relative">
       <Input
+        ref={(node) => {
+          node?.addEventListener("wheel", handleWheel);
+          return () => {
+            node?.removeEventListener("wheel", handleWheel);
+          };
+        }}
         type="number"
         style={{ width }}
         className="bg-transparent"
