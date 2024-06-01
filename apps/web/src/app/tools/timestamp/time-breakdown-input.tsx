@@ -28,6 +28,9 @@ export function TimestampBreakdownInput({
             node?.removeEventListener("wheel", handleWheel);
           };
         }}
+        onFocus={(e) => {
+          e.target.select();
+        }}
         type="number"
         style={{ width }}
         className="bg-transparent"
