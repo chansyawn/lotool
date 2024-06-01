@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { atomWithDebounce } from "@/features/debounce/atom-with-debounce";
 import { ALL_UTC_OFFSETS, MAX_TIMESTAMP, SUPPORTED_TIMEZONES } from "./constant";
-import { getISOTimezoneNameByOffset, getTimezoneOffset, isDST, toSecondTimestamp } from "./utils";
+import { getTimezoneName, isDST, toSecondTimestamp } from "./utils";
 
 const { currentValueAtom, debouncedValueAtom } = atomWithDebounce<number>(
   toSecondTimestamp(new Date().valueOf()),
@@ -16,17 +16,18 @@ export const timestampAtom = atom(
 );
 
 export const supportedTimezonesAtom = atom((get) =>
-  SUPPORTED_TIMEZONES.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom))),
+  SUPPORTED_TIMEZONES.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom), true)),
 );
 
 export const allETCTimezonesAtom = atom((get) =>
-  ALL_UTC_OFFSETS.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom))),
+  ALL_UTC_OFFSETS.map((timezone) => getTimezoneInfo(timezone, get(debouncedValueAtom), false)),
 );
 
-const getTimezoneInfo = (timezone: string, timestamp: number) => {
+const getTimezoneInfo = (timezone: string, timestamp: number, abbr: boolean) => {
   return {
     label: timezone,
-    offset: getISOTimezoneNameByOffset(getTimezoneOffset(timezone, timestamp)),
+    offset: getTimezoneName(timezone, timestamp, "shortOffset"),
     dst: isDST(timezone, timestamp),
+    abbr: abbr ? getTimezoneName(timezone, timestamp, "longGeneric") : undefined,
   };
 };

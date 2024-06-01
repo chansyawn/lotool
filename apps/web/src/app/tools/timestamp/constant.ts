@@ -19,37 +19,37 @@ export const TIME_FIELDS: {
   set: (date: Date, value: number) => number;
 }[] = [
   {
-    label: "Year",
+    label: "Y",
     field: "year",
     get: (date) => date.getFullYear(),
     set: (date, value) => date.setFullYear(value),
   },
   {
-    label: "Month",
+    label: "M",
     field: "month",
     get: (date) => date.getMonth() + 1,
     set: (date, value) => date.setMonth(value - 1),
   },
   {
-    label: "Day",
+    label: "D",
     field: "date",
     get: (date) => date.getDate(),
     set: (date, value) => date.setDate(value),
   },
   {
-    label: "Hour",
+    label: "h",
     field: "hours",
     get: (date) => date.getHours(),
     set: (date, value) => date.setHours(value),
   },
   {
-    label: "Minute",
+    label: "m",
     field: "minutes",
     get: (date) => date.getMinutes(),
     set: (date, value) => date.setMinutes(value),
   },
   {
-    label: "Second",
+    label: "s",
     field: "seconds",
     get: (date) => date.getSeconds(),
     set: (date, value) => date.setSeconds(value),

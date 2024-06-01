@@ -62,7 +62,7 @@ export function TimeBreakdownWithFixedTimezone({
 }: TimeBreakdownProps) {
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
           className="w-fit justify-start disabled:opacity-100"
           variant="secondary"
@@ -96,7 +96,7 @@ export function TimeBreakdownWithCustomTimezone({
 
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
         <TimezoneInfo timezone={timezone} />
         <Button variant="ghost" size="icon" className="-ml-1 size-6" onClick={onRemove}>
@@ -123,9 +123,10 @@ export function TimezoneInfo({ timezone }: { timezone: string }) {
   }
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1 whitespace-nowrap">
       <Badge variant="outline">{timezoneInfo.offset}</Badge>
-      {timezoneInfo.dst ? <Badge variant="outline">DST</Badge> : null}
+      {timezoneInfo.abbr ? <Badge variant="outline">{timezoneInfo.abbr}</Badge> : null}
+      {timezoneInfo.dst ? <Badge variant="secondary">DST</Badge> : null}
     </div>
   );
 }

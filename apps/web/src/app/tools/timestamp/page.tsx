@@ -29,7 +29,7 @@ function Page() {
         granularity={granularity}
         onGranularityChange={setGranularity}
       />
-      <div className="mt-3 flex flex-col gap-2">
+      <div className="mt-3 flex flex-col gap-4">
         <TimeBreakdownWithFixedTimezone
           value={timestamp}
           onChange={setTimestamp}
