@@ -7,39 +7,35 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@lotool/ui";
-import { useMemo } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useColorMode } from "./color-mode-context";
 
 export function ColorModeSelector() {
   const [, setColorMode] = useColorMode();
 
-  const colorModeOptions = useMemo(
-    () => [
-      {
-        key: "light",
-        label: "Light",
-        onClick: () => {
-          setColorMode("light");
-        },
+  const colorModeOptions = [
+    {
+      key: "light",
+      label: "Light",
+      onClick: () => {
+        setColorMode("light");
       },
-      {
-        key: "dark",
-        label: "Dark",
-        onClick: () => {
-          setColorMode("dark");
-        },
+    },
+    {
+      key: "dark",
+      label: "Dark",
+      onClick: () => {
+        setColorMode("dark");
       },
-      {
-        key: "system",
-        label: "System",
-        onClick: () => {
-          setColorMode("system");
-        },
+    },
+    {
+      key: "system",
+      label: "System",
+      onClick: () => {
+        setColorMode("system");
       },
-    ],
-    [setColorMode],
-  );
+    },
+  ];
 
   return (
     <DropdownMenu>
@@ -49,7 +45,7 @@ export function ColorModeSelector() {
           <MoonIcon className="absolute size-4 rotate-90 scale-0 transition-transform dark:rotate-0 dark:scale-100" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent>
         {colorModeOptions.map(({ key, label, onClick }) => (
           <DropdownMenuItem key={key} onClick={onClick}>
             {label}

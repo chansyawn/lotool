@@ -2,13 +2,14 @@
 
 import { Provider } from "jotai";
 import React from "react";
-import { ScrollArea, Toaster, TooltipProvider } from "@lotool/ui";
+import { Toaster, TooltipProvider } from "@lotool/ui";
 import { ColorModeProvider } from "@/features/color-mode/color-mode-context";
 import { globalStore } from "@/app/store";
 import { DocumentPiPProvider } from "@/features/document-pip/document-pip-context";
 import { MenuContent } from "./menu";
-import { HeaderContent } from "./header";
+import { MenuDrawer } from "./menu-drawer";
 import { Logo } from "./logo";
+import { Auxiliary } from "./auxiliary";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,19 +17,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <ColorModeProvider>
         <DocumentPiPProvider>
           <TooltipProvider delayDuration={200}>
-            <div className="grid h-screen w-screen grid-rows-[3rem_1fr] md:grid-cols-[14rem_1fr] xl:grid-cols-[16rem_1fr] xl:grid-rows-[4rem_1fr]">
-              <div className="hidden items-center border-b border-r px-4 md:flex">
-                <Logo />
-              </div>
-              <header className="flex flex-shrink-0 items-center gap-4 border-b px-4">
-                <HeaderContent />
+            <div className="md:bg-secondary bg-background relative flex min-h-dvh w-full max-md:flex-col">
+              <header className="flex items-center border-b px-4 py-2 md:hidden">
+                <MenuDrawer />
+                <Auxiliary className="ml-auto" />
               </header>
-              <div className="hidden h-full overflow-hidden border-r p-2 md:block lg:p-3">
-                <MenuContent />
+              <div className="fixed inset-y-0 left-0 flex w-64 flex-col p-2 max-md:hidden">
+                <Logo className="p-2" />
+                <MenuContent className="flex-1 overflow-auto" />
+                <Auxiliary />
               </div>
-              <ScrollArea>
-                <main className="container p-4 xl:p-6">{children}</main>
-              </ScrollArea>
+              <div className="flex flex-1 flex-col pb-2 md:min-w-0 md:pl-64 md:pr-2 md:pt-2">
+                <div className="md:bg-background grow p-6 md:rounded-lg md:border md:p-6 md:shadow-sm">
+                  <main className="container isolate">{children}</main>
+                </div>
+              </div>
             </div>
             <Toaster />
           </TooltipProvider>
