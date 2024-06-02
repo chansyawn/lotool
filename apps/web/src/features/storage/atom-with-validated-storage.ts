@@ -24,28 +24,8 @@ export const atomWithValidatedStorage = <Value extends Record<string, unknown>>(
       removeItem: (key) => {
         localStorage.removeItem(key);
       },
-      subscribe: (key, callback, initialValue) => {
-        if (typeof window === "undefined" || typeof window.addEventListener === "undefined") {
-          return () => void 0;
-        }
-
-        const handleStorageChange = (e: StorageEvent) => {
-          if (e.storageArea === localStorage && e.key === key) {
-            let newValue;
-            try {
-              newValue = schema.parse(JSON.parse(e.newValue ?? ""));
-            } catch {
-              newValue = initialValue;
-            }
-            callback(newValue);
-          }
-        };
-
-        window.addEventListener("storage", handleStorageChange);
-        return () => {
-          window.removeEventListener("storage", handleStorageChange);
-        };
-      },
+      /** Only read when initializing */
+      subscribe: undefined,
     },
     { getOnInit: true },
   );
